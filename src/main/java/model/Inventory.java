@@ -13,35 +13,73 @@ public class Inventory {
 		this.reorderQuantities = new HashMap<String, Double>();
 	}
 
-	public double getStockLevel(String productName) {
-		return 0.0;
+	public void setStockLevelForProduct(String productName, double quantity) throws InvalidInputException {
+		if (quantity < 0) {
+			throw new InvalidInputException("Quantity can not be negative.");
+		}
+		
+		this.stockLevels.put(productName, quantity);
+	}
+	
+	public double getStockLevelForProduct(String productName) {
+		return this.stockLevels.get(productName);
 	}
 
-	public boolean increaseStockLevel(String productName, double quantity) {
-		return false;
+	public void increaseStockLevelForProduct(String productName, double quantity) throws InvalidInputException {
+		if (quantity < 0) {
+			throw new InvalidInputException("Quantity can not be negative.");
+		}
+		
+		double newQuantity = this.stockLevels.get(productName) + quantity;
+		this.stockLevels.put(productName, newQuantity);
 	}
 
-	public boolean decreaseStockLevel(String productName, double quantity) {
-		return false;
+	public void decreaseStockLevelForProduct(String productName, double quantity) throws InvalidInputException {
+		if (quantity < 0) {
+			throw new InvalidInputException("Quantity can not be negative.");
+		}
+		
+		double newQuantity = this.stockLevels.get(productName) - quantity;
+		this.stockLevels.put(productName, newQuantity);
 	}
 
-	public boolean setReplenishLevel(String productName, double quantity) {
-		return false;
+	public void setReplenishLevelForProduct(String productName, double quantity) throws InvalidInputException {
+		if (quantity < 0) {
+			throw new InvalidInputException("Quantity can not be negative.");
+		}
+		
+		this.replenishLevels.put(productName, quantity);
 	}
 
-	public double getReplenishLevel(String productName) {
-		return 0.0;
+	public double getReplenishLevelForProduct(String productName) {
+		return this.replenishLevels.get(productName);
 	}
 
-	public boolean setReorderQuantity(String productName, double quantity) {
-		return false;
+	public void setReorderQuantityForProduct(String productName, double quantity) throws InvalidInputException {
+		if (quantity < 0) {
+			throw new InvalidInputException("Quantity can not be negative.");
+		}
+		
+		this.reorderQuantities.put(productName, quantity);
 	}
 
-	public double getReorderQuantity(String productName) {
-		return 0.0;
+	public double getReorderQuantityForProduct(String productName) {
+		return this.reorderQuantities.get(productName);
 	}
 
-	public boolean placeReplenishOrder(String productName) {
-		return false;
+	public void placeReplenishOrderForProduct(String productName) {
+		// Exact implementation needs to be decided.
+	}
+
+	public HashMap<String, Double> getStockLevels() {
+		return stockLevels;
+	}
+
+	public HashMap<String, Double> getReplenishLevels() {
+		return replenishLevels;
+	}
+
+	public HashMap<String, Double> getReorderQuantities() {
+		return reorderQuantities;
 	}
 }
