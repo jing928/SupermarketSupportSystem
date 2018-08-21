@@ -11,20 +11,28 @@ public class Promotion {
 		this.discounts = new HashMap<String, Double>();
 	}
 
-	public boolean setBulkQuantityForProduct(String productName, double bulkQuantity) throws InvalidInputException {
-		return false;
+	public void setBulkQuantityForProduct(String productName, double bulkQuantity) throws InvalidInputException {
+		if (bulkQuantity < 0) {
+			throw new InvalidInputException("Bulk quantity can not be negative.");
+		}
+		
+		this.bulkQuantities.put(productName, bulkQuantity);
 	}
 
 	public double getBulkQuantityForProduct(String productName) {
-		return 0.0;
+		return this.bulkQuantities.get(productName);
 	}
 
-	public boolean setDiscountForProduct(String productName, double discount) throws InvalidInputException {
-		return false;
+	public void setDiscountForProduct(String productName, double discount) throws InvalidInputException {
+		if (discount < 0) {
+			throw new InvalidInputException("Dicount can not be negative.");
+		}
+		
+		this.discounts.put(productName, discount);
 	}
 
 	public double getDiscountForProduct(String productName) {
-		return 0.0;
+		return this.discounts.get(productName);
 	}
 
 	public HashMap<String, Double> getBulkQuantities() {
