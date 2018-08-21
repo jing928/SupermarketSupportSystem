@@ -11,19 +11,27 @@ public class Promotion {
 		this.discounts = new HashMap<String, Double>();
 	}
 
-	public boolean setBulkQuantity(String productName, double bulkQuantity) {
+	public boolean setBulkQuantityForProduct(String productName, double bulkQuantity) throws InvalidInputException {
 		return false;
 	}
 
-	public boolean setDiscount(String productName, double discount) {
+	public double getBulkQuantityForProduct(String productName) {
+		return 0.0;
+	}
+
+	public boolean setDiscountForProduct(String productName, double discount) throws InvalidInputException {
 		return false;
 	}
 
-	public double getBulkQuantity(String productName) {
+	public double getDiscountForProduct(String productName) {
 		return 0.0;
 	}
 
-	public double getDiscount(String productName) {
-		return 0.0;
+	public HashMap<String, Double> getBulkQuantities() {
+		return bulkQuantities;
+	}
+
+	public HashMap<String, Double> getDiscounts() {
+		return discounts;
 	}
 }
