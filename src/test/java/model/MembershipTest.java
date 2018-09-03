@@ -5,11 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class MemberShipTest {
-	private MemberShip card;
+public class MembershipTest {
+	private Membership card;
 	@Before
 	public void setUp() throws Exception {
-		card = new MemberShip("1234");
+		card = new Membership("1234");
 	}
 
 	@Test

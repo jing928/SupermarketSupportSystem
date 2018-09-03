@@ -1,11 +1,11 @@
 package model;
 
 
-public class MemberShip {
+public class Membership {
 	private String cardNum;
 	private Integer pointBalance;
 	
-	public MemberShip(String cardNum) {
+	public Membership(String cardNum) {
 		this.cardNum = cardNum;
 		this.pointBalance = 0;
 	}

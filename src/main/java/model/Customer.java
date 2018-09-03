@@ -7,7 +7,7 @@ public class Customer {
 	private String name;
 	private ArrayList<String> phoneNums;
 	private ArrayList<String> addresses;
-	private MemberShip rewardsAccount;
+	private Membership rewardsAccount;
 	private DebitCard card;
 	private ArrayList<Sale> sales;
 	
@@ -16,7 +16,7 @@ public class Customer {
 		this.name = name;
 		phoneNums = new ArrayList<String>();
 		addresses = new ArrayList<String>();
-		rewardsAccount = new MemberShip(id);
+		rewardsAccount = new Membership(id);
 		sales = new ArrayList<Sale>();
 	}
 	
@@ -25,7 +25,7 @@ public class Customer {
 		this.name = name;
 		phoneNums = new ArrayList<String>();
 		addresses = new ArrayList<String>();
-		rewardsAccount = new MemberShip(id);
+		rewardsAccount = new Membership(id);
 		this.card = card;
 		sales = new ArrayList<Sale>();
 	}
@@ -70,7 +70,7 @@ public class Customer {
 		return true;
 	}
 	
-	public MemberShip getRewardsAccount() {
+	public Membership getRewardsAccount() {
 		return rewardsAccount;
 	}
 	
