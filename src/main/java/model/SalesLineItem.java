@@ -22,7 +22,7 @@ public class SalesLineItem {
 		return quantity;
 	}
 
-	public double getPricey() {
+	public double getPrice() {
 		return price;
 	}
 
