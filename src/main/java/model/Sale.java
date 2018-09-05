@@ -7,11 +7,10 @@ public class Sale {
 
 	private Date saleDate;
 	private Customer customer;
-	private ArrayList<SalesLineItem> salesLineItems;
+	private ArrayList<SalesLineItem> salesLineItems = new ArrayList<SalesLineItem>();
 
 	public Sale(Customer customer, Date saleDate) {
 		this.saleDate = saleDate;
-		this.salesLineItems = new ArrayList<SalesLineItem>();
 		this.customer = customer;
 	}
 
@@ -28,7 +27,7 @@ public ArrayList<SalesLineItem> getSalesLineItems(){
 	}
 
 	public void addLineItem(Product item, double quantity) {
-		SalesLineItem s = new SalesLineItem(item.getName(), quantity, item.getUnitPrice(), item);
-		salesLineItems.add(s);
+		SalesLineItem saleslineitem = new SalesLineItem(item.getName(), quantity, item.getUnitPrice(), item);
+		salesLineItems.add(saleslineitem);
 	}
 }

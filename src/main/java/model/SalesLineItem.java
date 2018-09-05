@@ -34,4 +34,20 @@ public class SalesLineItem {
 
 	}
 
+	public void setItem(Product item) {
+		this.item = item;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+	public void setQuantity(double quantity) {
+		this.quantity = quantity;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
 }

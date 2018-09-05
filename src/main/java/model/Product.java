@@ -4,14 +4,13 @@ import java.util.ArrayList;
 
 public class Product {
 	private String name;
-	private ArrayList<Suppiler> suppilers;
+	private ArrayList<Supplier> suppilers = new ArrayList<Supplier>();;
 	private double unitPrice;
 	private boolean byweight;
 
 	public Product(String name, double unitPrice, boolean b) {
 		this.name = name;
 		this.unitPrice = unitPrice;
-		suppilers = new ArrayList<Suppiler>();
 		this.byweight = b;
 
 	}
@@ -36,7 +35,7 @@ public class Product {
 		return unitPrice;
 	}
 
-	public ArrayList<Suppiler> getSuppilers() {
+	public ArrayList<Supplier> getSuppilers() {
 		return suppilers;
 	}
 
@@ -45,7 +44,7 @@ public class Product {
 
 	}
 
-	public void setSuppilers(ArrayList<Suppiler> suppilers) {
+	public void setSuppilers(ArrayList<Supplier> suppilers) {
 		this.suppilers = suppilers;
 	}
 }
