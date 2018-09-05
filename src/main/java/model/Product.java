@@ -14,6 +14,10 @@ public class Product {
 		this.byweight = b;
 
 	}
+	
+	public Product() {
+		
+	}
 
 	public boolean isByweight() {
 		return byweight;
