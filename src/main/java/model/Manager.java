@@ -11,11 +11,19 @@ public Manager() {
 }
 
 public boolean overridePrice(Product product, double price) {
-	return false;
+	if(price<0) {
+		return false;
+	}
+		
+	return true;
 }
 
 public boolean modifyPromotion(Product product, double bulkQuantity,double discount) {
-	return false;
+	if(bulkQuantity<=0 || discount<=0||discount>=1) {
+		return false;
+	}
+		
+	return true;
 }
 
 public String viewSalesReport(Date startDate, Date endDate) {

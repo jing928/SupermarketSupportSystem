@@ -28,6 +28,25 @@ public ArrayList<Product> getSupplierProducts(){
 public ArrayList<String> getSupplierPhoneNumber(){
 	return supplierPhoneNumber;
 }
+public boolean addSupplierLocation(Location location){
+	if(location == null){
+		return false;
+	}
+	supplierLocations.add(location);
+	return true;
+}
+public boolean addSupplierProducts(Product products) {
+	if(products == null)
+		return false;
+	supplierProducts.add(products);
+	return true;
+}
+public boolean addPhoneNumber(String phone) {
+	if(phone == null || supplierPhoneNumber.contains(phone))
+		return false;
+	supplierPhoneNumber.add(phone);
+	return true;
+}
 
 public String getSupplierId() {
 	return supplierId;

@@ -6,10 +6,12 @@ public WarehouseStaff() {
 	super();
 }
 
-
-//Mismatched with UML 
 public boolean replenishStockLevel(Product item, int quantity) {
-	return false;
+	if(quantity<0) {
+		return false;
+	}
+		
+	return true;
 }
 
 

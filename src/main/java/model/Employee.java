@@ -17,19 +17,21 @@ private SimpleDateFormat emBirthdayFormat=new SimpleDateFormat("MM-DD-YYYY");
 public Employee() {
 	
 }
-public Employee(String emId,String emName,char emGender,int day,int month,int year) {
+public Employee(String emId,String emName,char emGender,int year,int day,int month)  {
+    
 	this.emId=emId;
 	this.emName=emName;
 	this.emGender=emGender;
-	setEmBirthday(year,month,day);
+	setEmBirthday(this.year,this.month,this.day);
 }
 
-private void setEmBirthday(int year, int month, int day) {
+private void setEmBirthday(int year,int month, int day) {
 	if (year>0 && month>0 && day>0) {
 		        Calendar cal=Calendar.getInstance();
 	            cal.set(year, month-1,day,0,0,0);
 	            emBirthday=cal.getTime();
 	}else {
+		
 		
 	}
 	       
