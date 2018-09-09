@@ -7,7 +7,10 @@ __By Gang of Four__
 - [Jing Li](https://github.com/jing928)
 - [Dili Wu](https://github.com/jamiewur)
 
+__Note__: to learn about Git and GitHub, please checkout the [Wiki page](https://github.com/jing928/SupermarketSupportSystem/wiki) of this repository.
+
 ## Description
+
 A new self-checkout system is introduced in a supermarket, which only allows payments for sales to be made through the company debit card. Currently purchasing and topping up these cards are handled manually using a sales staff. The company has also introduced a scheme to promote loyalty; customers using the card get 1 point, for every $10 spent. Customers are automatically discounted $5 for every 20 points. The system should store the product, customer and employee related details allowing necessary reports to be generated. Data may be stored in relational database or flat files or through serialization. GUI is optional for this project.
 
 ### Current Limitations
@@ -24,7 +27,7 @@ A typical checkout terminal consists of a touch screen and a barcode reader but 
 
 - The warehouse staff (Frank):
   1. I want to be able to replenish stock levels before placing items received on the shelves.
- 
+
 - The manager (Tim): I want a system that:
   1. Maintains unit-price, stock level, replenish-level and reorder quantity for all items.
   1. Maintains supplier details for all products.
