@@ -14,9 +14,9 @@ public class Sale {
 		this.customer = customer;
 	}
 
-public ArrayList<SalesLineItem> getSalesLineItems(){
-	return this.salesLineItems;
-}
+	public ArrayList<SalesLineItem> getSalesLineItems() {
+		return this.salesLineItems;
+	}
 
 	public Customer getCustomer() {
 		return this.customer;

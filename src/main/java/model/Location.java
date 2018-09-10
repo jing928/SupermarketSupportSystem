@@ -1,6 +1,5 @@
 package model;
 
-
 public class Location {
 	private String streetNum;
 	private String streetName;
@@ -10,11 +9,10 @@ public class Location {
 	private String state;
 	private String country;
 
-	
 	public Location() {
 
 	}
-	
+
 	public Location(String streetNum, String streetName, String unitNum, String suburb, String zipCode, String state,
 			String country) {
 		this.streetNum = streetNum;
@@ -26,16 +24,11 @@ public class Location {
 		this.country = country;
 	}
 
-	String getFullAddress(){
-		return streetNum + " " + 
-				streetName + " " + 
-				unitNum + " " + 
-				suburb  + " " + 
-				state  + " " + 
-				zipCode  + " " + 
-				country;
+	String getFullAddress() {
+		return streetNum + " " + streetName + " " + unitNum + " " + suburb + " " + state + " " + zipCode + " "
+				+ country;
 	}
-	
+
 	public String getStreetNum() {
 		return streetNum;
 	}

@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class Supplier {
 	private String supplierId;
 	private String supplierName;
-	private ArrayList<Location> supplierLocations;//
-	private ArrayList<Product> supplierProducts;//
-	private ArrayList<String> supplierPhoneNumber;//
+	private ArrayList<Location> supplierLocations;
+	private ArrayList<Product> supplierProducts;
+	private ArrayList<String> supplierPhoneNumber;
 
 	public Supplier() {
 
