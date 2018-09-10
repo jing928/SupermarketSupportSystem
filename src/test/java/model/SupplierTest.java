@@ -1,16 +1,17 @@
 package model;
 
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class SupplierTest {
 	private Supplier supplier;
 	private String supplierId="111";
 	private String supplierName="abc";
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		supplier=new Supplier(supplierId,supplierName);
 	}
