@@ -1,9 +1,9 @@
 package model;
 
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class SalesLineItemTest {
 	private Product item;
@@ -12,7 +12,7 @@ public class SalesLineItemTest {
 	private double price = 10;
     private SalesLineItem saleslineitem;
     
-    @Before
+    @BeforeEach
 	public void setUp() throws Exception {
     	saleslineitem = new SalesLineItem(itemName, quantity, price, item);
     }
