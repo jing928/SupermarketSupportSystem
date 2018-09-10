@@ -1,10 +1,8 @@
 package model;
 
-import java.util.ArrayList;
-
 public class Product {
 	private String name;
-	private ArrayList<Supplier> suppilers = new ArrayList<Supplier>();;
+	private Supplier suppiler;;
 	private double unitPrice;
 	private boolean byweight;
 
@@ -39,8 +37,8 @@ public class Product {
 		return unitPrice;
 	}
 
-	public ArrayList<Supplier> getSuppilers() {
-		return suppilers;
+	public Supplier getSuppiler() {
+		return this.suppiler;
 	}
 
 	public void setUnitPrice(double unitPrice) {
@@ -48,7 +46,7 @@ public class Product {
 
 	}
 
-	public void setSuppilers(ArrayList<Supplier> suppilers) {
-		this.suppilers = suppilers;
+	public void setSuppiler (Supplier suppiler) {
+		this.suppiler = suppiler;
 	}
 }
