@@ -1,12 +1,11 @@
 package model;
 
-import static org.junit.Assert.*;
 
-//import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Date;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Before;
-import org.junit.Test;
 
 
 public class SaleTest {
@@ -16,7 +15,7 @@ public class SaleTest {
 	private Sale sale;
 	private Product product;
 	
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		customer = new Customer("defe","fsdf");
 		saleDate = new Date();
