@@ -1,9 +1,9 @@
 package model;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class LocationTest {
 
@@ -16,7 +16,7 @@ public class LocationTest {
 	private final String state = "New Jerse";
 	private final String country = "USA";
 	
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		location = new Location(streetNum, streetName, unitNum, suburb, zipCode, state, country);
 	}
