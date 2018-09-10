@@ -41,7 +41,7 @@ public class CustomerTest {
 		assertTrue(customer.addAddress("Address 1"));
 		assertFalse(customer.addAddress("Address 1"));
 		assertFalse(customer.addAddress(null));
-		
+
 		assertTrue(customer.getAddresses().size() == 1);
 		assertEquals("Address 1", customer.getAddresses().get(0));
 		customer.addAddress("Address 2");
@@ -52,7 +52,7 @@ public class CustomerTest {
 	@Test
 	public void testGetRewardsAccount() {
 		customer.getRewardsAccount().earnPoints(10);
-		assertEquals(10, customer.getRewardsAccount().getPointBalance(),0);
+		assertEquals(10, customer.getRewardsAccount().getPointBalance());
 	}
 
 	@Test
@@ -60,6 +60,6 @@ public class CustomerTest {
 		DebitCard card = new DebitCard("3333");
 		assertTrue(customer.setDebitCard(card));
 		assertFalse(customer.setDebitCard(null));
-		assertEquals("3333",customer.getDebitCard().getCardNum());
+		assertEquals("3333", customer.getDebitCard().getCardNum());
 	}
 }

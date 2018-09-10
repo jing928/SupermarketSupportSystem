@@ -10,7 +10,7 @@ public class Customer {
 	private Membership rewardsAccount;
 	private DebitCard card;
 	private ArrayList<Sale> sales;
-	
+
 	public Customer(String id, String name) {
 		this.id = id;
 		this.name = name;
@@ -19,7 +19,7 @@ public class Customer {
 		rewardsAccount = new Membership(id);
 		sales = new ArrayList<Sale>();
 	}
-	
+
 	public Customer(String id, String name, DebitCard card) {
 		this.id = id;
 		this.name = name;
@@ -29,65 +29,65 @@ public class Customer {
 		this.card = card;
 		sales = new ArrayList<Sale>();
 	}
-	
+
 	public String getId() {
 		return id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public ArrayList<String> getAddresses() {
 		return addresses;
 	}
-	
+
 	public ArrayList<String> getPhones() {
 		return phoneNums;
 	}
-	
-	public boolean addPhone(String phone){
-		if(phone == null || phoneNums.contains(phone)){
+
+	public boolean addPhone(String phone) {
+		if (phone == null || phoneNums.contains(phone)) {
 			return false;
 		}
 		phoneNums.add(phone);
 		return true;
 	}
-	
-	public boolean addAddress(String addr){
-		if(addr == null || addresses.contains(addr)){
+
+	public boolean addAddress(String addr) {
+		if (addr == null || addresses.contains(addr)) {
 			return false;
 		}
 		addresses.add(addr);
 		return true;
 	}
-	
-	public boolean addSale(Sale sale){
-		if(sale == null){
+
+	public boolean addSale(Sale sale) {
+		if (sale == null) {
 			return false;
 		}
 		sales.add(sale);
 		return true;
 	}
-	
+
 	public Membership getRewardsAccount() {
 		return rewardsAccount;
 	}
-	
+
 	public ArrayList<Sale> getSales() {
 		return sales;
 	}
-	
-	public boolean setDebitCard(DebitCard card){
-		if(card == null){
+
+	public boolean setDebitCard(DebitCard card) {
+		if (card == null) {
 			return false;
 		}
 		this.card = card;
 		return true;
 	}
-	
+
 	public DebitCard getDebitCard() {
 		return card;
 	}
-	
+
 }
