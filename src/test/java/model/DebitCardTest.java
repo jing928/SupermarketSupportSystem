@@ -31,9 +31,9 @@ public class DebitCardTest {
 		assertFalse(card.addMoney(-90));
 		assertFalse(card.addMoney(-2));
 		assertTrue(card.addMoney(200));
-		assertEquals(200.0, card.getBalance(),0.01);
+		assertEquals(200.0, card.getBalance(), 0.01);
 		assertTrue(card.addMoney(200));
-		assertEquals(400.0, card.getBalance(),0.01);
+		assertEquals(400.0, card.getBalance(), 0.01);
 	}
 
 	@Test
@@ -43,9 +43,9 @@ public class DebitCardTest {
 		assertFalse(card.deductMoney(-90));
 		assertFalse(card.deductMoney(-2));
 		assertTrue(card.deductMoney(200));
-		assertEquals(300.0, card.getBalance(),0.01);
+		assertEquals(300.0, card.getBalance(), 0.01);
 		assertTrue(card.deductMoney(200));
-		assertEquals(100.0, card.getBalance(),0.01);
+		assertEquals(100.0, card.getBalance(), 0.01);
 	}
 
 }
