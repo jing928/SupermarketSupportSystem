@@ -1,13 +1,16 @@
 package model;
 
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class MembershipTest {
+
 	private Membership card;
-	@Before
+
+	@BeforeEach
 	public void setUp() throws Exception {
 		card = new Membership("1234");
 	}
