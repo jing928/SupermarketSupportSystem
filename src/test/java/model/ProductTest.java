@@ -18,11 +18,11 @@ public class ProductTest {
 	}
 
 	@Test
-    public void testProduct() {
-    	assertEquals(name,product.getName());
-    	assertTrue(product.getUnitPrice()==unitPrice);
-    	assertEquals(byweight,product.isByweight());
-    }
+	public void testProduct() {
+		assertEquals(name, product.getName());
+		assertTrue(product.getUnitPrice() == unitPrice);
+		assertEquals(byweight, product.isByweight());
+	}
 
 	@Test
 	public void testSetName() {
