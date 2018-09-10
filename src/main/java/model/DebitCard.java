@@ -2,7 +2,7 @@ package model;
 
 public class DebitCard {
 	private String cardNum;
-	private Double balance;
+	private double balance;
 	
 	public DebitCard(String cardNum) {
 		this.cardNum = cardNum;
