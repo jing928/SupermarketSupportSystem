@@ -3,7 +3,7 @@ package model;
 
 public class Membership {
 	private String cardNum;
-	private Integer pointBalance;
+	private int pointBalance;
 	
 	public Membership(String cardNum) {
 		this.cardNum = cardNum;
