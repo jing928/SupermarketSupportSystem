@@ -8,17 +8,19 @@ import org.junit.jupiter.api.Test;
 public class InventoryTest {
 
 	private Inventory inventory;
-	
+
 	@BeforeEach
 	public void setUp() {
 		inventory = new Inventory();
 	}
-	
+
 	@Test
 	public void testSetStockLevelForProduct() throws InvalidInputException {
 		inventory.setStockLevelForProduct("Apple", 100);
 		inventory.setStockLevelForProduct("Banana", 200);
-		assertEquals(2, inventory.getStockLevels().size());
+		int expected = 2;
+		int actual = inventory.getStockLevels().size();
+		assertEquals(expected, actual);
 	}
 
 	@Test
@@ -31,14 +33,18 @@ public class InventoryTest {
 	@Test
 	public void testGetStockLevelForProduct() throws InvalidInputException {
 		inventory.setStockLevelForProduct("Apple", 100);
-		assertEquals(100, inventory.getStockLevelForProduct("Apple"), 0.0001);
+		double expected = 100.0;
+		double actual = inventory.getStockLevelForProduct("Apple");
+		assertEquals(expected, actual, 0.0001);
 	}
 
 	@Test
 	public void testIncreaseStockLevelForProduct() throws InvalidInputException {
 		inventory.setStockLevelForProduct("Apple", 100);
 		inventory.increaseStockLevelForProduct("Apple", 60);
-		assertEquals(160, inventory.getStockLevelForProduct("Apple"), 0.0001);
+		double expected = 160.0;
+		double actual = inventory.getStockLevelForProduct("Apple");
+		assertEquals(expected, actual, 0.0001);
 	}
 
 	@Test
@@ -53,7 +59,9 @@ public class InventoryTest {
 	public void testDecreaseStockLevelForProduct() throws InvalidInputException {
 		inventory.setStockLevelForProduct("Apple", 100);
 		inventory.decreaseStockLevelForProduct("Apple", 60);
-		assertEquals(40, inventory.getStockLevelForProduct("Apple"), 0.0001);
+		double expected = 40;
+		double actual = inventory.getStockLevelForProduct("Apple");
+		assertEquals(expected, actual, 0.0001);
 	}
 
 	@Test
@@ -68,7 +76,9 @@ public class InventoryTest {
 	public void testSetReplenishLevelForProduct() throws InvalidInputException {
 		inventory.setReplenishLevelForProduct("Apple", 50);
 		inventory.setReplenishLevelForProduct("Banana", 60);
-		assertEquals(2, inventory.getReplenishLevels().size());
+		int expected = 2;
+		int actual = inventory.getReplenishLevels().size();
+		assertEquals(expected, actual);
 	}
 
 	@Test
@@ -82,14 +92,18 @@ public class InventoryTest {
 	public void testGetReplenishLevelForProduct() throws InvalidInputException {
 		Inventory inventory = new Inventory();
 		inventory.setReplenishLevelForProduct("Apple", 50);
-		assertEquals(50, inventory.getReplenishLevelForProduct("Apple"), 0.0001);
+		double expected = 50.0;
+		double actual = inventory.getReplenishLevelForProduct("Apple");
+		assertEquals(expected, actual, 0.0001);
 	}
 
 	@Test
 	public void testSetReorderQuantityForProduct() throws InvalidInputException {
 		inventory.setReorderQuantityForProduct("Apple", 100);
 		inventory.setReorderQuantityForProduct("Banana", 200);
-		assertEquals(2, inventory.getReorderQuantities().size());
+		int expected = 2;
+		int actual = inventory.getReorderQuantities().size();
+		assertEquals(expected, actual);
 	}
 
 	@Test
@@ -102,7 +116,9 @@ public class InventoryTest {
 	@Test
 	public void testGetReorderQuantityForProduct() throws InvalidInputException {
 		inventory.setReorderQuantityForProduct("Apple", 100);
-		assertEquals(100, inventory.getReorderQuantityForProduct("Apple"), 0.0001);
+		double expected = 100.0;
+		double actual = inventory.getReorderQuantityForProduct("Apple");
+		assertEquals(expected, actual, 0.0001);
 	}
 
 }
