@@ -1,31 +1,53 @@
 package model;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class SalesStaffTest {
+class SalesStaffTest {
 
-	SalesStaff salesStaff;
+	private SalesStaff salesStaff;
+	private Customer customer;
+	private DebitCard debitcard;
 
 	@BeforeEach
-	public void setUp() throws Exception {
+	public void setUp() {
 		salesStaff = new SalesStaff();
 	}
 
 	@Test
 	public void testAddDebitCard() {
-		Customer customer1 = new Customer("111", "abc");
-		assertTrue(salesStaff.addDebitCard(customer1, 11));
-		assertFalse(salesStaff.addDebitCard(customer1, -2));
+		// Fixtures
+		customer = new Customer("111", "abc");
+		debitcard = new DebitCard("654321");
+		customer.setDebitCard(debitcard);
+		debitcard.addMoney(1000.0);
+		// Actions
+		salesStaff.addDebitCard(customer, 1000.0, debitcard);
+		// Actual Result
+		double actualBalance = customer.getDebitCard().getBalance();
+		// Expected Result
+		double exceptedBalance = 1000.0;
+		// Assertions
+		assertEquals(actualBalance, exceptedBalance);
+
 	}
 
 	@Test
 	public void testTopUpDebitCard() {
-		Customer customer1 = new Customer("111", "abc");
-		assertTrue(salesStaff.topUpDebitCard(customer1, 11));
-		assertFalse(salesStaff.topUpDebitCard(customer1, -2));
+		// Fixtures
+		debitcard = new DebitCard("123456");
+		debitcard.addMoney(500.0);
+		// Actions
+		salesStaff.topUpDebitCard(debitcard, 1000.0);
+		// Actual Result
+		double actualBalance = debitcard.getBalance();
+		// Expected Result
+		double exceptedBalance = 1500.0;
+		// Assertions
+		assertEquals(actualBalance, exceptedBalance);
+
 	}
 
 }

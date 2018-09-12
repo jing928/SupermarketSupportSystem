@@ -21,7 +21,7 @@ public class Supplier {
 		supplierPhoneNumber = new ArrayList<String>();
 	}
 
-	public ArrayList<Location> getSupplierLOcation() {
+	public ArrayList<Location> getSupplierLocation() {
 		return supplierLocations;
 	}
 
@@ -42,8 +42,9 @@ public class Supplier {
 	}
 
 	public boolean addSupplierProducts(Product products) {
-		if (products == null)
+		if (products == null) {
 			return false;
+		}
 		supplierProducts.add(products);
 		return true;
 	}

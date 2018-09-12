@@ -6,12 +6,10 @@ public class WarehouseStaff extends Employee {
 		super();
 	}
 
-	public boolean replenishStockLevel(Product item, int quantity) {
-		if (quantity < 0) {
-			return false;
-		}
-
-		return true;
+	
+	//TODO
+	public void replenishStockLevel(String item, double quantity, Inventory inventory) throws InvalidInputException {
+		inventory.increaseStockLevelForProduct(item, quantity);
 	}
 
 }

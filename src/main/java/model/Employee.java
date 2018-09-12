@@ -10,11 +10,17 @@ public class Employee {
 	private int day;
 	private int month;
 	private int year;
-	private Date emBirthday = new Date();
+	private Date emBirthday;
 	private SimpleDateFormat emBirthdayFormat = new SimpleDateFormat("MM-DD-YYYY");
 
 	public Employee() {
 
+	}
+	public Employee(String emId, String emName, char emGender) {
+		setEmId(emId);
+		setEmName(emName);
+		setEmGender(emGender);
+		
 	}
 
 	public Employee(String emId, String emName, char emGender, int year, int day, int month) {
@@ -62,6 +68,11 @@ public class Employee {
 
 	public void setEmGender(char emGender) {
 		this.emGender = emGender;
+	}
+	
+	//TODO
+	public void addProduct(String name, double unitPrice, boolean byweight) {
+		Product product1=new Product(name, unitPrice, byweight);	
 	}
 
 }

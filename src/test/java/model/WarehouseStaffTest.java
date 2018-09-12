@@ -1,25 +1,28 @@
 package model;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.HashMap;
+
 import org.junit.jupiter.api.Test;
 
-public class WarehouseStaffTest {
-	
-	private WarehouseStaff warehouseStaff;
 
-	@BeforeEach
-	public void setUp() throws Exception {
-		warehouseStaff = new WarehouseStaff();
-	}
+//TODO
+class WarehouseStaffTest {
 
 	@Test
-	public void testReplenishStockLevel() {
-		Product product1 = new Product();
-		assertTrue(warehouseStaff.replenishStockLevel(product1, 2));
-		assertFalse(warehouseStaff.replenishStockLevel(product1, -2));
+	void testReplenishStockLevel() throws InvalidInputException {
+		// Fixtures
+		Inventory inventory = new Inventory();
+		inventory.setStockLevelForProduct("aaa", 0.0);
+		// Actions
+		inventory.increaseStockLevelForProduct("aaa", 2.0);
+		// Actual Result
+		double actualQuantity = inventory.getReplenishLevelForProduct("aaa");
+		// Expected Result
+		double exceptedQuantity = 2.0;
+		// Assertions
+		assertEquals(actualQuantity, exceptedQuantity);
 
 	}
-
 }
