@@ -6,24 +6,21 @@ public class SalesStaff extends Employee {
 		super();
 	}
 
-	public boolean addDebitCard(Customer customer, double initialAmount) {
-		if (initialAmount < 0) {
-			return false;
-		}
-		return true;
+	public void addDebitCard(Customer customer, double initialAmount, DebitCard debitcard) {
+		customer.setDebitCard(debitcard);
+		System.out.println("The balance of this card is :"+ debitcard.getBalance());
 	}
 
-	public boolean topUpDebitCard(Customer customer, double amount) {
-		if (amount < 0) {
-			return false;
-		}
-
-		return true;
+	public void topUpDebitCard(DebitCard debitcard, double amount) {
+		debitcard.addMoney(amount);
+		System.out.println("The balance of this card is :"+ debitcard.getBalance());
 	}
 
+	// TODO 
 	public boolean modifySale(Sale sale) {
 		return false;
 	}
+	
 
 	public boolean cancelSale(Sale sale) {
 		return false;

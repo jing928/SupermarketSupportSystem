@@ -1,35 +1,32 @@
 package model;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ManagerTest {
+class ManagerTest {
 
-	Manager manager1;
+	Manager manager;
+	Product product;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		manager1 = new Manager();
+		manager = new Manager();
 	}
 
 	@Test
 	public void testOverridePrice() {
-		Product product1 = new Product();
-		assertTrue(manager1.overridePrice(product1, 11));
-		assertFalse(manager1.overridePrice(product1, -1));
-	}
-
-	@Test
-	public void testModifyPromotion() {
-		Product product1 = new Product();
-		assertTrue(manager1.modifyPromotion(product1, 5, 0.3));
-		assertFalse(manager1.modifyPromotion(product1, -1, 0.3));
-		assertFalse(manager1.modifyPromotion(product1, 0, 0.3));
-		assertFalse(manager1.modifyPromotion(product1, 5, -2));
-		assertFalse(manager1.modifyPromotion(product1, 5, 1));
-		assertFalse(manager1.modifyPromotion(product1, 5, 1.3));
+		// Fixtures
+		product = new Product("aaa", 10.0, true);
+		// Actions
+		manager.overridePrice(product, 12.0);
+		// Actual Result
+		double actualPrice = product.getUnitPrice();
+		// Expected Result
+		double exceptedPrice = 12.0;
+		// Assertions
+		assertEquals(actualPrice, exceptedPrice);
 
 	}
 

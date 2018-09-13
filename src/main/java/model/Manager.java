@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Manager extends Employee {
+	private Product product;
 	private SimpleDateFormat salesReportDate = new SimpleDateFormat("MM-DD-YYYY");
 
 	public Manager() {
@@ -14,7 +15,7 @@ public class Manager extends Employee {
 		if (price < 0) {
 			return false;
 		}
-
+		product.setUnitPrice(price);
 		return true;
 	}
 
