@@ -1,5 +1,6 @@
-package model;
 
+package model;
+import static org.junit.Assert.*;
 public class DebitCard {
 	private String cardNum;
 	private double balance;
