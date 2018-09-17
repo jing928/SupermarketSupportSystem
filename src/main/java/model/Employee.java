@@ -7,15 +7,11 @@ public class Employee {
 	private String emId;
 	private String emName;
 	private char emGender;
-	private int day;
-	private int month;
-	private int year;
 	private Date emBirthday;
-	private SimpleDateFormat emBirthdayFormat = new SimpleDateFormat("MM-DD-YYYY");
+	private SimpleDateFormat emBirthdayFormat;
+	
 
-	public Employee() {
-
-	}
+	
 	public Employee(String emId, String emName, char emGender) {
 		setEmId(emId);
 		setEmName(emName);
@@ -28,10 +24,11 @@ public class Employee {
 		this.emId = emId;
 		this.emName = emName;
 		this.emGender = emGender;
-		setEmBirthday(this.year, this.month, this.day);
+		setEmBirthday(year, month, day);
 	}
 
 	private void setEmBirthday(int year, int month, int day) {
+		
 		if (year > 0 && month > 0 && day > 0) {
 			Calendar cal = Calendar.getInstance();
 			cal.set(year, month - 1, day, 0, 0, 0);
@@ -43,6 +40,7 @@ public class Employee {
 	}
 
 	public String getEmBirthday() {
+		emBirthdayFormat = new SimpleDateFormat("MM-DD-YYYY");
 		return emBirthdayFormat.format(emBirthday);
 	}
 
