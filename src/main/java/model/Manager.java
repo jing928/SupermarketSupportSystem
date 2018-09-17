@@ -24,22 +24,25 @@ public class Manager extends Employee {
 			product1.setBulkDiscount(bulkQuantity, discount);
 	}
 
-	public void modifyPromotion(ProductIventory product1,double discount) {
+	public void modifyPromotion(ProductIventory product1, double discount) {
 		if (discount <= 0 || discount >= 1) {
 			product1.setDiscount(discount);
 		}
-	  
+
 	}
 
+	// TODO
 	public String viewSalesReport(Date startDate, Date endDate) {
 		return "The Start Date is:" + salesReportDate.format(startDate) + "/nThe End Date is:"
 				+ salesReportDate.format(endDate);
 	}
 
+	// TODO
 	public String viewSupplyReport() {
 		return "haha";
 	}
 
+	// TODO
 	public String viewMostProfitableItem() {
 		return "hehe";
 	}

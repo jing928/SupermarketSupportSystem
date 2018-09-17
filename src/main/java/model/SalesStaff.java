@@ -2,8 +2,8 @@ package model;
 
 public class SalesStaff extends Employee {
 
-	public SalesStaff() {
-		super();
+	public SalesStaff(String emId, String emName, char emGender) {
+		super(emId, emName, emGender);
 	}
 
 	public void addDebitCard(Customer customer, double initialAmount, DebitCard debitcard) {
