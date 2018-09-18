@@ -6,7 +6,7 @@ public class Customer {
 	private String id;
 	private String name;
 	private ArrayList<String> phoneNums;
-	private ArrayList<String> addresses;
+	private ArrayList<Location> customerLocation;
 	private Membership rewardsAccount;
 	private DebitCard card;
 	private ArrayList<Sale> sales;
@@ -15,7 +15,7 @@ public class Customer {
 		this.id = id;
 		this.name = name;
 		phoneNums = new ArrayList<String>();
-		addresses = new ArrayList<String>();
+		customerLocation = new ArrayList<Location>();
 		rewardsAccount = new Membership(id);
 		sales = new ArrayList<Sale>();
 	}
@@ -24,7 +24,7 @@ public class Customer {
 		this.id = id;
 		this.name = name;
 		phoneNums = new ArrayList<String>();
-		addresses = new ArrayList<String>();
+		customerLocation = new ArrayList<Location>();
 		rewardsAccount = new Membership(id);
 		this.card = card;
 		sales = new ArrayList<Sale>();
