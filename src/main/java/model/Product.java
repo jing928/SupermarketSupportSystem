@@ -46,7 +46,7 @@ public class Product {
 
 	}
 
-	public void setSuppiler (Supplier suppiler) {
+	public void setSuppiler(Supplier suppiler) {
 		this.suppiler = suppiler;
 	}
 }
