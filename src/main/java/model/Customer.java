@@ -38,8 +38,8 @@ public class Customer {
 		return name;
 	}
 
-	public ArrayList<String> getAddresses() {
-		return addresses;
+	public ArrayList<Location> getCustomerLocation() {
+		return customerLocation;
 	}
 
 	public ArrayList<String> getPhones() {
@@ -54,11 +54,11 @@ public class Customer {
 		return true;
 	}
 
-	public boolean addAddress(String addr) {
-		if (addr == null || addresses.contains(addr)) {
+	public boolean addAddress(Location customerlocation) {
+		if (customerlocation == null || customerLocation.contains(customerlocation)) {
 			return false;
 		}
-		addresses.add(addr);
+		customerLocation.add(customerlocation);
 		return true;
 	}
 
