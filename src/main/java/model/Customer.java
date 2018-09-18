@@ -54,7 +54,7 @@ public class Customer {
 		return true;
 	}
 
-	public boolean addAddress(Location customerlocation) {
+	public boolean addCustomerLocation(Location customerlocation) {
 		if (customerlocation == null || customerLocation.contains(customerlocation)) {
 			return false;
 		}

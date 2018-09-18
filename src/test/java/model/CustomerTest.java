@@ -42,15 +42,17 @@ public class CustomerTest {
 	 * test address of customer
 	 */
 	@Test
-	public void testAddAddress() {
+	public void testAddCustomerLocation() {
 		Customer customer = new Customer(id, name);
-		String address1 = "Address 1";
-		customer.addAddress(address1);
+		Location location = new Location("1","2","3","4","5","6","7");
+		customer.addCustomerLocation(location);
+		String streetNum="1";
+		String streetName="2";
+		String acStreetNum=customer.getCustomerLocation().get(0).getStreetNum();
+		String acStreetNam=customer.getCustomerLocation().get(0).getStreetName();
 		
-		Boolean expect = customer.getAddresses().size() == 1 && 
-				customer.getAddresses().get(0).equals(address1);
-		
-		assertTrue(expect);
+		assertEquals(streetNum,acStreetNum);
+		assertEquals(streetName,acStreetNam);
 	}
 
 	/*
