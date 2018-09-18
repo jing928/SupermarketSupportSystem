@@ -4,11 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Manager extends Employee {
-	private Product product;
+
 	private SimpleDateFormat salesReportDate = new SimpleDateFormat("MM-DD-YYYY");
 
-	public Manager() {
-		super();
+	public Manager(String emId, String name, char emGender) {
+		super(emId, name, emGender);
 	}
 
 	public boolean overridePrice(Product product, double price) {
@@ -19,23 +19,30 @@ public class Manager extends Employee {
 		return true;
 	}
 
-	public boolean modifyPromotion(Product product, double bulkQuantity, double discount) {
-		if (bulkQuantity <= 0 || discount <= 0 || discount >= 1) {
-			return false;
-		}
-
-		return true;
+	public void offerBulkSale(ProductIventory product1, double bulkQuantity, double discount) {
+		if (product1.getBulkQuantity() < bulkQuantity || discount <= 1 || discount >= 0)
+			product1.setBulkDiscount(bulkQuantity, discount);
 	}
 
+	public void modifyPromotion(ProductIventory product1, double discount) {
+		if (discount <= 0 || discount >= 1) {
+			product1.setDiscount(discount);
+		}
+
+	}
+
+	// TODO
 	public String viewSalesReport(Date startDate, Date endDate) {
 		return "The Start Date is:" + salesReportDate.format(startDate) + "/nThe End Date is:"
 				+ salesReportDate.format(endDate);
 	}
 
+	// TODO
 	public String viewSupplyReport() {
 		return "haha";
 	}
 
+	// TODO
 	public String viewMostProfitableItem() {
 		return "hehe";
 	}

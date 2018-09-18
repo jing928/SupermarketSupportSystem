@@ -1,13 +1,13 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Supplier {
 	private String supplierId;
 	private String supplierName;
-	private ArrayList<Location> supplierLocations;
-	private ArrayList<Product> supplierProducts;
-	private ArrayList<String> supplierPhoneNumber;
+	private HashSet<Location> supplierLocations;
+	private HashSet<Product> supplierProducts;
+	private HashSet<String> supplierPhoneNumber;
 
 	public Supplier() {
 
@@ -16,20 +16,20 @@ public class Supplier {
 	public Supplier(String supplierId, String supplierName) {
 		this.supplierId = supplierId;
 		this.supplierName = supplierName;
-		supplierLocations = new ArrayList<Location>();
-		supplierProducts = new ArrayList<Product>();
-		supplierPhoneNumber = new ArrayList<String>();
+		supplierLocations = new HashSet<Location>();
+		supplierProducts = new HashSet<Product>();
+		supplierPhoneNumber = new HashSet<String>();
 	}
 
-	public ArrayList<Location> getSupplierLocation() {
+	public HashSet<Location> getSupplierLocation() {
 		return supplierLocations;
 	}
 
-	public ArrayList<Product> getSupplierProducts() {
+	public HashSet<Product> getSupplierProducts() {
 		return supplierProducts;
 	}
 
-	public ArrayList<String> getSupplierPhoneNumber() {
+	public HashSet<String> getSupplierPhoneNumber() {
 		return supplierPhoneNumber;
 	}
 
