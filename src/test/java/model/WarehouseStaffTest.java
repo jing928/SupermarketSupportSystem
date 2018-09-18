@@ -6,6 +6,8 @@ import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
+import exception.InvalidInputException;
+
 
 //TODO
 class WarehouseStaffTest {
