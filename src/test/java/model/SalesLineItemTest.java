@@ -1,46 +1,46 @@
 package model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import exception.InvalidInputException;
+
 public class SalesLineItemTest {
-	private Product item;
-	private String itemName = "apple";
-	private double quantity = 2.5;
-	private double price = 10;
-	private SalesLineItem saleslineitem;
+
+	private SalesLineItem lineItem;
+	private ProductInventory item;
+	private double unitPrice = 3.0;
+	private double quantity = 6.0;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		saleslineitem = new SalesLineItem(itemName, quantity, price, item);
+		item = new ProductInventory("Apple", this.unitPrice, false);
+		lineItem = new SalesLineItem(this.item, this.quantity);
 	}
 
 	@Test
-	public void testSetItem() {
-		Product item2 = new Product("fgf", 453, true);
-		saleslineitem.setItem(item2);
-		assertTrue(saleslineitem.getItem().equals(item2));
-		// assertEquals(item2,saleslineitem.getItem());
+	public void testGetPrice() throws InvalidInputException {
+		double expected = this.item.calculatePrice(this.quantity);
+		double actual = this.lineItem.getPrice();
+		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void testSetItemName() {
-		saleslineitem.setItemName("orange");
-		assertEquals("orange", saleslineitem.getItemName());
+	public void testSetQuantity() throws InvalidInputException {
+		double quantity = 10;
+		lineItem.setQuantity(quantity);
+		double expected = quantity;
+		double actual = lineItem.getQuantity();
+		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void testSetQuantity() {
-		saleslineitem.setQuantity(9.9);
-		assertTrue(saleslineitem.getQuantity() == 9.9);
-	}
-
-	@Test
-	public void testSetPrice() {
-		saleslineitem.setPrice(6.6);
-		assertTrue(saleslineitem.getPrice() == 6.6);
+	public void testSetQuantityInvalidInput() throws InvalidInputException {
+		assertThrows(InvalidInputException.class, () -> {
+			lineItem.setQuantity(-5);
+		});
 	}
 
 }
