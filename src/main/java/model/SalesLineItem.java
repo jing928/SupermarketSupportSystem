@@ -31,10 +31,9 @@ public class SalesLineItem {
 	}
 
 	public void calculateBulkDiscount(Product product) {
-		
-		//Promotion.getDiscounts().get(product.getName());
-		
-		
+
+		// Promotion.getDiscounts().get(product.getName());
+
 	}
 
 	public void setItem(Product item) {
