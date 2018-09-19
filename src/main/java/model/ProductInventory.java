@@ -17,11 +17,7 @@ public class ProductInventory {
 		this.item = new Product(name, unitPrice, byWeight);
 	}
 
-	public double calculatePrice(double quantity) throws InvalidInputException {
-		if (quantity < 0) {
-			throw new InvalidInputException("Quantity can not be negative.");
-		}
-		
+	public double calculatePrice(double quantity) {
 		double totalPrice = this.item.getUnitPrice() * quantity;
 		double appliedDiscount = this.calculateBulkDiscount(quantity);
 		return totalPrice - appliedDiscount;

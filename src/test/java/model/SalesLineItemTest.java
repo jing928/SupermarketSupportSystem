@@ -21,7 +21,14 @@ public class SalesLineItemTest {
 	}
 
 	@Test
-	public void testGetPrice() throws InvalidInputException {
+	public void testSalesLineItemInvalidInput() {
+		assertThrows(InvalidInputException.class, () -> {
+			lineItem = new SalesLineItem(this.item, 0);
+		});
+	}
+
+	@Test
+	public void testGetPrice() {
 		double expected = this.item.calculatePrice(this.quantity);
 		double actual = this.lineItem.getPrice();
 		assertEquals(expected, actual);

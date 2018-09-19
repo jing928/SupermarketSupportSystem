@@ -10,12 +10,15 @@ public class SalesLineItem {
 	private double quantity;
 	private double price;
 
-	public SalesLineItem(ProductInventory item, double quantity) {
+	public SalesLineItem(ProductInventory item, double quantity) throws InvalidInputException {
+		if (quantity <= 0) {
+			throw new InvalidInputException("Quantity must be positive.");
+		}
 		this.item = item;
 		this.quantity = quantity;
 	}
 
-	public double getPrice() throws InvalidInputException {
+	public double getPrice() {
 		if (this.price != 0.0) {
 			return this.price;
 		}
@@ -29,7 +32,7 @@ public class SalesLineItem {
 	}
 
 	public void setQuantity(double quantity) throws InvalidInputException {
-		if (quantity < 0) {
+		if (quantity <= 0) {
 			throw new InvalidInputException("Quantity cannot be negative.");
 		}
 
