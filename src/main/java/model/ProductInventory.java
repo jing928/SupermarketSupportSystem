@@ -1,4 +1,4 @@
-//TODO only byWeight product can have decimal number of stock and quantity
+// TODO only byWeight product can have decimal number of stock and quantity
 
 package model;
 

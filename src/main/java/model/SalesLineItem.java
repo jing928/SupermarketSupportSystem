@@ -1,3 +1,5 @@
+// TODO only byWeight product can have decimal number of stock and quantity
+
 package model;
 
 import exception.InvalidInputException;
