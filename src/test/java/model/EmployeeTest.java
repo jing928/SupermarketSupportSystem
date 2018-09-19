@@ -6,34 +6,32 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class EmployeeTest {
-	
+
 	Employee employee;
-	
+
 	@BeforeEach
-	void Setup()
-	{
-		employee=new Employee();
+	void Setup() {
+		employee = new Employee();
 	}
-	
 
 	@Test
 	void testSetEmId() {
 		// Fixtures
-		
+
 		// Actions
 		employee.setEmId("S111");
 		// Actual Result
-		String actualEmId=employee.getEmId();
+		String actualEmId = employee.getEmId();
 		// Expected Result
-		String expectedEmId="S111";
+		String expectedEmId = "S111";
 		// Assertions
-		assertEquals(expectedEmId,actualEmId);
+		assertEquals(expectedEmId, actualEmId);
 	}
 
 	@Test
 	void testSetEmName() {
 		// Fixtures
-		
+
 		// Actions
 		employee.setEmName("William");
 		// Actual Result
@@ -47,7 +45,7 @@ class EmployeeTest {
 	@Test
 	void testSetEmGender() {
 		// Fixtures
-		
+
 		// Actions
 		employee.setEmGender('M');
 		// Actual Result
@@ -57,7 +55,5 @@ class EmployeeTest {
 		// Assertions
 		assertEquals(expectedEmGender, actualEmGender);
 	}
-
-	
 
 }
