@@ -20,8 +20,13 @@ public class SaleTest {
 	}
 
 	@Test
-	public void testSale() {
+	public void testSalegetCustomer() {
 		assertTrue(sale.getCustomer().equals(customer));
+
+	}
+
+	@Test
+	public void testSalegetSaleDate() {
 		assertTrue(sale.getSaleDate().equals(saleDate));
 	}
 
