@@ -18,13 +18,6 @@ public class SalesLineItemTest {
 	}
 
 	@Test
-	public void testSalesLineItem() {
-		assertEquals(itemName, saleslineitem.getItemName());
-		assertTrue(saleslineitem.getQuantity() == quantity);
-		assertTrue(saleslineitem.getPrice() == price);
-	}
-
-	@Test
 	public void testSetItem() {
 		Product item2 = new Product("fgf", 453, true);
 		saleslineitem.setItem(item2);
