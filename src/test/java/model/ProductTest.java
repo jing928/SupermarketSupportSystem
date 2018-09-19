@@ -18,10 +18,37 @@ public class ProductTest {
 	}
 
 	@Test
+	public void testGenerateBarCodeCanGenerateSameBarCodeWithSameInputs() {
+		String name = "banana";
+		double price = 2.5;
+		boolean byWeight = true;
+		Product p1 = new Product(name, price, byWeight);
+		Product p2 = new Product(name, price, byWeight);
+		String p1BarCode = p1.getBarCode();
+		String p2BarCode = p2.getBarCode();
+
+		boolean isSame = p1BarCode.equals(p2BarCode);
+
+		assertTrue(isSame);
+	}
+
+	@Test
+	public void testGenerateBarCodeCanGenerateDifferentBarCodeWithDifferentInputs() {
+		Product p1 = new Product("Apple", 2.8, false);
+		Product p2 = new Product("Banana", 2.5, true);
+		String p1BarCode = p1.getBarCode();
+		String p2BarCode = p2.getBarCode();
+
+		boolean isSame = p1BarCode.equals(p2BarCode);
+
+		assertFalse(isSame);
+	}
+
+	@Test
 	public void testProduct() {
 		assertEquals(name, product.getName());
 		assertTrue(product.getUnitPrice() == unitPrice);
-		assertEquals(byweight, product.isByweight());
+		assertEquals(byweight, product.isByWeight());
 	}
 
 	@Test
@@ -38,10 +65,10 @@ public class ProductTest {
 
 	@Test
 	public void testSetByweight() {
-		product.setByweight(true);
-		assertTrue(product.isByweight());
-		product.setByweight(false);
-		assertFalse(product.isByweight());
+		product.setByWeight(true);
+		assertTrue(product.isByWeight());
+		product.setByWeight(false);
+		assertFalse(product.isByWeight());
 	}
 
 }

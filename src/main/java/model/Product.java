@@ -1,28 +1,32 @@
 package model;
 
 public class Product {
+	private String barCode;
 	private String name;
-	private Supplier suppiler;;
 	private double unitPrice;
-	private boolean byweight;
+	private boolean byWeight; // Indicator for whether the product is sold by weight or by quantity
 
-	public Product(String name, double unitPrice, boolean b) {
+	public Product(String name, double unitPrice, boolean byWeight) {
+		this.barCode = Product.generateBarCode(name, unitPrice, byWeight);
 		this.name = name;
 		this.unitPrice = unitPrice;
-		this.byweight = b;
-
+		this.byWeight = byWeight;
 	}
 
 	public Product() {
 
 	}
 
-	public boolean isByweight() {
-		return byweight;
+	public String getBarCode() {
+		return this.barCode;
 	}
 
-	public void setByweight(boolean byweight) {
-		this.byweight = byweight;
+	public boolean isByWeight() {
+		return this.byWeight;
+	}
+
+	public void setByWeight(boolean byWeight) {
+		this.byWeight = byWeight;
 	}
 
 	public void setName(String name) {
@@ -30,23 +34,22 @@ public class Product {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public double getUnitPrice() {
-		return unitPrice;
-	}
-
-	public Supplier getSuppiler() {
-		return this.suppiler;
+		return this.unitPrice;
 	}
 
 	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
-
 	}
 
-	public void setSuppiler (Supplier suppiler) {
-		this.suppiler = suppiler;
+	private static String generateBarCode(String name, double unitPrice, boolean byWeight) {
+		// Create a unique hash code for the product
+		String productProperty = (name + unitPrice + byWeight).toLowerCase();
+		int productHash = productProperty.hashCode();
+		return String.format("%s", productHash);
 	}
+
 }
