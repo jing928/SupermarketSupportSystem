@@ -1,56 +1,46 @@
+// TODO only byWeight product can have decimal number of stock and quantity
+
 package model;
+
+import exception.InvalidInputException;
 
 public class SalesLineItem {
 
-	private Product item;
-	private String itemName;
+	private ProductInventory item;
 	private double quantity;
 	private double price;
 
-	public SalesLineItem(String itemName, double quantity, double price, Product item) {
-		this.itemName = itemName;
-		this.quantity = quantity;
-		this.price = price;
+	public SalesLineItem(ProductInventory item, double quantity) throws InvalidInputException {
+		if (quantity <= 0) {
+			throw new InvalidInputException("Quantity must be positive.");
+		}
 		this.item = item;
-	}
-
-	public String getItemName() {
-		return itemName;
-	}
-
-	public double getQuantity() {
-		return quantity;
+		this.quantity = quantity;
 	}
 
 	public double getPrice() {
-		return price;
+		if (this.price != 0.0) {
+			return this.price;
+		}
+
+		this.price = this.item.calculatePrice(this.quantity);
+		return this.price;
 	}
 
-	public Product getItem() {
-		return item;
+	public ProductInventory getItem() {
+		return this.item;
 	}
 
-	public void calculateBulkDiscount(Product product) {
-		
-		//Promotion.getDiscounts().get(product.getName());
-		
-		
-	}
+	public void setQuantity(double quantity) throws InvalidInputException {
+		if (quantity <= 0) {
+			throw new InvalidInputException("Quantity cannot be negative.");
+		}
 
-	public void setItem(Product item) {
-		this.item = item;
-	}
-
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
-
-	public void setQuantity(double quantity) {
 		this.quantity = quantity;
 	}
 
-	public void setPrice(double price) {
-		this.price = price;
+	public double getQuantity() {
+		return this.quantity;
 	}
 
 }

@@ -13,10 +13,6 @@ public class Product {
 		this.byWeight = byWeight;
 	}
 
-	public Product() {
-
-	}
-
 	public String getBarCode() {
 		return this.barCode;
 	}

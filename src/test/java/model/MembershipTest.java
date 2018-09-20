@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class MemberShipTest {
+public class MembershipTest {
 	private Membership card;
 	
 	@Before

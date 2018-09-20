@@ -43,13 +43,6 @@ class ProductInventoryTest {
 	}
 
 	@Test
-	public void testCalculatePriceInvalidInput() throws InvalidInputException {
-		assertThrows(InvalidInputException.class, () -> {
-			productInventory.calculatePrice(-2.5);
-		});
-	}
-
-	@Test
 	public void testSellProductInvalidInput() throws InvalidInputException, StockLevelException {
 		assertThrows(InvalidInputException.class, () -> {
 			productInventory.sellProduct(-2.5);

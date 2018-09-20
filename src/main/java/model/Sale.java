@@ -1,33 +1,84 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Iterator;
+
+import exception.InvalidInputException;
 
 public class Sale {
 
-	private Date saleDate;
+	private LocalDateTime saleDateTime;
 	private Customer customer;
-	private ArrayList<SalesLineItem> salesLineItems = new ArrayList<SalesLineItem>();
+	private HashMap<String, SalesLineItem> lineItems;
+	private double totalPrice;
 
-	public Sale(Customer customer, Date saleDate) {
-		this.saleDate = saleDate;
+	public Sale(Customer customer, LocalDateTime saleDateTime) {
 		this.customer = customer;
+		this.saleDateTime = saleDateTime;
+		this.lineItems = new HashMap<String, SalesLineItem>();
 	}
 
-	public ArrayList<SalesLineItem> getSalesLineItems() {
-		return this.salesLineItems;
+	public Sale(Customer customer) {
+		this(customer, LocalDateTime.now());
+	}
+
+	public void addLineItem(ProductInventory item, double quantity) throws InvalidInputException {
+		// Add new line item to the list
+		String key = item.getItemName();
+		SalesLineItem lineItem = new SalesLineItem(item, quantity);
+		this.lineItems.put(key, lineItem);
+	}
+
+	public void updateLineItem(String itemName, double addedQuantity) throws InvalidInputException {
+		// Update quantity of existing line item. This method will increase the quantity instead of resetting it.
+		if (addedQuantity < 0) {
+			throw new InvalidInputException("Quantity cannot be negative.");
+		}
+		SalesLineItem lineItem = this.lineItems.get(itemName);
+		double oldQuantity = lineItem.getQuantity();
+		double newQuantity = oldQuantity + addedQuantity;
+		lineItem.setQuantity(newQuantity);
+	}
+
+	public double getTotalPrice() {
+		if (this.totalPrice != 0.0) {
+			return this.totalPrice;
+		}
+
+		this.totalPrice = this.calculateTotalPrice();
+		return this.totalPrice;
+	}
+
+	private double calculateTotalPrice() {
+		double totalPrice = 0;
+		Iterator<SalesLineItem> i = this.lineItems.values().iterator();
+		while (i.hasNext()) {
+			totalPrice += i.next().getPrice();
+		}
+		return totalPrice;
+	}
+
+	public boolean finalizeSale() throws InvalidInputException, StockLevelException {
+		Iterator<SalesLineItem> i = this.lineItems.values().iterator();
+		while (i.hasNext()) {
+			SalesLineItem lineItem = i.next();
+			ProductInventory item = lineItem.getItem();
+			item.sellProduct(lineItem.getQuantity());
+		}
+		return true;
+	}
+
+	public HashMap<String, SalesLineItem> getLineItems() {
+		return this.lineItems;
 	}
 
 	public Customer getCustomer() {
 		return this.customer;
 	}
 
-	public Date getSaleDate() {
-		return this.saleDate;
+	public LocalDateTime getSaleDate() {
+		return this.saleDateTime;
 	}
 
-	public void addLineItem(Product item, double quantity) {
-		SalesLineItem saleslineitem = new SalesLineItem(item.getName(), quantity, item.getUnitPrice(), item);
-		salesLineItems.add(saleslineitem);
-	}
 }
