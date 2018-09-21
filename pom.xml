@@ -31,6 +31,12 @@
 			<artifactId>junit-platform-runner</artifactId>
 			<version>1.1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-agroal</artifactId>
+			<version>5.3.6.Final</version>
+			<type>pom</type>
+		</dependency>
 	</dependencies>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
