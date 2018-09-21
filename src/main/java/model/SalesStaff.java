@@ -1,5 +1,7 @@
 package model;
 
+import exception.InvalidInputException;
+
 public class SalesStaff extends Employee {
 
 	public SalesStaff(String emId, String emName, char emGender) {
@@ -17,8 +19,8 @@ public class SalesStaff extends Employee {
 	}
 
 	// TODO
-	public void modifySaleQuantity(Sale sale, double quantity) {
-		sale.getSalesLineItems().get(0).setQuantity(quantity);
+	public void modifySaleQuantity(Sale sale, double quantity) throws InvalidInputException {
+		sale.getLineItems().get(0).setQuantity(quantity);
 	}
 
 	// TODO

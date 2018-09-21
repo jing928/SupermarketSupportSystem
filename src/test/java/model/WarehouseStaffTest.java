@@ -1,13 +1,8 @@
 package model;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.HashMap;
-
 import org.junit.jupiter.api.Test;
-
 import exception.InvalidInputException;
-
 
 //TODO
 class WarehouseStaffTest {
@@ -15,12 +10,11 @@ class WarehouseStaffTest {
 	@Test
 	void testReplenishStockLevel() throws InvalidInputException {
 		// Fixtures
-		Inventory inventory = new Inventory();
-		inventory.setStockLevelForProduct("aaa", 0.0);
+		ProductInventory inventory = new ProductInventory("Apple", 3, false);
 		// Actions
-		inventory.increaseStockLevelForProduct("aaa", 2.0);
+		inventory.increaseStockLevel(2.0);
 		// Actual Result
-		double actualQuantity = inventory.getReplenishLevelForProduct("aaa");
+		double actualQuantity = inventory.getReplenishLevel();
 		// Expected Result
 		double exceptedQuantity = 2.0;
 		// Assertions

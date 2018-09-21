@@ -3,6 +3,8 @@ package model;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import exception.InvalidInputException;
+
 public class Manager extends Employee {
 
 	private SimpleDateFormat salesReportDate = new SimpleDateFormat("MM-DD-YYYY");
@@ -19,12 +21,13 @@ public class Manager extends Employee {
 		return true;
 	}
 
-	public void offerBulkSale(Inventory product1, double bulkQuantity, double discount) {
+	public void offerBulkSale(ProductInventory product1, double bulkQuantity, double discount)
+			throws InvalidInputException {
 		if (product1.getBulkQuantity() < bulkQuantity || discount <= 1 || discount >= 0)
-			product1.setBulkDiscount(bulkQuantity, discount);
+			product1.setDiscount(discount);
 	}
 
-	public void modifyPromotion(Inventory product1, double discount) {
+	public void modifyPromotion(ProductInventory product1, double discount) throws InvalidInputException {
 		if (discount <= 0 || discount >= 1) {
 			product1.setDiscount(discount);
 		}

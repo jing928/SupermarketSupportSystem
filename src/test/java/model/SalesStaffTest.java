@@ -1,7 +1,6 @@
 package model;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +12,7 @@ class SalesStaffTest {
 
 	@BeforeEach
 	public void setUp() {
-		salesStaff = new SalesStaff();
+		salesStaff = new SalesStaff("E001", "Jane", 'F');
 	}
 
 	@Test

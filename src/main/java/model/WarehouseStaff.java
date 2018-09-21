@@ -1,5 +1,7 @@
 package model;
 
+import exception.InvalidInputException;
+
 public class WarehouseStaff extends Employee {
 
 	public WarehouseStaff(String emId, String emName, char emGender) {
@@ -7,7 +9,7 @@ public class WarehouseStaff extends Employee {
 	}
 
 	// TODO
-	public void replenishStockLevel(Inventory product, double quantity) {
+	public void replenishStockLevel(ProductInventory product, double quantity) throws InvalidInputException {
 		product.setReplenishLevel(quantity);
 	}
 
