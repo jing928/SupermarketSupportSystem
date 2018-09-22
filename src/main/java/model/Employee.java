@@ -3,7 +3,9 @@ package model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "EMPLOYEE")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="emp_type", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("E")
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

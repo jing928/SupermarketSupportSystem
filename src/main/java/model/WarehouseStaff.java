@@ -1,12 +1,14 @@
 package model;
 
-import exception.InvalidInputException;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
+@Entity
+@DiscriminatorValue("W")
 public class WarehouseStaff extends Employee {
 
-	// TODO
-	public void replenishStockLevel(ProductInventory product, double quantity) throws InvalidInputException {
-		product.setReplenishLevel(quantity);
+	public WarehouseStaff(String name) {
+		super(name);
 	}
 
 }
