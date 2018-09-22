@@ -12,7 +12,7 @@ public class Employee {
 	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "IdGenerator")
 	//@SequenceGenerator(name = "IdGenerator", sequenceName = "id", initialValue = 100, allocationSize = 1)
 	private int id;
-	@Column
+	@Column(nullable = false)
 	private String name;
 
 	public Employee() {
