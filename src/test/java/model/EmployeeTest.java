@@ -11,21 +11,7 @@ class EmployeeTest {
 
 	@BeforeEach
 	void Setup() {
-		employee = new Employee("E001", "Jack", 'F');
-	}
-
-	@Test
-	void testSetEmId() {
-		// Fixtures
-
-		// Actions
-		employee.setEmId("S111");
-		// Actual Result
-		String actualEmId = employee.getEmId();
-		// Expected Result
-		String expectedEmId = "S111";
-		// Assertions
-		assertEquals(expectedEmId, actualEmId);
+		employee = new Employee("Jack");
 	}
 
 	@Test
@@ -33,27 +19,13 @@ class EmployeeTest {
 		// Fixtures
 
 		// Actions
-		employee.setEmName("William");
+		employee.setName("William");
 		// Actual Result
-		String actualEmName = employee.getEmName();
+		String actualEmName = employee.getName();
 		// Expected Result
 		String expectedEmName = "William";
 		// Assertions
 		assertEquals(expectedEmName, actualEmName);
-	}
-
-	@Test
-	void testSetEmGender() {
-		// Fixtures
-
-		// Actions
-		employee.setEmGender('M');
-		// Actual Result
-		char actualEmGender = employee.getEmGender();
-		// Expected Result
-		char expectedEmGender = 'M';
-		// Assertions
-		assertEquals(expectedEmGender, actualEmGender);
 	}
 
 }

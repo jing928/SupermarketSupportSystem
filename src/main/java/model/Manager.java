@@ -9,10 +9,6 @@ public class Manager extends Employee {
 
 	private SimpleDateFormat salesReportDate = new SimpleDateFormat("MM-DD-YYYY");
 
-	public Manager(String emId, String name, char emGender) {
-		super(emId, name, emGender);
-	}
-
 	public boolean overridePrice(Product product, double price) {
 		if (price < 0) {
 			return false;

@@ -12,7 +12,7 @@ class SalesStaffTest {
 
 	@BeforeEach
 	public void setUp() {
-		salesStaff = new SalesStaff("E001", "Jane", 'F');
+		salesStaff = (SalesStaff) new Employee("Jane");
 	}
 
 	@Test

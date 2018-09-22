@@ -4,10 +4,6 @@ import exception.InvalidInputException;
 
 public class SalesStaff extends Employee {
 
-	public SalesStaff(String emId, String emName, char emGender) {
-		super(emId, emName, emGender);
-	}
-
 	public void addDebitCard(Customer customer, double initialAmount, DebitCard debitcard) {
 		customer.setDebitCard(debitcard);
 		System.out.println("The balance of this card is :" + debitcard.getBalance());

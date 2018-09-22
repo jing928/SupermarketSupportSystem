@@ -12,7 +12,7 @@ class ManagerTest {
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		manager = new Manager("M001", "John", 'M');
+		manager = (Manager) new Employee("John");
 	}
 
 	@Test
