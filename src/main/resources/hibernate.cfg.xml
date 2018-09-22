@@ -15,5 +15,8 @@
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
         
         <mapping class="model.Employee"/>
+        <mapping class="model.Manager"/>
+        <mapping class="model.SalesStaff"/>
+        <mapping class="model.WarehouseStaff"/>
     </session-factory>
 </hibernate-configuration>
