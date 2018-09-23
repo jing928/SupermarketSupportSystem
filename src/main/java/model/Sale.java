@@ -23,15 +23,16 @@ public class Sale {
 		this(customer, LocalDateTime.now());
 	}
 
-	public void addLineItem(ProductInventory item, double quantity) throws InvalidInputException {
+	public void addLineItem(Product item, double quantity) throws InvalidInputException {
 		// Add new line item to the list
-		String key = item.getItemName();
+		String key = item.getName();
 		SalesLineItem lineItem = new SalesLineItem(item, quantity);
 		this.lineItems.put(key, lineItem);
 	}
 
 	public void updateLineItem(String itemName, double addedQuantity) throws InvalidInputException {
-		// Update quantity of existing line item. This method will increase the quantity instead of resetting it.
+		// Update quantity of existing line item. This method will increase the quantity
+		// instead of resetting it.
 		if (addedQuantity < 0) {
 			throw new InvalidInputException("Quantity cannot be negative.");
 		}
@@ -63,7 +64,7 @@ public class Sale {
 		Iterator<SalesLineItem> i = this.lineItems.values().iterator();
 		while (i.hasNext()) {
 			SalesLineItem lineItem = i.next();
-			ProductInventory item = lineItem.getItem();
+			Inventory item = lineItem.getItem().getInventory();
 			item.sellProduct(lineItem.getQuantity());
 		}
 		return true;

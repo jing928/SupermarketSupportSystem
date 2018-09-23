@@ -16,28 +16,30 @@ public class SaleTest {
 	private Customer customer = new Customer("123", "John Smith");
 	private Sale sale;
 	private String name1 = "Apple";
-	private ProductInventory item1;
-	private double stock1 = 10;
+	private Product item1;
+	private double price1 = 3.0;
 	private double quant1 = 2;
+	private double stock1 = 10;
 	private String name2 = "Banana";
-	private ProductInventory item2;
+	private Product item2;
+	private double price2 = 2.5;
 	private double quant2 = 3.5;
 	private double stock2 = 10;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		item1 = new ProductInventory(name1, 3.0, false);
-		item2 = new ProductInventory(name2, 2.5, true);
+		item1 = new Product(name1, price1, false);
+		item2 = new Product(name2, price2, true);
 		sale = new Sale(customer, saleDateTime);
-		item1.setStockLevel(stock1);
-		item2.setStockLevel(stock2);
+		item1.getInventory().setStockLevel(stock1);
+		item2.getInventory().setStockLevel(stock2);
 		sale.addLineItem(item1, quant1);
 		sale.addLineItem(item2, quant2);
 	}
 
 	@Test
 	public void testAddLineItem() throws InvalidInputException {
-		ProductInventory item3 = new ProductInventory("Grape", 5, true);
+		Product item3 = new Product("Grape", 5, true);
 		sale.addLineItem(item3, 1);
 		int expected = 3;
 		int actual = sale.getLineItems().size();
@@ -62,7 +64,7 @@ public class SaleTest {
 
 	@Test
 	public void testGetTotalPrice() {
-		double expected = item1.calculatePrice(quant1) + item2.calculatePrice(quant2);
+		double expected = price1 * quant1 + price2 * quant2;
 		double actual = sale.getTotalPrice();
 		assertEquals(expected, actual);
 	}
@@ -71,10 +73,10 @@ public class SaleTest {
 	public void testFinalizeSaleCanDecreaseStockLevels() throws InvalidInputException, StockLevelException {
 		sale.finalizeSale();
 		double expected1 = stock1 - quant1;
-		double actual1 = item1.getStockLevel();
+		double actual1 = item1.getInventory().getStockLevel();
 		assertEquals(expected1, actual1);
 		double expected2 = stock2 - quant2;
-		double actual2 = item2.getStockLevel();
+		double actual2 = item2.getInventory().getStockLevel();
 		assertEquals(expected2, actual2);
 	}
 
