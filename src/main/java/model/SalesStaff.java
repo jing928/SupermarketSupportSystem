@@ -11,4 +11,8 @@ public class SalesStaff extends Employee {
 		super(name);
 	}
 
+	public SalesStaff() {
+		super();
+	}
+
 }

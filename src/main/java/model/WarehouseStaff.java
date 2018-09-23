@@ -11,4 +11,8 @@ public class WarehouseStaff extends Employee {
 		super(name);
 	}
 
+	public WarehouseStaff() {
+		super();
+	}
+
 }
