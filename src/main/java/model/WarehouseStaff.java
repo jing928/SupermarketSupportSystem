@@ -7,7 +7,7 @@ public class WarehouseStaff extends Employee {
 	}
 
 	// TODO
-	public void replenishStockLevel(ProductInventory product, double quantity) {
+	public void replenishStockLevel(Inventory product, double quantity) {
 		product.setReplenishLevel(quantity);
 	}
 

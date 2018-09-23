@@ -4,22 +4,27 @@ package model;
 
 import exception.InvalidInputException;
 
-public class ProductInventory {
-	private Product item;
-	private double stockLevel = 0;
-	private double replenishLevel = 0;
-	private double reorderQuantity = 0;
-	private double bulkQuantity = 1;
-	private double discount = 0; // Percent off. Default to 0
+public class Inventory {
+	private String productName;
+	private double stockLevel;
+	private double replenishLevel;
+	private double reorderQuantity;
+	private double bulkQuantity;
+	private double discount; // Percent off. Default to 0
 	private Supplier supplier;
 
-	public ProductInventory(String name, double unitPrice, boolean byWeight) {
-		this.item = new Product(name, unitPrice, byWeight);
+	public Inventory(String productName) {
+		this.productName = productName;
+		this.stockLevel = 0;
+		this.replenishLevel = 0;
+		this.reorderQuantity = 0;
+		this.bulkQuantity = 1;
+		this.discount = 0;
 	}
 
-	public double calculatePrice(double quantity) {
-		double totalPrice = this.item.getUnitPrice() * quantity;
-		double appliedDiscount = this.calculateBulkDiscount(quantity);
+	public double calculatePrice(double unitPrice, double quantity) {
+		double totalPrice = unitPrice * quantity;
+		double appliedDiscount = this.calculateBulkDiscount(unitPrice, quantity);
 		return totalPrice - appliedDiscount;
 	}
 
@@ -48,30 +53,22 @@ public class ProductInventory {
 		this.stockLevel -= quantity;
 	}
 
-	private double calculateBulkDiscount(double quantity) {
+	private double calculateBulkDiscount(double unitPrice, double quantity) {
 		int bulkNumber = (int) (quantity / this.bulkQuantity); // Get the whole number quotient
 		double discountedQuantity = bulkNumber * this.bulkQuantity;
-		double appliedDiscountPerUnit = this.getItem().getUnitPrice() * this.discount;
+		double appliedDiscountPerUnit = unitPrice * this.discount;
 		return appliedDiscountPerUnit * discountedQuantity;
 	}
 
 	private void placeReplenishOrder() {
 		// TODO May need to save info to database
 		if (this.stockLevel < this.replenishLevel) {
-			System.out.println("Sending a purchase order of " + this.reorderQuantity + " unit(s) " + this.getItemName()
+			System.out.println("Sending a purchase order of " + this.reorderQuantity + " unit(s) " + this.productName
 					+ " to " + this.getSupplier().getSupplierName() + "\n");
 		}
 	}
 
 	// Setters and Getters
-
-	public String getItemBarCode() {
-		return this.item.getBarCode();
-	}
-
-	public String getItemName() {
-		return this.item.getName();
-	}
 
 	public double getStockLevel() {
 		return stockLevel;
@@ -140,7 +137,4 @@ public class ProductInventory {
 		this.supplier = supplier;
 	}
 
-	public Product getItem() {
-		return item;
-	}
 }

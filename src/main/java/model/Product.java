@@ -5,12 +5,14 @@ public class Product {
 	private String name;
 	private double unitPrice;
 	private boolean byWeight; // Indicator for whether the product is sold by weight or by quantity
+	private Inventory inventory;
 
 	public Product(String name, double unitPrice, boolean byWeight) {
 		this.barCode = Product.generateBarCode(name, unitPrice, byWeight);
 		this.name = name;
 		this.unitPrice = unitPrice;
 		this.byWeight = byWeight;
+		this.inventory = new Inventory(name);
 	}
 
 	public String getBarCode() {
@@ -39,6 +41,10 @@ public class Product {
 
 	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
+	}
+
+	public Inventory getInventory() {
+		return this.inventory;
 	}
 
 	private static String generateBarCode(String name, double unitPrice, boolean byWeight) {

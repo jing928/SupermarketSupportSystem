@@ -10,13 +10,13 @@ import exception.InvalidInputException;
 public class SalesLineItemTest {
 
 	private SalesLineItem lineItem;
-	private ProductInventory item;
+	private Product item;
 	private double unitPrice = 3.0;
 	private double quantity = 6.0;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		item = new ProductInventory("Apple", this.unitPrice, false);
+		item = new Product("Apple", this.unitPrice, false);
 		lineItem = new SalesLineItem(this.item, this.quantity);
 	}
 
@@ -29,7 +29,7 @@ public class SalesLineItemTest {
 
 	@Test
 	public void testGetPrice() {
-		double expected = this.item.calculatePrice(this.quantity);
+		double expected = unitPrice * quantity;
 		double actual = this.lineItem.getPrice();
 		assertEquals(expected, actual);
 	}
