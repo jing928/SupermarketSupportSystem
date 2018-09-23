@@ -1,10 +1,18 @@
 package model;
 
+import javax.persistence.*;
+
+@Entity
 public class Product {
-	private String barCode;
+	@Id
 	private String name;
+	@Column
+	private String barCode;
+	@Column
 	private double unitPrice;
+	@Column
 	private boolean byWeight; // Indicator for whether the product is sold by weight or by quantity
+	@OneToOne(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
 	private Inventory inventory;
 
 	public Product(String name, double unitPrice, boolean byWeight) {
@@ -12,7 +20,11 @@ public class Product {
 		this.name = name;
 		this.unitPrice = unitPrice;
 		this.byWeight = byWeight;
-		this.inventory = new Inventory(name);
+		this.inventory = new Inventory(this);
+	}
+
+	public Product() {
+
 	}
 
 	public String getBarCode() {
@@ -41,6 +53,10 @@ public class Product {
 
 	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
 	}
 
 	public Inventory getInventory() {
