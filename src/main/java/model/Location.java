@@ -6,27 +6,21 @@ public class Location {
 	private String unitNum;
 	private String suburb;
 	private String zipCode;
-	private String state;
-	private String country;
 
 	public Location() {
 
 	}
 
-	public Location(String streetNum, String streetName, String unitNum, String suburb, String zipCode, String state,
-			String country) {
+	public Location(String streetNum, String streetName, String unitNum, String suburb, String zipCode) {
 		this.streetNum = streetNum;
 		this.streetName = streetName;
 		this.unitNum = unitNum;
 		this.suburb = suburb;
 		this.zipCode = zipCode;
-		this.state = state;
-		this.country = country;
 	}
 
 	String getFullAddress() {
-		return streetNum + " " + streetName + " " + unitNum + " " + suburb + " " + state + " " + zipCode + " "
-				+ country;
+		return String.format("%1$s/%2$s %3$s, %4$s %5$s", unitNum, streetNum, streetName, suburb, zipCode);
 	}
 
 	public String getStreetNum() {
@@ -69,19 +63,4 @@ public class Location {
 		this.zipCode = zipCode;
 	}
 
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
 }
