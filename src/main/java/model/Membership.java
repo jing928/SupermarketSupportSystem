@@ -1,16 +1,17 @@
 package model;
 
 public class Membership {
-	private String cardNum;
+	
+	private String memberNum;
 	private int pointBalance;
 
 	public Membership(String cardNum) {
-		this.cardNum = cardNum;
+		this.memberNum = cardNum;
 		this.pointBalance = 0;
 	}
 
 	public String getCardNum() {
-		return cardNum;
+		return memberNum;
 	}
 
 	public int getPointBalance() {

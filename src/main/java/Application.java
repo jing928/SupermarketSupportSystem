@@ -1,31 +1,29 @@
-import java.util.List;
-
-import org.hibernate.Session;
 import model.*;
-import utility.HibernateUtil;
 
 public class Application {
 
 	public static void main(String[] args) {
 
-		Session session = HibernateUtil.getSessionFactory().openSession();
 
-		session.save(new Employee("Jing"));
-		session.save(new Manager("Jin"));
-		session.save(new SalesStaff("Addd"));
-
-		List<Object[]> emps = session.createNativeQuery("SELECT * FROM employee").list();
+//		session.save(new Employee("Jing"));
+//		session.save(new Manager("Jin"));
+//		session.save(new SalesStaff("Addd"));
+//		session.save(new SalesStaff("haha"));
+		//Product p = new Product("Banana", 3.5, true);
 		
-		for (Object[] objects : emps) {
-			Integer id = (Integer) objects[1];
-			String name = (String) objects[2];
-			String type = (String) objects[0];
-			System.out.println("Employee[" + id + "," + name + "," + type + "]");
-		}
+//		Product p = session.get(Product.class, "Banana");
+		
+		//System.out.println(p.getInventory().getBulkQuantity());
+		//Supplier s = new Supplier("abc", new Location("11", "Haha Road", "6", "Melbourne", "3000"), "123");
+		
+		//s.addProduct(p.getInventory());
+		
+		
+		//session.save(p);
+		
+		
+		
 
-		session.close();
-
-		HibernateUtil.shutdown();
 	}
 
 }

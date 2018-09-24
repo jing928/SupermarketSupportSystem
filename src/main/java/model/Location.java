@@ -1,15 +1,12 @@
 package model;
 
 public class Location {
+	
 	private String streetNum;
 	private String streetName;
 	private String unitNum;
 	private String suburb;
 	private String zipCode;
-
-	public Location() {
-
-	}
 
 	public Location(String streetNum, String streetName, String unitNum, String suburb, String zipCode) {
 		this.streetNum = streetNum;

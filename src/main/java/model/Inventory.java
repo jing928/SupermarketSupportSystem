@@ -2,31 +2,16 @@
 
 package model;
 
-import javax.persistence.*;
-
 import exception.InvalidInputException;
 
-@Entity
 public class Inventory {
-	@Id
-	@Column(name = "inventory_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "name")
+	
 	private Product item;
-	@Column
 	private double stockLevel;
-	@Column
 	private double replenishLevel;
-	@Column
 	private double reorderQuantity;
-	@Column
 	private double bulkQuantity;
-	@Column
 	private double discount; // Percent off. Default to 0
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "supplier_id")
 	private Supplier supplier;
 
 	public Inventory(Product item) {

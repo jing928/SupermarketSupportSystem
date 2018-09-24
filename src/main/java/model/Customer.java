@@ -1,15 +1,17 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Customer {
+	
 	private String id;
 	private String name;
 	private String phoneNum;
 	private Location address;
 	private Membership rewardsAccount;
 	private DebitCard card;
-	private ArrayList<Sale> sales;
+	private List<Sale> sales;
 
 	public Customer(String name, String phoneNum, Location address, Membership rewardsAccount) {
 		this.name = name;
@@ -17,10 +19,6 @@ public class Customer {
 		this.address = address;
 		this.rewardsAccount = rewardsAccount;
 		sales = new ArrayList<Sale>();
-	}
-
-	public Customer() {
-
 	}
 
 	public String getId() {
@@ -63,7 +61,7 @@ public class Customer {
 		return rewardsAccount;
 	}
 
-	public ArrayList<Sale> getSales() {
+	public List<Sale> getSales() {
 		return sales;
 	}
 
