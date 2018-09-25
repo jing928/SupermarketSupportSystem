@@ -56,7 +56,7 @@ public class Sale {
 		double totalPrice = 0;
 		Iterator<SalesLineItem> i = this.lineItems.values().iterator();
 		while (i.hasNext()) {
-			totalPrice += i.next().getPrice();
+			totalPrice += i.next().getSubTotalPrice();
 		}
 		return totalPrice;
 	}

@@ -18,7 +18,7 @@ public class SalesLineItem {
 		this.quantity = quantity;
 	}
 
-	public double getPrice() {
+	public double getSubTotalPrice() {
 		if (this.price != 0.0) {
 			return this.price;
 		}
