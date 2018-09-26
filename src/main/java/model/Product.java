@@ -1,8 +1,9 @@
 package model;
 
 public class Product {
-	private String barCode;
+	
 	private String name;
+	private String barCode;
 	private double unitPrice;
 	private boolean byWeight; // Indicator for whether the product is sold by weight or by quantity
 	private Inventory inventory;
@@ -12,7 +13,7 @@ public class Product {
 		this.name = name;
 		this.unitPrice = unitPrice;
 		this.byWeight = byWeight;
-		this.inventory = new Inventory(name);
+		this.inventory = new Inventory(this);
 	}
 
 	public String getBarCode() {
@@ -41,6 +42,10 @@ public class Product {
 
 	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
 	}
 
 	public Inventory getInventory() {

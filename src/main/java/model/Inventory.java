@@ -5,7 +5,8 @@ package model;
 import exception.InvalidInputException;
 
 public class Inventory {
-	private String productName;
+	
+	private Product item;
 	private double stockLevel;
 	private double replenishLevel;
 	private double reorderQuantity;
@@ -13,13 +14,17 @@ public class Inventory {
 	private double discount; // Percent off. Default to 0
 	private Supplier supplier;
 
-	public Inventory(String productName) {
-		this.productName = productName;
+	public Inventory(Product item) {
+		this.item = item;
 		this.stockLevel = 0;
 		this.replenishLevel = 0;
 		this.reorderQuantity = 0;
 		this.bulkQuantity = 1;
 		this.discount = 0;
+	}
+
+	public Inventory() {
+
 	}
 
 	public double calculatePrice(double unitPrice, double quantity) {
@@ -63,8 +68,8 @@ public class Inventory {
 	private void placeReplenishOrder() {
 		// TODO May need to save info to database
 		if (this.stockLevel < this.replenishLevel) {
-			System.out.println("Sending a purchase order of " + this.reorderQuantity + " unit(s) " + this.productName
-					+ " to " + this.getSupplier().getSupplierName() + "\n");
+			System.out.println("Sending a purchase order of " + this.reorderQuantity + " unit(s) " + this.item.getName()
+					+ " to " + this.getSupplier().getName() + "\n");
 		}
 	}
 

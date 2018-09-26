@@ -3,6 +3,7 @@ package model;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import exception.InvalidInputException;
 
@@ -10,7 +11,7 @@ public class Sale {
 
 	private LocalDateTime saleDateTime;
 	private Customer customer;
-	private HashMap<String, SalesLineItem> lineItems;
+	private Map<String, SalesLineItem> lineItems;
 	private double totalPrice;
 
 	public Sale(Customer customer, LocalDateTime saleDateTime) {
@@ -55,7 +56,7 @@ public class Sale {
 		double totalPrice = 0;
 		Iterator<SalesLineItem> i = this.lineItems.values().iterator();
 		while (i.hasNext()) {
-			totalPrice += i.next().getPrice();
+			totalPrice += i.next().getSubTotalPrice();
 		}
 		return totalPrice;
 	}
@@ -70,7 +71,7 @@ public class Sale {
 		return true;
 	}
 
-	public HashMap<String, SalesLineItem> getLineItems() {
+	public Map<String, SalesLineItem> getLineItems() {
 		return this.lineItems;
 	}
 

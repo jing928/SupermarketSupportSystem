@@ -12,10 +12,11 @@ class InventoryTest {
 	private Inventory inventory;
 	private String name = "Banana";
 	private double unitPrice = 2.5;
+	private boolean byWeight = false;
 
 	@BeforeEach
 	public void setUp() {
-		inventory = new Inventory(name);
+		inventory = new Product(name, unitPrice, byWeight).getInventory();
 	}
 
 	@Test

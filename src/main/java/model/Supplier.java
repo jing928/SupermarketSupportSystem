@@ -1,75 +1,65 @@
 package model;
 
 import java.util.HashSet;
+import java.util.Set;
 
 public class Supplier {
-	private String supplierId;
-	private String supplierName;
-	private HashSet<Location> supplierLocations;
-	private HashSet<Product> supplierProducts;
-	private HashSet<String> supplierPhoneNumber;
+	
+	private String id;
+	private String name;
+	private Location address;
+	private Set<Inventory> products;
+	private String phoneNum;
 
-	public Supplier() {
-
+	public Supplier(String name, Location address, String phoneNum) {
+		this.name = name;
+		this.address = address;
+		this.phoneNum = phoneNum;
+		products = new HashSet<Inventory>();
 	}
 
-	public Supplier(String supplierId, String supplierName) {
-		this.supplierId = supplierId;
-		this.supplierName = supplierName;
-		supplierLocations = new HashSet<Location>();
-		supplierProducts = new HashSet<Product>();
-		supplierPhoneNumber = new HashSet<String>();
+	public Location getAddress() {
+		return address;
 	}
 
-	public HashSet<Location> getSupplierLocation() {
-		return supplierLocations;
+	public Set<Inventory> getProducts() {
+		return products;
 	}
 
-	public HashSet<Product> getSupplierProducts() {
-		return supplierProducts;
+	public String getPhoneNum() {
+		return phoneNum;
 	}
 
-	public HashSet<String> getSupplierPhoneNumber() {
-		return supplierPhoneNumber;
+	public void setAddress(Location address) {
+		this.address = address;
 	}
 
-	public boolean addSupplierLocation(Location location) {
-		if (location == null) {
-			return false;
-		}
-		supplierLocations.add(location);
-		return true;
-	}
-
-	public boolean addSupplierProducts(Product products) {
+	public boolean addProduct(Inventory product) {
 		if (products == null) {
 			return false;
 		}
-		supplierProducts.add(products);
+		products.add(product);
 		return true;
 	}
 
-	public boolean addPhoneNumber(String phone) {
-		if (phone == null || supplierPhoneNumber.contains(phone))
-			return false;
-		supplierPhoneNumber.add(phone);
-		return true;
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
 	}
 
-	public String getSupplierId() {
-		return supplierId;
+	public String getId() {
+		return id;
 	}
 
-	public void setSupplierId(String supplierId) {
-		this.supplierId = supplierId;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getSupplierName() {
-		return supplierName;
+	public String getName() {
+		return name;
 	}
 
-	public void setSupplierName(String supplierName) {
-		this.supplierName = supplierName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

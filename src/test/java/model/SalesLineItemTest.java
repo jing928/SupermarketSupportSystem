@@ -30,7 +30,7 @@ public class SalesLineItemTest {
 	@Test
 	public void testGetPrice() {
 		double expected = unitPrice * quantity;
-		double actual = this.lineItem.getPrice();
+		double actual = this.lineItem.getSubTotalPrice();
 		assertEquals(expected, actual);
 	}
 
