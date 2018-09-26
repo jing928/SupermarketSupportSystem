@@ -1,19 +1,24 @@
 package model;
 
-public class Employee {
+import java.io.Serializable;
 
-	private int id;
+public class Employee implements Serializable {
+
+	private static final long serialVersionUID = -2046685092183889089L;
+
+	private String id;
 	private String name;
 
-	public Employee(String name) {
+	public Employee(String id, String name) {
+		this.id = id;
 		this.name = name;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -2,8 +2,10 @@ package model;
 
 public class WarehouseStaff extends Employee {
 
-	public WarehouseStaff(String name) {
-		super(name);
+	private static final long serialVersionUID = -2253828596396180378L;
+
+	public WarehouseStaff(String id, String name) {
+		super(id, name);
 	}
 
 }

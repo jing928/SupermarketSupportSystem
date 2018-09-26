@@ -11,7 +11,7 @@ class EmployeeTest {
 
 	@BeforeEach
 	void Setup() {
-		employee = new Employee("Jack");
+		employee = new Employee("123", "Jack");
 	}
 
 	@Test

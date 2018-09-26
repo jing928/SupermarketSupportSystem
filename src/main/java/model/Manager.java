@@ -2,8 +2,10 @@ package model;
 
 public class Manager extends Employee {
 
-	public Manager(String name) {
-		super(name);
+	private static final long serialVersionUID = -6319796851103332576L;
+
+	public Manager(String id, String name) {
+		super(id, name);
 	}
 
 }
