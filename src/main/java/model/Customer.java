@@ -13,7 +13,8 @@ public class Customer {
 	private DebitCard card;
 	private List<Sale> sales;
 
-	public Customer(String name, String phoneNum, Location address, Membership rewardsAccount) {
+	public Customer(String id, String name, String phoneNum, Location address, Membership rewardsAccount) {
+		this.id = id;
 		this.name = name;
 		this.phoneNum = phoneNum;
 		this.address = address;
