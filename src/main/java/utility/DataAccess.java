@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class dataAccess {
+public class DataAccess {
 
 	private String dataFilePath;
 	private FileOutputStream outStream;
 	private FileInputStream inStream;
 
-	public dataAccess(String dataFilePath) {
+	public DataAccess(String dataFilePath) {
 		this.dataFilePath = dataFilePath;
 	}
 
