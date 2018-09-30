@@ -6,6 +6,7 @@ import java.util.Scanner;
 import model.Customer;
 import model.Location;
 import model.MainSystem;
+import model.Product;
 import utility.DataAccess;
 import view.MainSystemView;
 
@@ -15,7 +16,7 @@ public class MainController {
 	private MainSystemView view;
 
 	private String dataFilePath = "system.dat";
-	
+
 	private Scanner keyboard;
 
 	public MainController() {
@@ -55,7 +56,7 @@ public class MainController {
 		save();
 		System.out.println("Goodbye!\n");
 	}
-	
+
 	private void save() {
 		DataAccess persister = new DataAccess(dataFilePath);
 		try {
@@ -121,7 +122,7 @@ public class MainController {
 			break;
 		}
 	}
-	
+
 	private String createNewCustomer() {
 		System.out.println("Please enter your name:\n");
 		String name = keyboard.nextLine();
@@ -144,13 +145,13 @@ public class MainController {
 		save();
 		return id;
 	}
-	
+
 	private void runCustomerControl(String cusKey) {
 		Customer cus = model.getCustomers().get(cusKey);
 		CustomerController cusControl = new CustomerController(cus, this);
 		cusControl.run();
 	}
-	
+
 	private String findCustomer() {
 		System.out.println("Please enter your customer ID:\n");
 		String key = keyboard.nextLine();
@@ -165,7 +166,7 @@ public class MainController {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	public MainSystem getModel() {
 		return model;
 	}
@@ -178,8 +179,20 @@ public class MainController {
 		return view;
 	}
 
+	public Scanner getKeyboard() {
+		return keyboard;
+	}
+
 	public void setView(MainSystemView view) {
 		this.view = view;
+	}
+
+	public Product getProductByKey(String barCode) {
+		return model.getCatalog().get(barCode);
+	}
+
+	public String getBarCodeByName(String name) {
+		return model.getBarCodeLookUp().get(name);
 	}
 
 }
