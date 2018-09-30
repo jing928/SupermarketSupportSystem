@@ -3,20 +3,21 @@ package view;
 public class MainSystemView {
 
 	private final String WELCOME = "Welcome to the Supermarket Support System!\n";
-	private final String[] MAINMENUITEMS = { 
+	private final String[] MAINMENU = { 
 			"**** MAIN SYSTEM MENU ****", 
 			"Customer Login:", 
 			"Employee Login:", 
 			"Exit Program:",
 			"Enter your choice:" 
 	};
-	private final String[] CUSTOMERMENUITEMS = {
+	private final String[] CUSTOMERMENU = {
 			"**** CUSTOMER MENU ****",
 			"Existing Customer:",
 			"New Customer:",
 			"Go Back:",
 			"Enter your choice:"
 	};
+	
 
 	public MainSystemView() {
 
@@ -27,11 +28,11 @@ public class MainSystemView {
 	}
 
 	public void showMainMenu() {
-		MenuPrinter.printMenu(MAINMENUITEMS);
+		MenuPrinter.printMenu(MAINMENU);
 	}
 	
 	public void showCustomerMenu() {
-		MenuPrinter.printMenu(CUSTOMERMENUITEMS);
+		MenuPrinter.printMenu(CUSTOMERMENU);
 	}
 	
 	public void showEmployeeMenu() {
