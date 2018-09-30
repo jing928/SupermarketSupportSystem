@@ -1,6 +1,10 @@
 package model;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
+	
+	private static final long serialVersionUID = 4244601785233049696L;
 	
 	private String streetNum;
 	private String streetName;

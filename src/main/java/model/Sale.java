@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -7,7 +8,9 @@ import java.util.Map;
 
 import exception.InvalidInputException;
 
-public class Sale {
+public class Sale implements Serializable {
+
+	private static final long serialVersionUID = -6489149075701776427L;
 
 	private LocalDateTime saleDateTime;
 	private Customer customer;

@@ -1,10 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Supplier {
-	
+public class Supplier implements Serializable {
+
+	private static final long serialVersionUID = -1152739506726195901L;
+
 	private String id;
 	private String name;
 	private Location address;

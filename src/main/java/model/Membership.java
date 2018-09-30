@@ -1,7 +1,11 @@
 package model;
 
-public class Membership {
-	
+import java.io.Serializable;
+
+public class Membership implements Serializable {
+
+	private static final long serialVersionUID = 3324043878092793945L;
+
 	private String memberNum;
 	private int pointBalance;
 

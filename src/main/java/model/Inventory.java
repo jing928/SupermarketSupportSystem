@@ -2,10 +2,14 @@
 
 package model;
 
+import java.io.Serializable;
+
 import exception.InvalidInputException;
 
-public class Inventory {
-	
+public class Inventory implements Serializable {
+
+	private static final long serialVersionUID = -6304346113013429818L;
+
 	private Product item;
 	private double stockLevel;
 	private double replenishLevel;
