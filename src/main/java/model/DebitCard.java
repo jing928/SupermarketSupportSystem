@@ -37,4 +37,10 @@ public class DebitCard implements Serializable {
 		}
 		return false;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("The balance for card number %1$s: $%2$.2f\n", cardNum, balance);
+	}
+
 }
