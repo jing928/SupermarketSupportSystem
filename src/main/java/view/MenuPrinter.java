@@ -10,7 +10,7 @@ public class MenuPrinter {
 			} else if (i == items.length - 1) {
 				System.out.println(items[i]);
 			} else {
-				String item = String.format("%-23s %s", items[i], i);
+				String item = String.format("%-30s %s", items[i], i);
 				System.out.println(item);
 			}
 		}
