@@ -8,8 +8,17 @@ public class CustomerView {
 			"Check Price:",
 			"Check Bulk Discount",
 			"View Debit Card Info",
-			"View Loyalty Points",
+			"View Rewards Account Info",
 			"Go Back to Main Menu:",
+			"Enter your choice:" 
+	};
+	
+	private final String[] PRODUCTFINDERMENU = { 
+			"**** PRODUCT FINDER MENU ****", 
+			"Find by Bar Code:", 
+			"Find by Name:",
+			"Select From List",
+			"Go Back:",
 			"Enter your choice:" 
 	};
 
@@ -21,6 +30,10 @@ public class CustomerView {
 		return MENU.length - 2;
 	}
 	
+	public int getPFMenuEndNum() {
+		return PRODUCTFINDERMENU.length - 2;
+	}
+	
 	public void showWelcome(String name) {
 		System.out.println("Welcome " + name + "!\n");
 	}
@@ -29,7 +42,24 @@ public class CustomerView {
 		MenuPrinter.printMenu(MENU);
 	}
 	
-	public void showBalance(int balance) {
-		System.out.println("Your current loyalt rewards balance: " + balance + " points.\n");
+	public void showRewardsAccountInfo(String info) {
+		System.out.println(info);
 	}
+	
+	public void showDebitCardError() {
+		System.out.println("You don't have a debit card yet, please find sales staff to purchase one.\n");
+	}
+	
+	public void showDebitCardInfo(String info) {
+		System.out.println(info); 
+	}
+	
+	public void showProductFinderMenu() {
+		MenuPrinter.printMenu(PRODUCTFINDERMENU);
+	}
+	
+	public void showProductList(String[] list) {
+		MenuPrinter.printMenu(list);
+	}
+	
 }
