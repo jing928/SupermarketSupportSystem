@@ -29,10 +29,10 @@ public class MainController {
 		runMainMenu();
 	}
 
-	private void runMainMenu() {
+	void runMainMenu() {
 		view.showMainMenu();
 		int choice;
-		choice = this.askForInput(1, 3);
+		choice = this.askForInput(1, view.getMainMenuEndNum());
 		this.handleMainMenuChoice(choice);
 	}
 
@@ -52,16 +52,20 @@ public class MainController {
 
 	private void shutDown() {
 		System.out.println("Shutting down...Saving data...\n");
+		save();
+		System.out.println("Goodbye!\n");
+	}
+	
+	private void save() {
 		DataAccess persister = new DataAccess(dataFilePath);
 		try {
 			persister.saveObject(model);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Goodbye!\n");
 	}
 
-	private int askForInput(int menuStart, int menuEnd) {
+	int askForInput(int menuStart, int menuEnd) {
 		int choice;
 		do {
 			System.out.println();
@@ -93,7 +97,7 @@ public class MainController {
 	private void runCustomerMenu() {
 		view.showCustomerMenu();
 		int choice;
-		choice = this.askForInput(1, 3);
+		choice = this.askForInput(1, view.getCusMenuEndNum());
 		this.handleCustomerChoice(choice);
 	}
 
@@ -137,12 +141,14 @@ public class MainController {
 		int idSeq = model.generateID(model.getCustomers());
 		String id = "C" + idSeq;
 		model.addCustomer(new Customer(id, name, phoneNum, loc));
+		save();
 		return id;
 	}
 	
 	private void runCustomerControl(String cusKey) {
-		CustomerController 
-		
+		Customer cus = model.getCustomers().get(cusKey);
+		CustomerController cusControl = new CustomerController(cus, this);
+		cusControl.run();
 	}
 	
 	private String findCustomer() {

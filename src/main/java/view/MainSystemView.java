@@ -22,6 +22,14 @@ public class MainSystemView {
 	public MainSystemView() {
 
 	}
+	
+	public int getMainMenuEndNum() {
+		return MAINMENU.length - 2;
+	}
+
+	public int getCusMenuEndNum() {
+		return CUSTOMERMENU.length - 2;
+	}
 
 	public void showWelcome() {
 		System.out.println(WELCOME);
@@ -30,13 +38,13 @@ public class MainSystemView {
 	public void showMainMenu() {
 		MenuPrinter.printMenu(MAINMENU);
 	}
-	
+
 	public void showCustomerMenu() {
 		MenuPrinter.printMenu(CUSTOMERMENU);
 	}
-	
+
 	public void showEmployeeMenu() {
-		
+
 	}
 	
 }
