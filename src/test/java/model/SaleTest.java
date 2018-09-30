@@ -17,7 +17,6 @@ public class SaleTest {
 	private String id = "123";
 	private String name = "Jack";
 	private Location address = new Location("11", "Haha Road", "6", "Melbourne", "3000");
-	private Membership card = new Membership("123");
 	private Customer customer;
 	private Sale sale;
 	private String name1 = "Apple";
@@ -35,7 +34,7 @@ public class SaleTest {
 	public void setUp() throws Exception {
 		item1 = new Product(name1, price1, false);
 		item2 = new Product(name2, price2, true);
-		customer = new Customer(id, name, phone, address, card);
+		customer = new Customer(id, name, phone, address);
 		sale = new Sale(customer, saleDateTime);
 		item1.getInventory().setStockLevel(stock1);
 		item2.getInventory().setStockLevel(stock2);

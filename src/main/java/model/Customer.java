@@ -13,12 +13,12 @@ public class Customer {
 	private DebitCard card;
 	private List<Sale> sales;
 
-	public Customer(String id, String name, String phoneNum, Location address, Membership rewardsAccount) {
+	public Customer(String id, String name, String phoneNum, Location address) {
 		this.id = id;
 		this.name = name;
 		this.phoneNum = phoneNum;
 		this.address = address;
-		this.rewardsAccount = rewardsAccount;
+		this.rewardsAccount = new Membership(id); // Reward Account card number is the same as the customer ID
 		sales = new ArrayList<Sale>();
 	}
 
