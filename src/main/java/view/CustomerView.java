@@ -42,18 +42,14 @@ public class CustomerView {
 		MenuPrinter.printMenu(MENU);
 	}
 	
-	public void showRewardsAccountInfo(String info) {
+	public void showInfo(String info) {
 		System.out.println(info);
 	}
 	
 	public void showDebitCardError() {
 		System.out.println("You don't have a debit card yet, please find sales staff to purchase one.\n");
 	}
-	
-	public void showDebitCardInfo(String info) {
-		System.out.println(info); 
-	}
-	
+
 	public void showProductFinderMenu() {
 		MenuPrinter.printMenu(PRODUCTFINDERMENU);
 	}

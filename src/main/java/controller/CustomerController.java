@@ -68,11 +68,13 @@ public class CustomerController {
 	}
 
 	private void checkPrice() {
-
+		Product item = findProduct();
+		view.showInfo(item.toString());
 	}
 
 	private void checkBulkDiscount() {
-
+		Product item = findProduct();
+		view.showInfo(item.getInventory().getBulkDiscountInfo());
 	}
 
 	private void checkDebitCard() {
@@ -80,13 +82,13 @@ public class CustomerController {
 		if (card == null) {
 			view.showDebitCardError();
 		} else {
-			view.showDebitCardInfo(card.toString());
+			view.showInfo(card.toString());
 		}
 	}
 
 	private void checkRewardsAccount() {
 		Membership card = model.getRewardsAccount();
-		view.showRewardsAccountInfo(card.toString());
+		view.showInfo(card.toString());
 	}
 
 	private Product findProduct() {
@@ -95,7 +97,7 @@ public class CustomerController {
 	}
 
 	private String runProductFinderMenu() {
-		view.showMenu();
+		view.showProductFinderMenu();
 		int choice;
 		choice = auxControl.askForInput(1, view.getPFMenuEndNum());
 		String barCode = handleProductFinder(choice);
@@ -148,6 +150,10 @@ public class CustomerController {
 
 	private String selectFromList() {
 		List<String> nameList = new ArrayList<String>(auxControl.getModel().getBarCodeLookUp().keySet());
+		if (nameList.isEmpty()) {
+			System.out.println("There is no product in the system yet. Going back to previous menu.\n");
+			return "b";
+		}
 		nameList.add(0, "**** PRODUCT LIST ****");
 		nameList.add("Enter your choice:");
 		String[] list = (String[]) nameList.toArray(new String[nameList.size()]);
