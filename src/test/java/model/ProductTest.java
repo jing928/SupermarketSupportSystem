@@ -70,5 +70,22 @@ public class ProductTest {
 		product.setByWeight(false);
 		assertFalse(product.isByWeight());
 	}
+	
+	@Test
+	public void testToStringPerKG() {
+		String expected = "The price for apple is $9.90 per kg.\n";
+		String actual = product.toString();
+		boolean isSame = expected.equals(actual);
+		assertTrue(isSame);
+	}
+	
+	@Test
+	public void testToStringEach() {
+		product.setByWeight(false);
+		String expected = "The price for apple is $9.90 each.\n";
+		String actual = product.toString();
+		boolean isSame = expected.equals(actual);
+		assertTrue(isSame);
+	}
 
 }

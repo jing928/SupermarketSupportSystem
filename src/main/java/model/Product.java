@@ -63,4 +63,10 @@ public class Product implements Serializable {
 		return String.format("%s", productHash);
 	}
 
+	@Override
+	public String toString() {
+		String perUnit = byWeight ? "per kg" : "each";
+		return String.format("The price for %1$s is $%2$.2f %3$s.\n", name, unitPrice, perUnit);
+	}
+
 }
