@@ -43,8 +43,9 @@ public class SaleTest {
 	}
 
 	@Test
-	public void testAddLineItem() throws InvalidInputException {
+	public void testAddLineItem() throws InvalidInputException, StockLevelException {
 		Product item3 = new Product("Grape", 5, true);
+		item3.getInventory().setStockLevel(5);
 		sale.addLineItem(item3, 1);
 		int expected = 3;
 		int actual = sale.getLineItems().size();

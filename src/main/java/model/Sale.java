@@ -27,7 +27,7 @@ public class Sale implements Serializable {
 		this(customer, LocalDateTime.now());
 	}
 
-	public void addLineItem(Product item, double quantity) throws InvalidInputException {
+	public void addLineItem(Product item, double quantity) throws InvalidInputException, StockLevelException {
 		// Add new line item to the list
 		String key = item.getName();
 		SalesLineItem lineItem = new SalesLineItem(item, quantity);
