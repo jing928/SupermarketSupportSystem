@@ -43,8 +43,9 @@ public class SaleTest {
 	}
 
 	@Test
-	public void testAddLineItem() throws InvalidInputException {
+	public void testAddLineItem() throws InvalidInputException, StockLevelException {
 		Product item3 = new Product("Grape", 5, true);
+		item3.getInventory().setStockLevel(5);
 		sale.addLineItem(item3, 1);
 		int expected = 3;
 		int actual = sale.getLineItems().size();
@@ -73,9 +74,17 @@ public class SaleTest {
 		double actual = sale.getTotalPrice();
 		assertEquals(expected, actual);
 	}
+	
+	@Test
+	public void testGetTotalPriceCanApplyDiscount() {
+		customer.getRewardsAccount().earnPoints(42);
+		double expected = price1 * quant1 + price2 * quant2 - 10;
+		double actual = sale.getTotalPrice();
+		assertEquals(expected, actual);
+	}
 
 	@Test
-	public void testFinalizeSaleCanDecreaseStockLevels() throws InvalidInputException, StockLevelException {
+	public void testFinalizeSaleCanDecreaseStockLevels() {
 		sale.finalizeSale();
 		double expected1 = stock1 - quant1;
 		double actual1 = item1.getInventory().getStockLevel();
@@ -83,6 +92,14 @@ public class SaleTest {
 		double expected2 = stock2 - quant2;
 		double actual2 = item2.getInventory().getStockLevel();
 		assertEquals(expected2, actual2);
+	}
+
+	@Test
+	public void testFinalizeSaleCanAddPoints() {
+		sale.finalizeSale();
+		int expected = 1;
+		int actual = customer.getRewardsAccount().getPointBalance();
+		assertEquals(expected, actual);
 	}
 
 }

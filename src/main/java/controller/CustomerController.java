@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import exception.InvalidInputException;
+import exception.ProductNotFoundException;
 import model.Customer;
 import model.DebitCard;
 import model.Membership;
 import model.Product;
 import model.Sale;
+import model.StockLevelException;
 import view.CustomerView;
 
 public class CustomerController {
@@ -17,6 +20,8 @@ public class CustomerController {
 	private CustomerView view;
 	private MainController auxControl; // Auxiliary controller
 	private Scanner keyboard;
+
+	private Sale currentSale; // Hold the current transaction
 
 	public CustomerController(Customer model, MainController auxControl) {
 		this.model = model;
@@ -69,38 +74,94 @@ public class CustomerController {
 			System.out.println("Please purchase a debit card first. See sales staff for details.\n");
 			return;
 		}
-		Sale newSale = runCheckOutMenu();
-		if (pay(newSale)) {
-			// newSale.finalizeSale(); //TODO: need to figure out exceptions
-			model.addSale(newSale);
-			auxControl.getModel().addSale(newSale);
-			return;
-		} else {
-			System.out.println("Your debit card doesn't have sufficient balance. Please see sales staff to top up.\n");
-			return;
+		// TODO: may be able to continue a previous incomplete sale or start a new
+		currentSale = new Sale(model);
+		runCheckOutMenu();
+	}
+
+	private void runCheckOutMenu() {
+		view.showCheckoutMenu();
+		int choice;
+		choice = auxControl.askForInput(1, view.getCKMenuEndNum());
+		handleCheckoutChoice(choice);
+	}
+
+	private void handleCheckoutChoice(int choice) {
+		switch (choice) {
+		case 1:
+			addItem();
+			runCheckOutMenu();
+			break;
+		case 2:
+			modifyTransaction();
+			runCheckOutMenu();
+			break;
+		case 3:
+			cancelTransaction();
+			runCheckOutMenu();
+			break;
+		case 4:
+			pay();
+			break;
 		}
 	}
 
-	private Sale runCheckOutMenu() {
-		view.showMenu();
-		int choice;
-		choice = auxControl.askForInput(1, view.getMenuEndNum());
-		handleMenuChoice(choice);
-		return new Sale(model); //TODO: placeholder
-	}
-	
-	private boolean pay(Sale sale) {
-		// Calculate price and deduct from debit card
-		return false;
+	private void addItem() {
+		Product item = findProduct(this::runCheckOutMenu);
+		String unit = item.isByWeight() ? "weight" : "number of items";
+		double quantity;
+
+		boolean inputSuccess = false;
+		do {
+			System.out.println(String.format("Please enter the %s:\n", unit));
+			quantity = keyboard.nextDouble();
+			try {
+				currentSale.addLineItem(item, quantity);
+				inputSuccess = true;
+			} catch (InvalidInputException iie) {
+				System.out.println("Quantity must be positive.\n");
+			} catch (StockLevelException sle) {
+				// A little weird as if the customer can get to the checkout point, it must mean
+				// the inventory has enough stock, but we still need to check the inventory to
+				// validate user input. TODO: May need to update.
+				System.out.println("Not enough stock for this item.\n");
+			}
+		} while (!inputSuccess);
+
+		System.out.println(String.format("%s successfully added.\n", item.getName()));
 	}
 
+	private void modifyTransaction() {
+		System.out.println("Not yet implemented.\n");
+	}
+
+	private void cancelTransaction() {
+		System.out.println("Not yet implemented.\n");
+	}
+
+	private void pay() {
+		// Calculate price and deduct from debit card
+		double totalPrice = currentSale.getTotalPrice();
+		boolean isPaid = model.getDebitCard().deductMoney(totalPrice);
+		if (isPaid) {
+			currentSale.finalizeSale();
+			model.addSale(currentSale); // Add to customer
+			auxControl.getModel().addSale(currentSale); // Add to system
+			auxControl.save(); // Save information (serialization)
+			runMenu();
+		} else {
+			System.out.println("Your debit card doesn't have sufficient balance. Please see sales staff to top up.\n");
+			runMenu();
+		}
+	}
+	
 	private void checkPrice() {
-		Product item = findProduct();
+		Product item = findProduct(this::runMenu);
 		view.showInfo(item.toString());
 	}
 
 	private void checkBulkDiscount() {
-		Product item = findProduct();
+		Product item = findProduct(this::runMenu);
 		view.showInfo(item.getInventory().getBulkDiscountInfo());
 	}
 
@@ -118,18 +179,24 @@ public class CustomerController {
 		view.showInfo(card.toString());
 	}
 
-	private Product findProduct() {
-		String barCode = runProductFinderMenu();
+	private Product findProduct(Runnable previousMenu) {
+		String barCode = "";
+		try {
+			barCode = runProductFinderMenu();
+		} catch (ProductNotFoundException e) {
+			// Going back to the previous menu
+			previousMenu.run();
+		}
 		return auxControl.getProductByKey(barCode);
 	}
 
-	private String runProductFinderMenu() {
+	private String runProductFinderMenu() throws ProductNotFoundException {
 		view.showProductFinderMenu();
 		int choice;
 		choice = auxControl.askForInput(1, view.getPFMenuEndNum());
 		String barCode = handleProductFinder(choice);
 		if (barCode.equals("b")) {
-			runMenu();
+			throw new ProductNotFoundException("Product not found. User chose to go back");
 		}
 		return barCode;
 	}

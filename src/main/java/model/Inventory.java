@@ -37,8 +37,8 @@ public class Inventory implements Serializable {
 		return totalPrice - appliedDiscount;
 	}
 
-	public void sellProduct(double quantity) throws InvalidInputException, StockLevelException {
-		this.decreaseStockLevel(quantity);
+	public void sellProduct(double quantity) {
+		stockLevel -= quantity;
 		this.placeReplenishOrder();
 	}
 
@@ -74,6 +74,8 @@ public class Inventory implements Serializable {
 		if (this.stockLevel < this.replenishLevel) {
 			System.out.println("Sending a purchase order of " + this.reorderQuantity + " unit(s) " + this.item.getName()
 					+ " to " + this.getSupplier().getName() + "\n");
+			// Auto increase stock level. An ideal world situation:)
+			stockLevel += reorderQuantity;
 		}
 	}
 

@@ -55,9 +55,10 @@ public class MainController {
 		System.out.println("Shutting down...Saving data...\n");
 		save();
 		System.out.println("Goodbye!\n");
+		System.exit(0);
 	}
 
-	private void save() {
+	void save() {
 		DataAccess persister = new DataAccess(dataFilePath);
 		try {
 			persister.saveObject(model);

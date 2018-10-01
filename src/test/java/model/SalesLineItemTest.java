@@ -17,6 +17,7 @@ public class SalesLineItemTest {
 	@BeforeEach
 	public void setUp() throws Exception {
 		item = new Product("Apple", this.unitPrice, false);
+		item.getInventory().setStockLevel(10);
 		lineItem = new SalesLineItem(this.item, this.quantity);
 	}
 

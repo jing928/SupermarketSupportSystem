@@ -14,9 +14,12 @@ public class SalesLineItem implements Serializable {
 	private double quantity;
 	private double price;
 
-	public SalesLineItem(Product item, double quantity) throws InvalidInputException {
+	public SalesLineItem(Product item, double quantity) throws InvalidInputException, StockLevelException {
 		if (quantity <= 0) {
 			throw new InvalidInputException("Quantity must be positive.");
+		}
+		if (quantity > item.getInventory().getStockLevel()) {
+			throw new StockLevelException("Insufficient inventory.");
 		}
 		this.item = item;
 		this.quantity = quantity;

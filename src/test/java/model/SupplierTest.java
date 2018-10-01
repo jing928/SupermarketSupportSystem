@@ -47,18 +47,4 @@ class SupplierTest {
 
 	}
 
-	@Test
-	public void testAddNullPhoneNumber() {
-		// Fixtures
-		String supplierPhoneNumber = null;
-		// Actions
-		supplier.setPhoneNum(supplierPhoneNumber);
-		// Actual Result
-		boolean actualPhoneNumber = supplier.getPhoneNum().contains(supplierPhoneNumber);
-		// Expected Result
-		boolean exceptedPhoneNumber = false;
-		// Assertions
-		assertEquals(actualPhoneNumber, exceptedPhoneNumber);
-	}
-
 }
