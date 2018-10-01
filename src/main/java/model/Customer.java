@@ -65,8 +65,8 @@ public class Customer implements Serializable {
 		return rewardsAccount;
 	}
 	
-	public double getRewardsInfo() {
-		return rewardsAccount.calculateRewardsDiscount();
+	public double getRewardsInfo(double price) {
+		return rewardsAccount.calculateRewardsDiscount(price);
 	}
 
 	public List<Sale> getSales() {

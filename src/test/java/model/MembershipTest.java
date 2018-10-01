@@ -38,17 +38,34 @@ public class MembershipTest {
 	}
 	
 	@Test
-	public void testCalculateRewardsDiscount() {
+	public void testCalculateRewardsDiscountWhenPriceGreaterThanMaxDiscount() {
 		card.earnPoints(110);
 		double expected = 25.0;
-		double actual = card.calculateRewardsDiscount();
+		double actual = card.calculateRewardsDiscount(120 / 20 * 5);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testCalculateRewardsDiscountWhenPriceLessThanMaxDiscount() {
+		card.earnPoints(110);
+		double expected = 15.0;
+		double actual = card.calculateRewardsDiscount(65 / 20 * 5);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testRedeemAll() {
+		card.earnPoints(105);
+		card.redeemAll();
+		int expected = 5;
+		int actual = card.getPointBalance();
 		assertEquals(expected, actual);
 	}
 	
 	@Test
 	public void testRedeem() {
 		card.earnPoints(105);
-		card.redeem();
+		card.redeem(25);
 		int expected = 5;
 		int actual = card.getPointBalance();
 		assertEquals(expected, actual);

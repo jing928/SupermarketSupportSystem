@@ -69,7 +69,7 @@ public class Sale implements Serializable {
 		if (this.rewardsDiscount != 0.0) {
 			return this.rewardsDiscount;
 		}
-		this.rewardsDiscount = customer.getRewardsInfo();
+		this.rewardsDiscount = customer.getRewardsInfo(getTotalPrice());
 		return this.rewardsDiscount;
 	}
 
@@ -80,7 +80,7 @@ public class Sale implements Serializable {
 			Inventory item = lineItem.getItem().getInventory();
 			item.sellProduct(lineItem.getQuantity());
 		}
-		customer.getRewardsAccount().redeem();
+		customer.getRewardsAccount().redeem(getRewardsDiscount());//TODO
 		addPointsToCustomer();
 	}
 

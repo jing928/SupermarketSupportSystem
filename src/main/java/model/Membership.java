@@ -40,23 +40,37 @@ public class Membership implements Serializable {
 		return false;
 	}
 
-	public double calculateRewardsDiscount() {
-		return minDiscount * getMultiplier();
+	public double calculateRewardsDiscount(double price) {
+		int maxMultiplier = (int) (price / minDiscount);
+		int pointsNeeded = maxMultiplier * minRedeemable;
+		if (pointsNeeded >= pointBalance) {
+			return calculateMaxRewardsDiscount();
+		} else {
+			return minDiscount * getMultiplier(pointsNeeded);
+		}
 	}
 
-	public void redeem() {
-		int pointsToUse = getMultiplier() * minRedeemable;
+	private double calculateMaxRewardsDiscount() {
+		return minDiscount * getMultiplier(pointBalance);
+	}
+
+	public void redeemAll() {
+		int pointsToUse = getMultiplier(pointBalance) * minRedeemable;
 		usePoints(pointsToUse);
 	}
+	
+	public void redeem(double discountApplied) {
+		int pointsUsed = (int) (discountApplied / 5 * 20);
+		usePoints(pointsUsed);
+	}
 
-	private int getMultiplier() {
-		System.out.println(minRedeemable);
-		return pointBalance / minRedeemable;
+	private int getMultiplier(int balance) {
+		return balance / minRedeemable;
 	}
 
 	@Override
 	public String toString() {
-		double discount = getMultiplier() * minDiscount;
+		double discount = getMultiplier(pointBalance) * minDiscount;
 		String info = String.format("Loyalty points balance: %1$s points.\nRedeemable for $%2$.2f discount.\n",
 				pointBalance, discount);
 		return info;
