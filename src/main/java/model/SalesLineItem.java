@@ -2,11 +2,15 @@
 
 package model;
 
+import java.io.Serializable;
+
 import exception.InvalidInputException;
 
-public class SalesLineItem {
+public class SalesLineItem implements Serializable {
 
-	private Product item;
+	private static final long serialVersionUID = -7172962651397540189L;
+	
+	transient private Product item;
 	private double quantity;
 	private double price;
 

@@ -1,5 +1,6 @@
 package model;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -47,6 +48,15 @@ public class DebitCardTest {
 		card.addMoney(500);
 		card.deductMoney(200);
 		assertEquals(300.0, card.getBalance(),0.01);
+	}
+	
+	@Test
+	public void testToString() {
+		card.addMoney(110.347);
+		String expected = "The balance for card number 1234: $110.35\n";
+		String actual = card.toString();
+		boolean isSame = expected.equals(actual);
+		assertTrue(isSame);
 	}
 
 }

@@ -13,10 +13,10 @@ import exception.InvalidInputException;
 
 public class SaleTest {
 	private LocalDateTime saleDateTime = LocalDateTime.of(2018, Month.of(9), 28, 9, 28, 0);
-	private final String phone = "0412345678";
-	private final String name = "Jack";
-	private final Location address = new Location("11", "Haha Road", "6", "Melbourne", "3000");
-	private final Membership card = new Membership("123");
+	private String phone = "0412345678";
+	private String id = "123";
+	private String name = "Jack";
+	private Location address = new Location("11", "Haha Road", "6", "Melbourne", "3000");
 	private Customer customer;
 	private Sale sale;
 	private String name1 = "Apple";
@@ -34,7 +34,7 @@ public class SaleTest {
 	public void setUp() throws Exception {
 		item1 = new Product(name1, price1, false);
 		item2 = new Product(name2, price2, true);
-		customer = new Customer(name, phone, address, card);
+		customer = new Customer(id, name, phone, address);
 		sale = new Sale(customer, saleDateTime);
 		item1.getInventory().setStockLevel(stock1);
 		item2.getInventory().setStockLevel(stock2);

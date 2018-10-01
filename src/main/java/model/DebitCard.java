@@ -1,6 +1,11 @@
 package model;
 
-public class DebitCard {
+import java.io.Serializable;
+
+public class DebitCard implements Serializable {
+
+	private static final long serialVersionUID = -8638206132150146118L;
+
 	private String cardNum;
 	private double balance;
 
@@ -32,4 +37,10 @@ public class DebitCard {
 		}
 		return false;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("The balance for card number %1$s: $%2$.2f\n", cardNum, balance);
+	}
+
 }

@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test;
 
 public class CustomerTest {
 	private Customer customer;
+	private final String id = "123";
 	private final String phone = "0412345678";
 	private final String name = "Jack";
 	private final Location address = new Location("11", "Haha Road", "6", "Melbourne", "3000");
-	private final Membership card = new Membership("123");
 
 	@BeforeEach
 	public void setUp() {
-		customer = new Customer(name, phone, address, card);
+		customer = new Customer(id, name, phone, address);
 	}
 
 	/*

@@ -1,10 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Customer {
-	
+public class Customer implements Serializable {
+
+	private static final long serialVersionUID = 3179192387392740773L;
+
 	private String id;
 	private String name;
 	private String phoneNum;
@@ -13,11 +16,12 @@ public class Customer {
 	private DebitCard card;
 	private List<Sale> sales;
 
-	public Customer(String name, String phoneNum, Location address, Membership rewardsAccount) {
+	public Customer(String id, String name, String phoneNum, Location address) {
+		this.id = id;
 		this.name = name;
 		this.phoneNum = phoneNum;
 		this.address = address;
-		this.rewardsAccount = rewardsAccount;
+		this.rewardsAccount = new Membership(id); // Reward Account card number is the same as the customer ID
 		sales = new ArrayList<Sale>();
 	}
 

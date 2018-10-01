@@ -27,6 +27,10 @@ public class MainSystem implements Serializable {
 		this.catalog = new HashMap<String, Product>();
 		this.sales = new ArrayList<Sale>();
 	}
+	
+	public <T extends Map<?, ?>> int generateID(T map) {
+		return map.size() + 101;
+	}
 
 	public void addEmployee(Employee employee) {
 		employees.put(employee.getId(), employee);

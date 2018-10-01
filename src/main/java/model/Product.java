@@ -1,7 +1,11 @@
 package model;
 
-public class Product {
-	
+import java.io.Serializable;
+
+public class Product implements Serializable {
+
+	private static final long serialVersionUID = -754547023689469186L;
+
 	private String name;
 	private String barCode;
 	private double unitPrice;
@@ -57,6 +61,12 @@ public class Product {
 		String productProperty = (name + unitPrice + byWeight).toLowerCase();
 		int productHash = productProperty.hashCode();
 		return String.format("%s", productHash);
+	}
+
+	@Override
+	public String toString() {
+		String perUnit = byWeight ? "per kg" : "each";
+		return String.format("The price for %1$s is $%2$.2f %3$s.\n", name, unitPrice, perUnit);
 	}
 
 }
