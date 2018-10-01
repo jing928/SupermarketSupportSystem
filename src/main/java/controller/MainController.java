@@ -55,6 +55,7 @@ public class MainController {
 		System.out.println("Shutting down...Saving data...\n");
 		save();
 		System.out.println("Goodbye!\n");
+		System.exit(0);
 	}
 
 	void save() {
