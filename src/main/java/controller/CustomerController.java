@@ -95,12 +95,12 @@ public class CustomerController {
 	}
 
 	private void checkPrice() {
-		Product item = findProduct();
+		Product item = findProduct(this::runMenu);
 		view.showInfo(item.toString());
 	}
 
 	private void checkBulkDiscount() {
-		Product item = findProduct();
+		Product item = findProduct(this::runMenu);
 		view.showInfo(item.getInventory().getBulkDiscountInfo());
 	}
 
@@ -118,18 +118,24 @@ public class CustomerController {
 		view.showInfo(card.toString());
 	}
 
-	private Product findProduct() {
-		String barCode = runProductFinderMenu();
+	private Product findProduct(Runnable previousMenu) {
+		String barCode = "";
+		try {
+			barCode = runProductFinderMenu();
+		} catch (ProductNotFoundException e) {
+			// Going back to the previous menu
+			previousMenu.run();
+		}
 		return auxControl.getProductByKey(barCode);
 	}
 
-	private String runProductFinderMenu() {
+	private String runProductFinderMenu() throws ProductNotFoundException {
 		view.showProductFinderMenu();
 		int choice;
 		choice = auxControl.askForInput(1, view.getPFMenuEndNum());
 		String barCode = handleProductFinder(choice);
 		if (barCode.equals("b")) {
-			runMenu();
+			throw new ProductNotFoundException("Product not found. User chose to go back");
 		}
 		return barCode;
 	}
