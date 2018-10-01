@@ -144,17 +144,17 @@ public class CustomerController {
 		double totalPrice = currentSale.getTotalPrice();
 		boolean isPaid = model.getDebitCard().deductMoney(totalPrice);
 		if (isPaid) {
-			// newSale.finalizeSale(); //TODO: need to figure out exceptions
-			model.addSale(currentSale);
-			auxControl.getModel().addSale(currentSale);
-			auxControl.save();
+			currentSale.finalizeSale();
+			model.addSale(currentSale); // Add to customer
+			auxControl.getModel().addSale(currentSale); // Add to system
+			auxControl.save(); // Save information (serialization)
 			runMenu();
 		} else {
 			System.out.println("Your debit card doesn't have sufficient balance. Please see sales staff to top up.\n");
 			runMenu();
 		}
 	}
-
+	
 	private void checkPrice() {
 		Product item = findProduct(this::runMenu);
 		view.showInfo(item.toString());
