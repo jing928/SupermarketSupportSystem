@@ -43,22 +43,6 @@ class InventoryTest {
 	}
 
 	@Test
-	public void testSellProductInvalidInput() throws InvalidInputException, StockLevelException {
-		assertThrows(InvalidInputException.class, () -> {
-			inventory.sellProduct(-2.5);
-		});
-	}
-
-	@Test
-	public void testSellProductCanThrowExceptionWhenThereIsInsufficientStock()
-			throws InvalidInputException, StockLevelException {
-		inventory.setStockLevel(10);
-		assertThrows(StockLevelException.class, () -> {
-			inventory.sellProduct(15);
-		});
-	}
-
-	@Test
 	public void testSellProductCanDecreaseStockLevel() throws InvalidInputException, StockLevelException {
 		double stockBefore = 20;
 		double quantitySold = 10;
