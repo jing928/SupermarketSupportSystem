@@ -8,6 +8,7 @@ import model.Customer;
 import model.DebitCard;
 import model.Membership;
 import model.Product;
+import model.Sale;
 import view.CustomerView;
 
 public class CustomerController {
@@ -64,7 +65,33 @@ public class CustomerController {
 	}
 
 	private void checkout() {
+		if (model.getDebitCard() == null) {
+			System.out.println("Please purchase a debit card first. See sales staff for details.\n");
+			return;
+		}
+		Sale newSale = runCheckOutMenu();
+		if (pay(newSale)) {
+			// newSale.finalizeSale(); //TODO: need to figure out exceptions
+			model.addSale(newSale);
+			auxControl.getModel().addSale(newSale);
+			return;
+		} else {
+			System.out.println("Your debit card doesn't have sufficient balance. Please see sales staff to top up.\n");
+			return;
+		}
+	}
 
+	private Sale runCheckOutMenu() {
+		view.showMenu();
+		int choice;
+		choice = auxControl.askForInput(1, view.getMenuEndNum());
+		handleMenuChoice(choice);
+		return new Sale(model); //TODO: placeholder
+	}
+	
+	private boolean pay(Sale sale) {
+		// Calculate price and deduct from debit card
+		return false;
 	}
 
 	private void checkPrice() {

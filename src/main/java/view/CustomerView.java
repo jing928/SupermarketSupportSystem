@@ -21,6 +21,15 @@ public class CustomerView {
 			"Go Back:",
 			"Enter your choice:" 
 	};
+	
+	private final String[] CHECKOUTMENU = {
+			"**** CHECKOUT MENU",
+			"Add Item:",
+			"Modify Transaction:",
+			"Cancel Transaction:",
+			"Finish and Pay:",
+			"Enter your choice:"
+	};
 
 	public CustomerView() {
 		
@@ -32,6 +41,10 @@ public class CustomerView {
 	
 	public int getPFMenuEndNum() {
 		return PRODUCTFINDERMENU.length - 2;
+	}
+	
+	public int getCKMenuEndNum() {
+		return CHECKOUTMENU.length - 2;
 	}
 	
 	public void showWelcome(String name) {
@@ -56,6 +69,10 @@ public class CustomerView {
 	
 	public void showProductList(String[] list) {
 		MenuPrinter.printMenu(list);
+	}
+	
+	public void showCheckoutMenu() {
+		MenuPrinter.printMenu(CHECKOUTMENU);
 	}
 	
 }
