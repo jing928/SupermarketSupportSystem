@@ -146,4 +146,16 @@ public class Inventory implements Serializable {
 		this.supplier = supplier;
 	}
 
+	public String getBulkDiscountInfo() {
+		String info;
+		if (bulkQuantity == 1 && discount == 0) {
+			info = String.format("Currently there is no bulk discount for %s.\n", item.getName());
+		} else {
+			double percent = discount * 100;
+			info = String.format("For every %1$.0f units of %2$s, you get %3$.2f%% off the original price.\n",
+					bulkQuantity, item.getName(), percent);
+		}
+		return info;
+	}
+
 }

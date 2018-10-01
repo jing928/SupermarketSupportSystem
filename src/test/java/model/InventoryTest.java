@@ -184,4 +184,22 @@ class InventoryTest {
 		});
 	}
 
+	@Test
+	public void testGetBulkDiscountInfoWhenNoDiscount() {
+		String expected = "Currently there is no bulk discount for Banana.\n";
+		String actual = inventory.getBulkDiscountInfo();
+		boolean isSame = expected.equals(actual);
+		assertTrue(isSame);
+	}
+
+	@Test
+	public void testGetBulkDiscountInfoWhenThereIsDiscount() throws InvalidInputException {
+		inventory.setBulkQuantity(5);
+		inventory.setDiscount(0.2);
+		String expected = "For every 5 units of Banana, you get 20.00% off the original price.\n";
+		String actual = inventory.getBulkDiscountInfo();
+		boolean isSame = expected.equals(actual);
+		assertTrue(isSame);
+	}
+
 }
