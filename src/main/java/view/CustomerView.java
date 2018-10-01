@@ -23,7 +23,7 @@ public class CustomerView {
 	};
 	
 	private final String[] CHECKOUTMENU = {
-			"**** CHECKOUT MENU",
+			"**** CHECKOUT MENU ****",
 			"Add Item:",
 			"Modify Transaction:",
 			"Cancel Transaction:",
