@@ -16,6 +16,7 @@ public class Sale implements Serializable {
 	private Customer customer;
 	private Map<String, SalesLineItem> lineItems;
 	private double totalPrice;
+	private double rewardsDiscount;
 
 	public Sale(Customer customer, LocalDateTime saleDateTime) {
 		this.customer = customer;
@@ -50,9 +51,9 @@ public class Sale implements Serializable {
 		if (this.totalPrice != 0.0) {
 			return this.totalPrice;
 		}
-
 		this.totalPrice = this.calculateTotalPrice();
-		return this.totalPrice;
+		double discount = this.getRewardsDiscount();
+		return this.totalPrice - discount;
 	}
 
 	private double calculateTotalPrice() {
@@ -63,15 +64,24 @@ public class Sale implements Serializable {
 		}
 		return totalPrice;
 	}
+	
+	private double getRewardsDiscount() {
+		if (this.rewardsDiscount != 0.0) {
+			return this.rewardsDiscount;
+		}
+		this.rewardsDiscount = customer.getRewardsInfo();
+		return this.rewardsDiscount;
+	}
 
-	public boolean finalizeSale() throws InvalidInputException, StockLevelException {
+	public void finalizeSale() {
 		Iterator<SalesLineItem> i = this.lineItems.values().iterator();
 		while (i.hasNext()) {
 			SalesLineItem lineItem = i.next();
 			Inventory item = lineItem.getItem().getInventory();
 			item.sellProduct(lineItem.getQuantity());
 		}
-		return true;
+		customer.getRewardsAccount().redeem();
+		addPointsToCustomer();
 	}
 
 	public Map<String, SalesLineItem> getLineItems() {
@@ -84,6 +94,12 @@ public class Sale implements Serializable {
 
 	public LocalDateTime getSaleDate() {
 		return this.saleDateTime;
+	}
+	
+	private void addPointsToCustomer() {
+		double totalPrice = getTotalPrice();
+		int pointEarned = (int) (totalPrice / 10); // 1 points every $10
+		customer.getRewardsAccount().earnPoints(pointEarned);
 	}
 
 }

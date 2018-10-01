@@ -37,8 +37,8 @@ public class Inventory implements Serializable {
 		return totalPrice - appliedDiscount;
 	}
 
-	public void sellProduct(double quantity) throws InvalidInputException, StockLevelException {
-		this.decreaseStockLevel(quantity);
+	public void sellProduct(double quantity) {
+		stockLevel -= quantity;
 		this.placeReplenishOrder();
 	}
 
