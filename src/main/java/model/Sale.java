@@ -108,6 +108,16 @@ public class Sale implements Serializable {
 		customer.getRewardsAccount().earnPoints(pointEarned);
 	}
 
+	public Map<String, Double> listItemWithRevenue() {
+		Map<String, Double> itemWithRevenue = new HashMap<String, Double>();
+		Iterator<Map.Entry<String, SalesLineItem>> it = lineItems.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry<String, SalesLineItem> entry = it.next();
+			itemWithRevenue.put(entry.getKey(), entry.getValue().getSubTotalPrice());
+		}
+		return itemWithRevenue;
+	}
+
 	@Override
 	public String toString() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
