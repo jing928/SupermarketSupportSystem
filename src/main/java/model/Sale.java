@@ -30,10 +30,15 @@ public class Sale implements Serializable {
 	}
 
 	public void addLineItem(Product item, double quantity) throws InvalidInputException, StockLevelException {
-		// Add new line item to the list
-		String key = item.getName();
-		SalesLineItem lineItem = new SalesLineItem(item, quantity);
-		this.lineItems.put(key, lineItem);
+		if (lineItems.containsKey(item.getName())) {
+			// Update quantity if item already exists
+			updateLineItem(item.getName(), quantity);
+		} else {
+			// Add new line item to the list
+			String key = item.getName();
+			SalesLineItem lineItem = new SalesLineItem(item, quantity);
+			this.lineItems.put(key, lineItem);
+		}
 	}
 
 	public void updateLineItem(String itemName, double addedQuantity) throws InvalidInputException {
