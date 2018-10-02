@@ -160,4 +160,12 @@ public class Inventory implements Serializable {
 		return info;
 	}
 
+	@Override
+	public String toString() {
+		String name = item.getName();
+		String supplierName = supplier == null ? "none" : supplier.getName();
+		return String.format("Product Name: %1$s | Stock Level: %2$.2f | Replenish Level: %3$.2f | Supplier: %4$s\n",
+				name, stockLevel, replenishLevel, supplierName);
+	}
+
 }

@@ -121,4 +121,14 @@ public class MainSystem implements Serializable {
 		return filtered;
 	}
 
+	public String generateSupplyReport() {
+		String report = "";
+		Iterator<Product> it = catalog.values().iterator();
+		while (it.hasNext()) {
+			Inventory inventory = it.next().getInventory();
+			report += inventory.toString();
+		}
+		return report;
+	}
+
 }
