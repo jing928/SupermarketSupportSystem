@@ -1,8 +1,10 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +29,7 @@ public class MainSystem implements Serializable {
 		this.catalog = new HashMap<String, Product>();
 		this.sales = new ArrayList<Sale>();
 	}
-	
+
 	public <T extends Map<?, ?>> int generateID(T map) {
 		return map.size() + 101;
 	}
@@ -78,6 +80,45 @@ public class MainSystem implements Serializable {
 
 	public List<Sale> getSales() {
 		return sales;
+	}
+
+	public String generateSalesReport() {
+		// Report for all sales
+		String report = "";
+		Iterator<Sale> it = sales.iterator();
+		while (it.hasNext()) {
+			Sale sale = it.next();
+			report += sale.toString();
+		}
+		return report;
+	}
+
+	public String generateSalesReport(LocalDateTime start, LocalDateTime end) {
+		// Report for specified date time range
+		List<Sale> filtered = filterSalesbyDate(start, end);
+		String report = "";
+		Iterator<Sale> it = filtered.iterator();
+		while (it.hasNext()) {
+			Sale sale = it.next();
+			report += sale.toString();
+		}
+		return report;
+	}
+
+	private List<Sale> filterSalesbyDate(LocalDateTime start, LocalDateTime end) {
+		// TODO: needs test
+		List<Sale> filtered = new ArrayList<Sale>();
+		Iterator<Sale> it = sales.iterator();
+
+		while (it.hasNext()) {
+			Sale sale = it.next();
+			LocalDateTime saleDate = sale.getSaleDate();
+			boolean isWithin = saleDate.isAfter(start) && saleDate.isBefore(end);
+			if (isWithin) {
+				filtered.add(sale);
+			}
+		}
+		return filtered;
 	}
 
 }
