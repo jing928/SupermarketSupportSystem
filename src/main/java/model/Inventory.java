@@ -22,7 +22,7 @@ public class Inventory implements Serializable {
 		this.item = item;
 		this.stockLevel = 0;
 		this.replenishLevel = 0;
-		this.reorderQuantity = 0;
+		this.reorderQuantity = 50;
 		this.bulkQuantity = 1;
 		this.discount = 0;
 	}
