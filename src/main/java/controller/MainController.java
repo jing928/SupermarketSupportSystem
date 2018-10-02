@@ -3,13 +3,7 @@ package controller;
 import java.io.IOException;
 import java.util.Scanner;
 
-import model.Customer;
-import model.Employee;
-import model.Location;
-import model.MainSystem;
-import model.Manager;
-import model.Product;
-import model.SalesStaff;
+import model.*;
 import utility.DataAccess;
 import view.MainSystemView;
 
@@ -38,7 +32,7 @@ public class MainController {
 		runMainMenu();
 	}
 
-	void runMainMenu() {
+	private void runMainMenu() {
 		mainFinished = false;
 		while (!mainFinished) {
 			view.showMainMenu();
@@ -209,7 +203,7 @@ public class MainController {
 		}
 
 	}
-	
+
 	private void runEmployeeControl(String empKey) {
 		Employee emp = model.getEmployees().get(empKey);
 		EmployeeController empControl;
@@ -220,7 +214,7 @@ public class MainController {
 		} else {
 			empControl = new WarehouseStaffController(emp, this);
 		}
-		
+
 		empControl.run();
 	}
 
@@ -297,12 +291,24 @@ public class MainController {
 		this.customerFinished = customerFinished;
 	}
 
+	public boolean isEmployeeFinished() {
+		return employeeFinished;
+	}
+
+	public void setEmployeeFinished(boolean employeeFinished) {
+		this.employeeFinished = employeeFinished;
+	}
+
 	public Product getProductByKey(String barCode) {
 		return model.getCatalog().get(barCode);
 	}
 
 	public String getBarCodeByName(String name) {
 		return model.getBarCodeLookUp().get(name);
+	}
+
+	public Supplier getSupplierByKey(String id) {
+		return model.getSuppliers().get(id);
 	}
 
 }
