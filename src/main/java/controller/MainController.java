@@ -19,6 +19,10 @@ public class MainController {
 
 	private Scanner keyboard;
 
+	// Menu states
+	private boolean mainFinished;
+	private boolean customerFinished;
+
 	public MainController() {
 		this.view = new MainSystemView();
 	}
@@ -31,10 +35,14 @@ public class MainController {
 	}
 
 	void runMainMenu() {
-		view.showMainMenu();
-		int choice;
-		choice = this.askForInput(1, view.getMainMenuEndNum());
-		this.handleMainMenuChoice(choice);
+		mainFinished = false;
+		while (!mainFinished) {
+			view.showMainMenu();
+			int choice;
+			choice = this.askForInput(1, view.getMainMenuEndNum());
+			this.handleMainMenuChoice(choice);
+		}
+		shutDown();
 	}
 
 	private void startUp() throws ClassNotFoundException {
@@ -91,16 +99,19 @@ public class MainController {
 			this.handleEmployee();
 			break;
 		case 3:
-			shutDown();
+			mainFinished = true;
 			break;
 		}
 	}
 
 	private void runCustomerMenu() {
-		view.showCustomerMenu();
-		int choice;
-		choice = this.askForInput(1, view.getCusMenuEndNum());
-		this.handleCustomerChoice(choice);
+		customerFinished = false;
+		while (!customerFinished) {
+			view.showCustomerMenu();
+			int choice;
+			choice = this.askForInput(1, view.getCusMenuEndNum());
+			this.handleCustomerChoice(choice);
+		}
 	}
 
 	private void handleCustomerChoice(int choice) {
@@ -108,7 +119,7 @@ public class MainController {
 		case 1:
 			String cusId = findCustomer();
 			if (cusId.equals("b")) {
-				runCustomerMenu();
+				return;
 			} else {
 				runCustomerControl(cusId);
 			}
@@ -119,7 +130,7 @@ public class MainController {
 			runCustomerControl(newCusId);
 			break;
 		case 3:
-			runMainMenu();
+			customerFinished = true;
 			break;
 		}
 	}
@@ -186,6 +197,22 @@ public class MainController {
 
 	public void setView(MainSystemView view) {
 		this.view = view;
+	}
+
+	public boolean isMainFinished() {
+		return mainFinished;
+	}
+
+	public void setMainFinished(boolean mainFinished) {
+		this.mainFinished = mainFinished;
+	}
+
+	public boolean isCustomerFinished() {
+		return customerFinished;
+	}
+
+	public void setCustomerFinished(boolean customerFinished) {
+		this.customerFinished = customerFinished;
 	}
 
 	public Product getProductByKey(String barCode) {

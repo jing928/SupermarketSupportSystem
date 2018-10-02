@@ -23,6 +23,10 @@ public class CustomerController {
 
 	private Sale currentSale; // Hold the current transaction
 
+	// Menu states
+	private boolean mainCusFinished;
+	private boolean checkoutFinished;
+
 	public CustomerController(Customer model, MainController auxControl) {
 		this.model = model;
 		this.auxControl = auxControl;
@@ -36,35 +40,34 @@ public class CustomerController {
 	}
 
 	private void runMenu() {
-		view.showMenu();
-		int choice;
-		choice = auxControl.askForInput(1, view.getMenuEndNum());
-		handleMenuChoice(choice);
+		mainCusFinished = false;
+		while (!mainCusFinished) {
+			view.showMenu();
+			int choice;
+			choice = auxControl.askForInput(1, view.getMenuEndNum());
+			handleMenuChoice(choice);
+		}
 	}
 
 	private void handleMenuChoice(int choice) {
 		switch (choice) {
 		case 1:
 			checkout();
-			runMenu();
 			break;
 		case 2:
 			checkPrice();
-			runMenu();
 			break;
 		case 3:
 			checkBulkDiscount();
-			runMenu();
 			break;
 		case 4:
 			checkDebitCard();
-			runMenu();
 		case 5:
 			checkRewardsAccount();
-			runMenu();
 			break;
 		case 6:
-			auxControl.runMainMenu();
+			mainCusFinished = true;
+			auxControl.setCustomerFinished(true);
 			break;
 		}
 	}
@@ -80,34 +83,38 @@ public class CustomerController {
 	}
 
 	private void runCheckOutMenu() {
-		view.showCheckoutMenu();
-		int choice;
-		choice = auxControl.askForInput(1, view.getCKMenuEndNum());
-		handleCheckoutChoice(choice);
+		checkoutFinished = false;
+		while (!checkoutFinished) {
+			view.showCheckoutMenu();
+			int choice;
+			choice = auxControl.askForInput(1, view.getCKMenuEndNum());
+			handleCheckoutChoice(choice);
+		}
 	}
 
 	private void handleCheckoutChoice(int choice) {
 		switch (choice) {
 		case 1:
 			addItem();
-			runCheckOutMenu();
 			break;
 		case 2:
 			modifyTransaction();
-			runCheckOutMenu();
 			break;
 		case 3:
 			cancelTransaction();
-			runCheckOutMenu();
 			break;
 		case 4:
 			pay();
+			checkoutFinished = true;
 			break;
 		}
 	}
 
 	private void addItem() {
-		Product item = findProduct(this::runCheckOutMenu);
+		Product item = findProduct();
+		if (item == null) {
+			return;
+		}
 		String unit = item.isByWeight() ? "weight" : "number of items";
 		double quantity;
 
@@ -148,20 +155,24 @@ public class CustomerController {
 			model.addSale(currentSale); // Add to customer
 			auxControl.getModel().addSale(currentSale); // Add to system
 			auxControl.save(); // Save information (serialization)
-			runMenu();
 		} else {
 			System.out.println("Your debit card doesn't have sufficient balance. Please see sales staff to top up.\n");
-			runMenu();
 		}
 	}
-	
+
 	private void checkPrice() {
-		Product item = findProduct(this::runMenu);
+		Product item = findProduct();
+		if (item == null) {
+			return;
+		}
 		view.showInfo(item.toString());
 	}
 
 	private void checkBulkDiscount() {
-		Product item = findProduct(this::runMenu);
+		Product item = findProduct();
+		if (item == null) {
+			return;
+		}
 		view.showInfo(item.getInventory().getBulkDiscountInfo());
 	}
 
@@ -179,13 +190,13 @@ public class CustomerController {
 		view.showInfo(card.toString());
 	}
 
-	private Product findProduct(Runnable previousMenu) {
+	private Product findProduct() {
 		String barCode = "";
 		try {
 			barCode = runProductFinderMenu();
 		} catch (ProductNotFoundException e) {
 			// Going back to the previous menu
-			previousMenu.run();
+			return null;
 		}
 		return auxControl.getProductByKey(barCode);
 	}
