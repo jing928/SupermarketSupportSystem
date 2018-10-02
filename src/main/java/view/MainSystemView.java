@@ -17,18 +17,28 @@ public class MainSystemView {
 			"Go Back:",
 			"Enter your choice:"
 	};
-	
+	private final String[] EMPLOYEEMENU = {
+			"**** CUSTOMER MENU ****",
+			"Existing Employee:",
+			"New Employee:",
+			"Go Back:",
+			"Enter your choice:"
+	};
 
 	public MainSystemView() {
 
 	}
-	
+
 	public int getMainMenuEndNum() {
 		return MAINMENU.length - 2;
 	}
 
 	public int getCusMenuEndNum() {
 		return CUSTOMERMENU.length - 2;
+	}
+
+	public int getEmpMenuEndNum() {
+		return EMPLOYEEMENU.length - 2;
 	}
 
 	public void showWelcome() {
@@ -44,7 +54,7 @@ public class MainSystemView {
 	}
 
 	public void showEmployeeMenu() {
-
+		MenuPrinter.printMenu(EMPLOYEEMENU);
 	}
-	
+
 }

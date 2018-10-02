@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import model.Customer;
+import model.Employee;
 import model.Location;
 import model.MainSystem;
+import model.Manager;
 import model.Product;
+import model.SalesStaff;
 import utility.DataAccess;
 import view.MainSystemView;
 
@@ -22,6 +25,7 @@ public class MainController {
 	// Menu states
 	private boolean mainFinished;
 	private boolean customerFinished;
+	private boolean employeeFinished;
 
 	public MainController() {
 		this.view = new MainSystemView();
@@ -96,7 +100,7 @@ public class MainController {
 			this.runCustomerMenu();
 			break;
 		case 2:
-			this.handleEmployee();
+			this.runEmployeeMenu();
 			break;
 		case 3:
 			mainFinished = true;
@@ -174,9 +178,87 @@ public class MainController {
 		return key;
 	}
 
-	private void handleEmployee() {
-		// TODO Auto-generated method stub
+	private void runEmployeeMenu() {
+		employeeFinished = false;
+		while (!employeeFinished) {
+			view.showEmployeeMenu();
+			int choice;
+			choice = this.askForInput(1, view.getEmpMenuEndNum());
+			this.handleEmployeeChoice(choice);
+		}
+	}
 
+	private void handleEmployeeChoice(int choice) {
+		switch (choice) {
+		case 1:
+			String empId = findEmployee();
+			if (empId.equals("b")) {
+				return;
+			} else {
+				runEmployeeControl(empId);
+			}
+			break;
+		case 2:
+			String newEmpId = createNewEmployee();
+			System.out.println("Your employee ID is: " + newEmpId + "\n");
+			runEmployeeControl(newEmpId);
+			break;
+		case 3:
+			employeeFinished = true;
+			break;
+		}
+
+	}
+	
+	private void runEmployeeControl(String empKey) {
+		Employee emp = model.getEmployees().get(empKey);
+		EmployeeController empControl;
+		if (emp instanceof Manager) {
+			empControl = new ManagerController(emp, this);
+		} else if (emp instanceof SalesStaff) {
+			empControl = new SalesStaffController(emp, this);
+		} else {
+			empControl = new WarehouseStaffController(emp, this);
+		}
+		
+		empControl.run();
+	}
+
+	private String findEmployee() {
+		System.out.println("Please enter your employee ID:\n");
+		String key = keyboard.nextLine();
+		while (!model.getEmployees().containsKey(key) && !key.equals("b")) {
+			System.out.println("ID doesn't exist, please enter again or press \"b\" to go back.\n");
+			key = keyboard.nextLine();
+		}
+		return key;
+	}
+
+	private String createNewEmployee() {
+		// In in real world, it should not allow anyone to create a new employee.
+		// It should be password protected.
+		System.out.println("Please enter employee type:\nM for Manager\nS for Sales\nW for Warehouse\n");
+		String type = keyboard.nextLine().toLowerCase();
+		System.out.println("Please enter your name:\n");
+		String name = keyboard.nextLine();
+		int idSeq = model.generateID(model.getEmployees());
+		String id = "";
+		switch (type) {
+		case "m":
+			id = "M" + idSeq;
+			model.addEmployee(new Manager(id, name));
+			break;
+		case "s":
+			id = "M" + idSeq;
+			model.addEmployee(new Manager(id, name));
+			break;
+		case "w":
+			id = "M" + idSeq;
+			model.addEmployee(new Manager(id, name));
+			break;
+		}
+		save();
+		return id;
 	}
 
 	public MainSystem getModel() {
