@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -64,7 +65,7 @@ public class Sale implements Serializable {
 		}
 		return totalPrice;
 	}
-	
+
 	private double getRewardsDiscount() {
 		if (this.rewardsDiscount != 0.0) {
 			return this.rewardsDiscount;
@@ -80,7 +81,7 @@ public class Sale implements Serializable {
 			Inventory item = lineItem.getItem().getInventory();
 			item.sellProduct(lineItem.getQuantity());
 		}
-		customer.getRewardsAccount().redeem(getRewardsDiscount());//TODO
+		customer.getRewardsAccount().redeem(getRewardsDiscount());// TODO
 		addPointsToCustomer();
 	}
 
@@ -95,11 +96,21 @@ public class Sale implements Serializable {
 	public LocalDateTime getSaleDate() {
 		return this.saleDateTime;
 	}
-	
+
 	private void addPointsToCustomer() {
 		double totalPrice = getTotalPrice();
 		int pointEarned = (int) (totalPrice / 10); // 1 points every $10
 		customer.getRewardsAccount().earnPoints(pointEarned);
+	}
+
+	@Override
+	public String toString() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String dateTime = saleDateTime.format(formatter);
+		int numOfItemSold = lineItems.size();
+		double price = getTotalPrice();
+		return String.format("DateTime: %1$s | Number of Items Sold: %2$s | Total Price: $%3$.2f\n", dateTime,
+				numOfItemSold, price);
 	}
 
 }

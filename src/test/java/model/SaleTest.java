@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -100,6 +101,14 @@ public class SaleTest {
 		int expected = 1;
 		int actual = customer.getRewardsAccount().getPointBalance();
 		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testToString() {
+		String expected = "DateTime: 2018-09-28 09:28:00 | Number of Items Sold: 2 | Total Price: $14.75\n";
+		String actual = sale.toString();
+		boolean isSame = expected.equals(actual);
+		assertTrue(isSame);
 	}
 
 }
