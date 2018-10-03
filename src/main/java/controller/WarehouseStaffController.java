@@ -48,10 +48,11 @@ public class WarehouseStaffController extends EmployeeController {
 			System.out.println("No product found. Going back to previous menu.\n");
 			return;
 		}
+		double quantity;
 		boolean quantitySet = false;
 		do {
 			System.out.println("Set the replenish quantity:\n");
-			double quantity = getKeyboard().nextDouble();
+			quantity = getKeyboard().nextDouble();
 			getKeyboard().nextLine();
 			try {
 				item.getInventory().increaseStockLevel(quantity);
@@ -59,7 +60,7 @@ public class WarehouseStaffController extends EmployeeController {
 			} catch (InvalidInputException e) {
 				System.out.println("Quantity cannot be negative.\n");
 			}
-		} while (quantitySet);
+		} while (!quantitySet);
 
 		getAuxControl().save();
 		System.out.println("Stock level for " + item.getName() + " increased by " + "quantity" + ".\n");

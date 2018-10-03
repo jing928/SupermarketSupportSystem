@@ -102,7 +102,7 @@ public abstract class EmployeeController {
 			} catch (InvalidInputException e) {
 				System.out.println("Stock level cannot be negative.\n");
 			}
-		} while (stockLevelSet);
+		} while (!stockLevelSet);
 	}
 
 	private void setReplenishLevel(Product item) {
@@ -117,7 +117,7 @@ public abstract class EmployeeController {
 			} catch (InvalidInputException e) {
 				System.out.println("Replenish level cannot be negative.\n");
 			}
-		} while (replenishLevelSet);
+		} while (!replenishLevelSet);
 	}
 
 	private void linkProductSupplier(Product item, Supplier supplier) {
