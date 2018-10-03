@@ -243,12 +243,12 @@ public class MainController {
 			model.addEmployee(new Manager(id, name));
 			break;
 		case "s":
-			id = "M" + idSeq;
-			model.addEmployee(new Manager(id, name));
+			id = "S" + idSeq;
+			model.addEmployee(new SalesStaff(id, name));
 			break;
 		case "w":
-			id = "M" + idSeq;
-			model.addEmployee(new Manager(id, name));
+			id = "W" + idSeq;
+			model.addEmployee(new WarehouseStaff(id, name));
 			break;
 		}
 		save();

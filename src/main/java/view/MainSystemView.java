@@ -18,7 +18,7 @@ public class MainSystemView {
 			"Enter your choice:"
 	};
 	private final String[] EMPLOYEEMENU = {
-			"**** CUSTOMER MENU ****",
+			"**** EMPLOYEE MENU ****",
 			"Existing Employee:",
 			"New Employee:",
 			"Go Back:",

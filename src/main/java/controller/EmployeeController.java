@@ -37,6 +37,7 @@ public abstract class EmployeeController {
 		keyboard.nextLine();
 		System.out.println("Is the product weightable? Enter \"true\" or \"false\"\n");
 		boolean byWeight = keyboard.nextBoolean();
+		keyboard.nextLine();
 		String supplierId;
 		Supplier supplier;
 		do {
