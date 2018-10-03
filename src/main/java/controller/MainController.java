@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Scanner;
 
 import model.*;
@@ -149,7 +150,7 @@ public class MainController {
 		System.out.println("Please enter your zip code:\n");
 		String zipCode = keyboard.nextLine();
 		Location loc = new Location(streetNum, streetName, unitNum, suburb, zipCode);
-		int idSeq = model.generateID(model.getCustomers());
+		int idSeq = generateID(model.getCustomers());
 		String id = "C" + idSeq;
 		model.addCustomer(new Customer(id, name, phoneNum, loc));
 		save();
@@ -235,7 +236,7 @@ public class MainController {
 		String type = keyboard.nextLine().toLowerCase();
 		System.out.println("Please enter your name:\n");
 		String name = keyboard.nextLine();
-		int idSeq = model.generateID(model.getEmployees());
+		int idSeq = generateID(model.getEmployees());
 		String id = "";
 		switch (type) {
 		case "m":
@@ -259,6 +260,10 @@ public class MainController {
 		model.addProduct(item);
 		model.addNameBarCodePair(item.getName(), item.getBarCode());
 		save();
+	}
+
+	public <T extends Map<?, ?>> int generateID(T map) {
+		return map.size() + 101;
 	}
 
 	public MainSystem getModel() {
