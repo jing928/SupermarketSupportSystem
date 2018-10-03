@@ -8,13 +8,14 @@ import org.junit.jupiter.api.Test;
 class SupplierTest {
 
 	private Supplier supplier;
+	private String id = "SUP101";
 	private String supplierName = "abc";
 	private Location address = new Location("11", "Haha Road", "6", "Melbourne", "3000");
 	private String phone = "0412345678";
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		supplier = new Supplier(supplierName, address, phone);
+		supplier = new Supplier(id, supplierName, address, phone);
 	}
 
 	@Test

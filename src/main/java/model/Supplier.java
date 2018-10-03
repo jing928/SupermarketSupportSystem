@@ -14,7 +14,8 @@ public class Supplier implements Serializable {
 	private Set<Inventory> products;
 	private String phoneNum;
 
-	public Supplier(String name, Location address, String phoneNum) {
+	public Supplier(String id, String name, Location address, String phoneNum) {
+		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.phoneNum = phoneNum;
