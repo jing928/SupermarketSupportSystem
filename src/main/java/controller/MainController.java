@@ -254,6 +254,12 @@ public class MainController {
 		save();
 		return id;
 	}
+	
+	public void addProduct(Product item) {
+		model.addProduct(item);
+		model.addNameBarCodePair(item.getName(), item.getBarCode());
+		save();
+	}
 
 	public MainSystem getModel() {
 		return model;

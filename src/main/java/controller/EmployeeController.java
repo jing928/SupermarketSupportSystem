@@ -29,58 +29,6 @@ public abstract class EmployeeController {
 
 	abstract void runMenu();
 
-	protected void addProduct() {
-		System.out.println("Please enter the product name:\n");
-		String name = keyboard.nextLine();
-		System.out.println("Please enter the unit price:\n");
-		double price = keyboard.nextDouble();
-		keyboard.nextLine();
-		System.out.println("Is the product weightable? Enter \"true\" or \"false\"\n");
-		boolean byWeight = keyboard.nextBoolean();
-		keyboard.nextLine();
-		String supplierId;
-		Supplier supplier;
-		do {
-			System.out.println("Please enter the supplier ID:\n");
-			supplierId = keyboard.nextLine();
-			supplier = auxControl.getSupplierByKey(supplierId);
-			if (supplier == null) {
-				System.out.println("The supplier doesn't exist. Please enter again or press \"x\" to skip.\n");
-			}
-		} while (supplier == null && !supplierId.equals("x"));
-		
-		Product item = new Product(name, price, byWeight);
-		boolean stockLevelSet = false;
-		do {
-			System.out.println("Set the initial stock level:\n");
-			double stockLevel = keyboard.nextDouble();
-			keyboard.nextLine();
-			try {
-				item.getInventory().setStockLevel(stockLevel);
-				stockLevelSet = true;
-			} catch (InvalidInputException e) {
-				System.out.println("Stock level cannot be negative.\n");
-			}
-		} while (stockLevelSet);
-		
-		boolean replenishLevelSet = false;
-		do {
-			System.out.println("Set the initial replenish level:\n");
-			double replenishLevel = keyboard.nextDouble();
-			keyboard.nextLine();
-			try {
-				item.getInventory().setStockLevel(replenishLevel);
-				replenishLevelSet = true;
-			} catch (InvalidInputException e) {
-				System.out.println("Replenish level cannot be negative.\n");
-			}
-		} while (replenishLevelSet);
-		
-		auxControl.getModel().addProduct(item);
-		auxControl.save();
-		System.out.println("New product " + item.getName() + " added.\n");
-	}
-	
 	protected Product findProduct() throws ProductNotFoundException {
 		System.out.println("Please enter the product name:\n");
 		String name = keyboard.nextLine();
@@ -95,6 +43,88 @@ public abstract class EmployeeController {
 			barCode = auxControl.getBarCodeByName(name);
 		}
 		return auxControl.getProductByKey(barCode);
+	}
+
+	protected void addProduct() {
+		String name;
+		boolean nameExists;
+		do {
+			System.out.println("Please enter the product name:\n");
+			name = keyboard.nextLine();
+			nameExists = auxControl.getModel().getBarCodeLookUp().containsKey(name);
+			if (nameExists) {
+				System.out.println("The product already exists.\n");
+			}
+		} while (nameExists);
+		System.out.println("Please enter the unit price:\n");
+		double price = keyboard.nextDouble();
+		keyboard.nextLine();
+		System.out.println("Is the product weightable? Enter \"true\" or \"false\"\n");
+		boolean byWeight = keyboard.nextBoolean();
+		keyboard.nextLine();
+		Product item = new Product(name, price, byWeight);
+		setSupplier(item);
+		setStockLevel(item);
+		setReplenishLevel(item);
+		auxControl.addProduct(item);
+		System.out.println(
+				String.format("New product %1$s added.\nStock level: %2$.2f\nReplenish Level: %3$.2f\nSupplier: %4$s\n",
+						item.getName(), item.getInventory().getStockLevel(), item.getInventory().getReplenishLevel(),
+						item.getInventory().getSupplier().getName()));
+	}
+
+	private void setSupplier(Product item) {
+		String supplierId;
+		Supplier supplier;
+		do {
+			System.out.println("Please enter the supplier ID:\n");
+			supplierId = keyboard.nextLine();
+			supplier = auxControl.getSupplierByKey(supplierId);
+			if (supplier == null) {
+				System.out.println("The supplier doesn't exist. Please enter again or press \"x\" to skip.\n");
+			}
+		} while (supplier == null && !supplierId.equals("x"));
+
+		if (supplier != null) {
+			linkProductSupplier(item, supplier);
+		}
+	}
+
+	private void setStockLevel(Product item) {
+		boolean stockLevelSet = false;
+		do {
+			System.out.println("Set the initial stock level:\n");
+			double stockLevel = keyboard.nextDouble();
+			keyboard.nextLine();
+			try {
+				item.getInventory().setStockLevel(stockLevel);
+				stockLevelSet = true;
+			} catch (InvalidInputException e) {
+				System.out.println("Stock level cannot be negative.\n");
+			}
+		} while (stockLevelSet);
+	}
+
+	private void setReplenishLevel(Product item) {
+		boolean replenishLevelSet = false;
+		do {
+			System.out.println("Set the initial replenish level:\n");
+			double replenishLevel = keyboard.nextDouble();
+			keyboard.nextLine();
+			try {
+				item.getInventory().setStockLevel(replenishLevel);
+				replenishLevelSet = true;
+			} catch (InvalidInputException e) {
+				System.out.println("Replenish level cannot be negative.\n");
+			}
+		} while (replenishLevelSet);
+	}
+
+	private void linkProductSupplier(Product item, Supplier supplier) {
+		// Link to supplier
+		item.getInventory().setSupplier(supplier);
+		supplier.addProduct(item.getInventory());
+		auxControl.save();
 	}
 
 	public Employee getModel() {
