@@ -255,10 +255,15 @@ public class MainController {
 		save();
 		return id;
 	}
-	
+
 	public void addProduct(Product item) {
 		model.addProduct(item);
 		model.addNameBarCodePair(item.getName(), item.getBarCode());
+		save();
+	}
+
+	public void addSupplier(Supplier supplier) {
+		model.addSupplier(supplier);
 		save();
 	}
 

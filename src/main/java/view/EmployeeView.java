@@ -9,6 +9,19 @@ public class EmployeeView {
 			"Go Back to Main Menu:",
 			"Enter your choice:" 
 	};
+	
+	private final String[] MANAGERMENU = { 
+			"**** MAIN MANAGER MENU ****", 
+			"Add New Product:", 
+			"Add New Supplier:",
+			"Modify Unit Price:",
+			"Offer Bulk Discount:",
+			"Generate Sales Report:",
+			"Generate Supply Report:",
+			"List Most Profitable Product:",
+			"Go Back to Main Menu:",
+			"Enter your choice:" 
+	};
 
 	public EmployeeView() {
 		
@@ -24,5 +37,13 @@ public class EmployeeView {
 	
 	public void showWarehouseMenu() {
 		MenuPrinter.printMenu(WAREHOUSEMENU);
+	}
+	
+	public int getMgrMenuEndNum() {
+		return MANAGERMENU.length - 2;
+	}
+	
+	public void showManagerMenu() {
+		MenuPrinter.printMenu(MANAGERMENU);
 	}
 }

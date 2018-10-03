@@ -2,6 +2,8 @@ package model;
 
 import java.io.Serializable;
 
+import exception.InvalidInputException;
+
 public class Product implements Serializable {
 
 	private static final long serialVersionUID = -754547023689469186L;
@@ -44,7 +46,10 @@ public class Product implements Serializable {
 		return this.unitPrice;
 	}
 
-	public void setUnitPrice(double unitPrice) {
+	public void setUnitPrice(double unitPrice) throws InvalidInputException {
+		if (unitPrice < 0) {
+			throw new InvalidInputException("Price cannot be negative.");
+		}
 		this.unitPrice = unitPrice;
 	}
 
