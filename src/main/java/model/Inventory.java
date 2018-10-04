@@ -163,9 +163,11 @@ public class Inventory implements Serializable {
 	@Override
 	public String toString() {
 		String name = item.getName();
+		String barCode = item.getBarCode();
 		String supplierName = supplier == null ? "none" : supplier.getName();
-		return String.format("Product Name: %1$s | Stock Level: %2$.2f | Replenish Level: %3$.2f | Supplier: %4$s\n",
-				name, stockLevel, replenishLevel, supplierName);
+		return String.format(
+				"Product Name: %1$s (Barcode: %2$s) | Stock Level: %3$.2f | Replenish Level: %4$.2f | Supplier: %5$s\n",
+				name, barCode, stockLevel, replenishLevel, supplierName);
 	}
 
 }
