@@ -327,4 +327,8 @@ public class MainController {
 		return model.getSuppliers().get(id);
 	}
 
+	public Customer getCustomerByKey(String name) {
+		return model.getCustomers().get(name);
+	}
+
 }
