@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import exception.CustomerNotFoundException;
 import exception.InvalidInputException;
 import exception.ProductNotFoundException;
 import model.Customer;
@@ -282,6 +281,7 @@ public class CustomerController {
 			model.addSale(currentSale); // Add to customer
 			auxControl.getModel().addSale(currentSale); // Add to system
 			auxControl.save(); // Save information (serialization)
+			System.out.println(String.format("Payment successful. Total paid: $%.2f\n", totalPrice));
 		} else {
 			System.out.println("Your debit card doesn't have sufficient balance. Please see sales staff to top up.\n");
 		}
