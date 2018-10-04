@@ -112,7 +112,7 @@ public abstract class EmployeeController {
 			double replenishLevel = keyboard.nextDouble();
 			keyboard.nextLine();
 			try {
-				item.getInventory().setStockLevel(replenishLevel);
+				item.getInventory().setReplenishLevel(replenishLevel);
 				replenishLevelSet = true;
 			} catch (InvalidInputException e) {
 				System.out.println(e.getMessage());
