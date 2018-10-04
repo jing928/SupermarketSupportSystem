@@ -117,6 +117,9 @@ public class CustomerController {
 			pay();
 			checkoutFinished = true;
 			break;
+		case 5:
+			checkoutFinished = true;
+			break;
 		}
 	}
 
@@ -173,6 +176,9 @@ public class CustomerController {
 			break;
 		case 2:
 			updateQuantity();
+			modifyFinished = true;
+			break;
+		case 3:
 			modifyFinished = true;
 			break;
 		}
@@ -264,6 +270,10 @@ public class CustomerController {
 	}
 
 	private void pay() {
+		if (currentSale.getLineItems().size() == 0) {
+			System.out.println("There is nothing in the shopping cart. Nothing to pay.\n");
+			return;
+		}
 		// Calculate price and deduct from debit card
 		double totalPrice = currentSale.getTotalPrice();
 		boolean isPaid = model.getDebitCard().deductMoney(totalPrice);

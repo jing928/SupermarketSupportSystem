@@ -28,6 +28,7 @@ public class CustomerView {
 			"Modify Transaction:",
 			"Cancel Transaction:",
 			"Finish and Pay:",
+			"Cancel and Go Back:",
 			"Enter your choice:"
 	};
 	
@@ -35,6 +36,7 @@ public class CustomerView {
 			"**** MODIFY TRANSACTION MENU ****",
 			"Remove an Item:",
 			"Update Quantity for an Item:",
+			"Cancel and Go Back:",
 			"Enter your choice:"
 	};
 
