@@ -30,6 +30,13 @@ public class CustomerView {
 			"Finish and Pay:",
 			"Enter your choice:"
 	};
+	
+	private final String[] MODIFYTRANSACTIONMENU = {
+			"**** MODIFY TRANSACTION MENU ****",
+			"Remove an Item:",
+			"Update Quantity for an Item:",
+			"Enter your choice:"
+	};
 
 	public CustomerView() {
 		
@@ -42,23 +49,27 @@ public class CustomerView {
 	public int getPFMenuEndNum() {
 		return PRODUCTFINDERMENU.length - 2;
 	}
-	
+
 	public int getCKMenuEndNum() {
 		return CHECKOUTMENU.length - 2;
 	}
-	
+
+	public int getMTMenuEndNum() {
+		return MODIFYTRANSACTIONMENU.length - 2;
+	}
+
 	public void showWelcome(String name) {
 		System.out.println("Welcome " + name + "!\n");
 	}
-	
+
 	public void showMenu() {
 		MenuPrinter.printMenu(MENU);
 	}
-	
+
 	public void showInfo(String info) {
 		System.out.println(info);
 	}
-	
+
 	public void showDebitCardError() {
 		System.out.println("You don't have a debit card yet, please find sales staff to purchase one.\n");
 	}
@@ -66,13 +77,17 @@ public class CustomerView {
 	public void showProductFinderMenu() {
 		MenuPrinter.printMenu(PRODUCTFINDERMENU);
 	}
-	
+
 	public void showProductList(String[] list) {
 		MenuPrinter.printMenu(list);
 	}
-	
+
 	public void showCheckoutMenu() {
 		MenuPrinter.printMenu(CHECKOUTMENU);
 	}
-	
+
+	public void showModifyTransactionMenu() {
+		MenuPrinter.printMenu(MODIFYTRANSACTIONMENU);
+	}
+
 }
