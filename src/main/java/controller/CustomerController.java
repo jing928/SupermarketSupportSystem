@@ -62,6 +62,7 @@ public class CustomerController {
 			break;
 		case 4:
 			checkDebitCard();
+			break;
 		case 5:
 			checkRewardsAccount();
 			break;
