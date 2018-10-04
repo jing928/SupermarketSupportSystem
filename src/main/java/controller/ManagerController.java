@@ -83,7 +83,7 @@ public class ManagerController extends EmployeeController {
 		try {
 			item = findProduct();
 		} catch (ProductNotFoundException e) {
-			System.out.println("No product found. Going back to previous menu.\n");
+			System.out.println(e.getMessage());
 			return;
 		}
 		String unit = item.isByWeight() ? "per kg" : "each";
@@ -99,7 +99,7 @@ public class ManagerController extends EmployeeController {
 				item.setUnitPrice(newPrice);
 				priceSet = true;
 			} catch (InvalidInputException e) {
-				System.out.println("Price cannot be negative.\n");
+				System.out.println(e.getMessage());
 			}
 
 		} while (!priceSet);

@@ -126,12 +126,12 @@ public class CustomerController {
 				currentSale.addLineItem(item, quantity);
 				inputSuccess = true;
 			} catch (InvalidInputException iie) {
-				System.out.println("Quantity must be positive.\n");
+				System.out.println(iie.getMessage());
 			} catch (StockLevelException sle) {
 				// A little weird as if the customer can get to the checkout point, it must mean
 				// the inventory has enough stock, but we still need to check the inventory to
 				// validate user input. TODO: May need to update.
-				System.out.println("Not enough stock for this item.\n");
+				System.out.println(sle.getMessage());
 			}
 		} while (!inputSuccess);
 
@@ -196,6 +196,7 @@ public class CustomerController {
 			barCode = runProductFinderMenu();
 		} catch (ProductNotFoundException e) {
 			// Going back to the previous menu
+			System.out.println(e.getMessage());
 			return null;
 		}
 		return auxControl.getProductByKey(barCode);

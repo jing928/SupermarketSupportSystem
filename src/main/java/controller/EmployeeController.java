@@ -100,7 +100,7 @@ public abstract class EmployeeController {
 				item.getInventory().setStockLevel(stockLevel);
 				stockLevelSet = true;
 			} catch (InvalidInputException e) {
-				System.out.println("Stock level cannot be negative.\n");
+				System.out.println(e.getMessage());
 			}
 		} while (!stockLevelSet);
 	}
@@ -115,7 +115,7 @@ public abstract class EmployeeController {
 				item.getInventory().setStockLevel(replenishLevel);
 				replenishLevelSet = true;
 			} catch (InvalidInputException e) {
-				System.out.println("Replenish level cannot be negative.\n");
+				System.out.println(e.getMessage());
 			}
 		} while (!replenishLevelSet);
 	}
