@@ -1,12 +1,10 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Scanner;
 
-import model.Customer;
-import model.Location;
-import model.MainSystem;
-import model.Product;
+import model.*;
 import utility.DataAccess;
 import view.MainSystemView;
 
@@ -22,6 +20,7 @@ public class MainController {
 	// Menu states
 	private boolean mainFinished;
 	private boolean customerFinished;
+	private boolean employeeFinished;
 
 	public MainController() {
 		this.view = new MainSystemView();
@@ -34,7 +33,7 @@ public class MainController {
 		runMainMenu();
 	}
 
-	void runMainMenu() {
+	private void runMainMenu() {
 		mainFinished = false;
 		while (!mainFinished) {
 			view.showMainMenu();
@@ -96,7 +95,7 @@ public class MainController {
 			this.runCustomerMenu();
 			break;
 		case 2:
-			this.handleEmployee();
+			this.runEmployeeMenu();
 			break;
 		case 3:
 			mainFinished = true;
@@ -151,7 +150,7 @@ public class MainController {
 		System.out.println("Please enter your zip code:\n");
 		String zipCode = keyboard.nextLine();
 		Location loc = new Location(streetNum, streetName, unitNum, suburb, zipCode);
-		int idSeq = model.generateID(model.getCustomers());
+		int idSeq = generateID(model.getCustomers());
 		String id = "C" + idSeq;
 		model.addCustomer(new Customer(id, name, phoneNum, loc));
 		save();
@@ -174,9 +173,102 @@ public class MainController {
 		return key;
 	}
 
-	private void handleEmployee() {
-		// TODO Auto-generated method stub
+	private void runEmployeeMenu() {
+		employeeFinished = false;
+		while (!employeeFinished) {
+			view.showEmployeeMenu();
+			int choice;
+			choice = this.askForInput(1, view.getEmpMenuEndNum());
+			this.handleEmployeeChoice(choice);
+		}
+	}
 
+	private void handleEmployeeChoice(int choice) {
+		switch (choice) {
+		case 1:
+			String empId = findEmployee();
+			if (empId.equals("b")) {
+				return;
+			} else {
+				runEmployeeControl(empId);
+			}
+			break;
+		case 2:
+			String newEmpId = createNewEmployee();
+			System.out.println("Your employee ID is: " + newEmpId + "\n");
+			runEmployeeControl(newEmpId);
+			break;
+		case 3:
+			employeeFinished = true;
+			break;
+		}
+
+	}
+
+	private void runEmployeeControl(String empKey) {
+		Employee emp = model.getEmployees().get(empKey);
+		EmployeeController empControl;
+		if (emp instanceof Manager) {
+			empControl = new ManagerController(emp, this);
+		} else if (emp instanceof SalesStaff) {
+			empControl = new SalesStaffController(emp, this);
+		} else {
+			empControl = new WarehouseStaffController(emp, this);
+		}
+
+		empControl.run();
+	}
+
+	private String findEmployee() {
+		System.out.println("Please enter your employee ID:\n");
+		String key = keyboard.nextLine();
+		while (!model.getEmployees().containsKey(key) && !key.equals("b")) {
+			System.out.println("ID doesn't exist, please enter again or press \"b\" to go back.\n");
+			key = keyboard.nextLine();
+		}
+		return key;
+	}
+
+	private String createNewEmployee() {
+		// In in real world, it should not allow anyone to create a new employee.
+		// It should be password protected.
+		System.out.println("Please enter employee type:\nM for Manager\nS for Sales\nW for Warehouse\n");
+		String type = keyboard.nextLine().toLowerCase();
+		System.out.println("Please enter your name:\n");
+		String name = keyboard.nextLine();
+		int idSeq = generateID(model.getEmployees());
+		String id = "";
+		switch (type) {
+		case "m":
+			id = "M" + idSeq;
+			model.addEmployee(new Manager(id, name));
+			break;
+		case "s":
+			id = "S" + idSeq;
+			model.addEmployee(new SalesStaff(id, name));
+			break;
+		case "w":
+			id = "W" + idSeq;
+			model.addEmployee(new WarehouseStaff(id, name));
+			break;
+		}
+		save();
+		return id;
+	}
+
+	public void addProduct(Product item) {
+		model.addProduct(item);
+		model.addNameBarCodePair(item.getName(), item.getBarCode());
+		save();
+	}
+
+	public void addSupplier(Supplier supplier) {
+		model.addSupplier(supplier);
+		save();
+	}
+
+	public <T extends Map<?, ?>> int generateID(T map) {
+		return map.size() + 101;
 	}
 
 	public MainSystem getModel() {
@@ -215,12 +307,32 @@ public class MainController {
 		this.customerFinished = customerFinished;
 	}
 
+	public boolean isEmployeeFinished() {
+		return employeeFinished;
+	}
+
+	public void setEmployeeFinished(boolean employeeFinished) {
+		this.employeeFinished = employeeFinished;
+	}
+
 	public Product getProductByKey(String barCode) {
 		return model.getCatalog().get(barCode);
 	}
 
 	public String getBarCodeByName(String name) {
 		return model.getBarCodeLookUp().get(name);
+	}
+
+	public Supplier getSupplierByKey(String id) {
+		return model.getSuppliers().get(id);
+	}
+
+	public Customer getCustomerByKey(String name) {
+		return model.getCustomers().get(name);
+	}
+
+	public Employee getEmployeeByKey(String id) {
+		return model.getEmployees().get(id);
 	}
 
 }

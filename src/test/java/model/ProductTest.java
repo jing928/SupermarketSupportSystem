@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import exception.InvalidInputException;
+
 public class ProductTest {
 	private Product product;
 	private String name = "apple";
@@ -58,7 +60,7 @@ public class ProductTest {
 	}
 
 	@Test
-	public void testSetUnitPrice() {
+	public void testSetUnitPrice() throws InvalidInputException {
 		product.setUnitPrice(6.6);
 		assertTrue(product.getUnitPrice() == 6.6);
 	}

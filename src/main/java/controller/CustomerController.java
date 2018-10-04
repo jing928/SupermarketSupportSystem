@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import exception.CustomerNotFoundException;
 import exception.InvalidInputException;
 import exception.ProductNotFoundException;
 import model.Customer;
 import model.DebitCard;
+import model.Employee;
 import model.Membership;
 import model.Product;
 import model.Sale;
+import model.SalesLineItem;
+import model.SalesStaff;
 import model.StockLevelException;
 import view.CustomerView;
 
@@ -26,6 +30,7 @@ public class CustomerController {
 	// Menu states
 	private boolean mainCusFinished;
 	private boolean checkoutFinished;
+	private boolean modifyFinished;
 
 	public CustomerController(Customer model, MainController auxControl) {
 		this.model = model;
@@ -62,6 +67,7 @@ public class CustomerController {
 			break;
 		case 4:
 			checkDebitCard();
+			break;
 		case 5:
 			checkRewardsAccount();
 			break;
@@ -101,10 +107,17 @@ public class CustomerController {
 			modifyTransaction();
 			break;
 		case 3:
-			cancelTransaction();
+			if (cancelTransaction()) {
+				// If success, go back to previous menu
+				System.out.println("Transaction cancelled.\n");
+				checkoutFinished = true;
+			}
 			break;
 		case 4:
 			pay();
+			checkoutFinished = true;
+			break;
+		case 5:
 			checkoutFinished = true;
 			break;
 		}
@@ -126,12 +139,12 @@ public class CustomerController {
 				currentSale.addLineItem(item, quantity);
 				inputSuccess = true;
 			} catch (InvalidInputException iie) {
-				System.out.println("Quantity must be positive.\n");
+				System.out.println(iie.getMessage());
 			} catch (StockLevelException sle) {
 				// A little weird as if the customer can get to the checkout point, it must mean
 				// the inventory has enough stock, but we still need to check the inventory to
 				// validate user input. TODO: May need to update.
-				System.out.println("Not enough stock for this item.\n");
+				System.out.println(sle.getMessage());
 			}
 		} while (!inputSuccess);
 
@@ -139,14 +152,128 @@ public class CustomerController {
 	}
 
 	private void modifyTransaction() {
-		System.out.println("Not yet implemented.\n");
+		if (!verifySalesStaffStatus()) {
+			return;
+		}
+		runModifyTransactionMenu();
 	}
 
-	private void cancelTransaction() {
-		System.out.println("Not yet implemented.\n");
+	private void runModifyTransactionMenu() {
+		modifyFinished = false;
+		while (!modifyFinished) {
+			view.showModifyTransactionMenu();
+			int choice;
+			choice = auxControl.askForInput(1, view.getMTMenuEndNum());
+			handleModificationChoice(choice);
+		}
+	}
+
+	private void handleModificationChoice(int choice) {
+		switch (choice) {
+		case 1:
+			removeItem();
+			modifyFinished = true;
+			break;
+		case 2:
+			updateQuantity();
+			modifyFinished = true;
+			break;
+		case 3:
+			modifyFinished = true;
+			break;
+		}
+	}
+
+	private void removeItem() {
+		String itemName = locateLineItem();
+		if (itemName.equals("b")) {
+			System.out.println("Nothing removed. Going back...\n");
+			return;
+		}
+		SalesLineItem removedItem = currentSale.getLineItems().remove(itemName);
+
+		if (removedItem != null) {
+			double quantity = removedItem.getQuantity();
+			String name = removedItem.getItem().getName();
+			System.out.println(String.format("%1$.2f %2$s removed from the shopping cart.\n", quantity, name));
+		} else {
+			System.out.println("Something went wrong...Please try again.\n");
+		}
+
+	}
+
+	private void updateQuantity() {
+		String itemName = locateLineItem();
+		if (itemName.equals("b")) {
+			System.out.println("Nothing removed. Going back...\n");
+			return;
+		}
+
+		boolean updated = false;
+		double newQuantity;
+		do {
+			System.out.println("Please enter the new quantity for " + itemName + ":\n");
+			newQuantity = keyboard.nextDouble();
+			keyboard.nextLine();
+			try {
+				currentSale.getLineItems().get(itemName).setQuantity(newQuantity);
+				updated = true;
+			} catch (InvalidInputException e) {
+				System.out.println(e.getMessage());
+			}
+		} while (!updated);
+
+		SalesLineItem updatedItem = currentSale.getLineItems().get(itemName);
+		System.out.println(String.format("New quantity for %1$s is: %2$.2f\n", updatedItem.getItem().getName(),
+				updatedItem.getQuantity()));
+	}
+
+	private String locateLineItem() {
+		String name;
+		boolean nameExists = false;
+		do {
+			System.out.println("Please enter the product name you want to remove or enter \"b\" to go back:\n");
+			name = keyboard.nextLine();
+			nameExists = currentSale.getLineItems().containsKey(name);
+		} while (!nameExists && !name.equals("b"));
+		return name;
+	}
+
+	private boolean cancelTransaction() {
+		if (!verifySalesStaffStatus()) {
+			return false;
+		}
+		// If the sales staff status is verified, then clear out the current sale
+		// instance to cancel the transaction.
+		currentSale = null;
+		return true;
+	}
+
+	private boolean verifySalesStaffStatus() {
+		System.out.println("A friendly sales staff is on the way to help...\n");
+		Employee salesStaff;
+		do {
+			System.out.println("Please enter your employee ID:\n");
+			String key = keyboard.nextLine();
+			salesStaff = auxControl.getEmployeeByKey(key);
+			if (salesStaff == null) {
+				System.out.println("ID doesn't exist, please enter again.\n");
+			}
+		} while (salesStaff == null);
+
+		if (!(salesStaff instanceof SalesStaff)) {
+			System.out.println("You are not a sales staff. Please have a sales staff enter again.\n");
+			return false;
+		}
+
+		return true;
 	}
 
 	private void pay() {
+		if (currentSale.getLineItems().size() == 0) {
+			System.out.println("There is nothing in the shopping cart. Nothing to pay.\n");
+			return;
+		}
 		// Calculate price and deduct from debit card
 		double totalPrice = currentSale.getTotalPrice();
 		boolean isPaid = model.getDebitCard().deductMoney(totalPrice);
@@ -196,6 +323,7 @@ public class CustomerController {
 			barCode = runProductFinderMenu();
 		} catch (ProductNotFoundException e) {
 			// Going back to the previous menu
+			System.out.println(e.getMessage());
 			return null;
 		}
 		return auxControl.getProductByKey(barCode);

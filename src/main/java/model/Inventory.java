@@ -22,7 +22,7 @@ public class Inventory implements Serializable {
 		this.item = item;
 		this.stockLevel = 0;
 		this.replenishLevel = 0;
-		this.reorderQuantity = 0;
+		this.reorderQuantity = 50;
 		this.bulkQuantity = 1;
 		this.discount = 0;
 	}
@@ -158,6 +158,16 @@ public class Inventory implements Serializable {
 					bulkQuantity, item.getName(), percent);
 		}
 		return info;
+	}
+
+	@Override
+	public String toString() {
+		String name = item.getName();
+		String barCode = item.getBarCode();
+		String supplierName = supplier == null ? "none" : supplier.getName();
+		return String.format(
+				"Product Name: %1$s (Barcode: %2$s) | Stock Level: %3$.2f | Replenish Level: %4$.2f | Supplier: %5$s\n",
+				name, barCode, stockLevel, replenishLevel, supplierName);
 	}
 
 }

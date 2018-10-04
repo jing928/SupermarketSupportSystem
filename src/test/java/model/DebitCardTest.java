@@ -1,7 +1,7 @@
 package model;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public class DebitCardTest {
 	private final String cardNumber = "1234";
 	private DebitCard card;
-	
+
 	@BeforeEach
 	public void setUp() throws Exception {
 		card = new DebitCard(cardNumber);
@@ -20,7 +20,7 @@ public class DebitCardTest {
 	 */
 	@Test
 	public void testDebitCard() {
-		assertEquals(0.0, card.getBalance(),0.01);
+		assertEquals(100.0, card.getBalance());
 	}
 
 	/*
@@ -37,7 +37,7 @@ public class DebitCardTest {
 	@Test
 	public void testAddMoney() {
 		card.addMoney(200);
-		assertEquals(200.0, card.getBalance(),0.01);
+		assertEquals(300.0, card.getBalance());
 	}
 
 	/*
@@ -47,13 +47,13 @@ public class DebitCardTest {
 	public void testDeductMoney() {
 		card.addMoney(500);
 		card.deductMoney(200);
-		assertEquals(300.0, card.getBalance(),0.01);
+		assertEquals(400.0, card.getBalance());
 	}
-	
+
 	@Test
 	public void testToString() {
 		card.addMoney(110.347);
-		String expected = "The balance for card number 1234: $110.35\n";
+		String expected = "The balance for card number 1234: $210.35\n";
 		String actual = card.toString();
 		boolean isSame = expected.equals(actual);
 		assertTrue(isSame);

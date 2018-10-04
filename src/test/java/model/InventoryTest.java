@@ -186,4 +186,12 @@ class InventoryTest {
 		assertTrue(isSame);
 	}
 
+	@Test
+	public void testToString() {
+		String expected = "Product Name: Banana (Barcode: -526682705) | Stock Level: 0.00 | Replenish Level: 0.00 | Supplier: none\n";
+		String actual = inventory.toString();
+		boolean isSame = expected.equals(actual);
+		assertTrue(isSame);
+	}
+
 }

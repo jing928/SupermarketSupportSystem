@@ -11,7 +11,7 @@ public class DebitCard implements Serializable {
 
 	public DebitCard(String cardNum) {
 		this.cardNum = cardNum;
-		this.balance = 0.0;
+		this.balance = 100.0; // When first created, customer has to add $100
 	}
 
 	public String getCardNum() {

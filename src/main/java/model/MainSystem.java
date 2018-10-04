@@ -1,10 +1,16 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MainSystem implements Serializable {
 
@@ -26,10 +32,6 @@ public class MainSystem implements Serializable {
 		this.barCodeLookUp = new HashMap<String, String>();
 		this.catalog = new HashMap<String, Product>();
 		this.sales = new ArrayList<Sale>();
-	}
-	
-	public <T extends Map<?, ?>> int generateID(T map) {
-		return map.size() + 101;
 	}
 
 	public void addEmployee(Employee employee) {
@@ -78,6 +80,107 @@ public class MainSystem implements Serializable {
 
 	public List<Sale> getSales() {
 		return sales;
+	}
+
+	public String getSalesReport() {
+		// Report for all sales
+		String report = "**** Sales Report (All) ****\n";
+		Iterator<Sale> it = sales.iterator();
+		while (it.hasNext()) {
+			Sale sale = it.next();
+			report += sale.toString();
+		}
+		report += "**** End of Report ****\n";
+		return report;
+	}
+
+	public String getSalesReport(LocalDateTime start, LocalDateTime end) {
+		// Report for specified date time range
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String startString = start.format(formatter);
+		String endString = end.format(formatter);
+		String report = String.format("**** Sales Report (from %1$s to %2$s) ****\n", startString, endString);
+		List<Sale> filtered = filterSalesbyDate(start, end);
+		Iterator<Sale> it = filtered.iterator();
+		while (it.hasNext()) {
+			Sale sale = it.next();
+			report += sale.toString();
+		}
+		report += "**** End of Report ****\n";
+		return report;
+	}
+
+	private List<Sale> filterSalesbyDate(LocalDateTime start, LocalDateTime end) {
+		// TODO: needs test
+		List<Sale> filtered = new ArrayList<Sale>();
+		Iterator<Sale> it = sales.iterator();
+
+		while (it.hasNext()) {
+			Sale sale = it.next();
+			LocalDateTime saleDate = sale.getSaleDate();
+			boolean isWithin = saleDate.isAfter(start) && saleDate.isBefore(end);
+			if (isWithin) {
+				filtered.add(sale);
+			}
+		}
+		return filtered;
+	}
+
+	public String getSupplyReport() {
+		String report = "**** Supply Report ****\n";
+		Iterator<Product> it = catalog.values().iterator();
+		while (it.hasNext()) {
+			Inventory inventory = it.next().getInventory();
+			report += inventory.toString();
+		}
+		report += "**** End of Report ****\n";
+		return report;
+	}
+
+	public String getMostProfitableProducts(int topX) {
+		String list = "**** Products That Generate the Most Revenue ****\n\nProduct Name        Total Revenue\n";
+		Map<String, Double> sortedList = sortMapByValue(aggregateSalesPrices());
+		int listSize = sortedList.size();
+		topX = topX > listSize ? listSize : topX;
+		Iterator<Map.Entry<String, Double>> it = sortedList.entrySet().iterator();
+
+		for (int i = 0; i < topX; i++) {
+			Map.Entry<String, Double> entry = it.next();
+			String name = entry.getKey();
+			double revenue = entry.getValue();
+			String row = String.format("%1$s        $%2$.2f\n", name, revenue);
+			list += row;
+		}
+		list += "**** End of List ****\n";
+		return list;
+	}
+
+	private Map<String, Double> aggregateSalesPrices() {
+		Map<String, Double> aggregate = new HashMap<String, Double>();
+		Iterator<Sale> it = sales.iterator();
+		while (it.hasNext()) {
+			Sale sale = it.next();
+			Map<String, Double> itemPrice = sale.listItemWithRevenue();
+			Iterator<Map.Entry<String, Double>> i = itemPrice.entrySet().iterator();
+			while (i.hasNext()) {
+				Map.Entry<String, Double> entry = i.next();
+				String itemName = entry.getKey();
+				double subTotal = entry.getValue();
+				if (aggregate.containsKey(itemName)) {
+					double currentTotal = aggregate.get(itemName);
+					double newTotal = currentTotal + subTotal;
+					aggregate.put(itemName, newTotal);
+				} else {
+					aggregate.put(itemName, subTotal);
+				}
+			}
+		}
+		return aggregate;
+	}
+
+	private Map<String, Double> sortMapByValue(Map<String, Double> unsorted) {
+		return unsorted.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 	}
 
 }

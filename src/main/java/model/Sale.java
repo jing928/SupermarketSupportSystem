@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -29,10 +30,15 @@ public class Sale implements Serializable {
 	}
 
 	public void addLineItem(Product item, double quantity) throws InvalidInputException, StockLevelException {
-		// Add new line item to the list
-		String key = item.getName();
-		SalesLineItem lineItem = new SalesLineItem(item, quantity);
-		this.lineItems.put(key, lineItem);
+		if (lineItems.containsKey(item.getName())) {
+			// Update quantity if item already exists
+			updateLineItem(item.getName(), quantity);
+		} else {
+			// Add new line item to the list
+			String key = item.getName();
+			SalesLineItem lineItem = new SalesLineItem(item, quantity);
+			this.lineItems.put(key, lineItem);
+		}
 	}
 
 	public void updateLineItem(String itemName, double addedQuantity) throws InvalidInputException {
@@ -64,7 +70,7 @@ public class Sale implements Serializable {
 		}
 		return totalPrice;
 	}
-	
+
 	private double getRewardsDiscount() {
 		if (this.rewardsDiscount != 0.0) {
 			return this.rewardsDiscount;
@@ -80,7 +86,7 @@ public class Sale implements Serializable {
 			Inventory item = lineItem.getItem().getInventory();
 			item.sellProduct(lineItem.getQuantity());
 		}
-		customer.getRewardsAccount().redeem(getRewardsDiscount());//TODO
+		customer.getRewardsAccount().redeem(getRewardsDiscount());// TODO
 		addPointsToCustomer();
 	}
 
@@ -95,11 +101,31 @@ public class Sale implements Serializable {
 	public LocalDateTime getSaleDate() {
 		return this.saleDateTime;
 	}
-	
+
 	private void addPointsToCustomer() {
 		double totalPrice = getTotalPrice();
 		int pointEarned = (int) (totalPrice / 10); // 1 points every $10
 		customer.getRewardsAccount().earnPoints(pointEarned);
+	}
+
+	public Map<String, Double> listItemWithRevenue() {
+		Map<String, Double> itemWithRevenue = new HashMap<String, Double>();
+		Iterator<Map.Entry<String, SalesLineItem>> it = lineItems.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry<String, SalesLineItem> entry = it.next();
+			itemWithRevenue.put(entry.getKey(), entry.getValue().getSubTotalPrice());
+		}
+		return itemWithRevenue;
+	}
+
+	@Override
+	public String toString() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String dateTime = saleDateTime.format(formatter);
+		int numOfItemSold = lineItems.size();
+		double price = getTotalPrice();
+		return String.format("DateTime: %1$s | Number of Items Sold: %2$s | Total Price: $%3$.2f\n", dateTime,
+				numOfItemSold, price);
 	}
 
 }

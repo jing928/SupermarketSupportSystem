@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -53,6 +54,17 @@ public class SaleTest {
 	}
 
 	@Test
+	public void testAddLineItemWhenItemAlreadyExists() throws InvalidInputException, StockLevelException {
+		Product item3 = new Product("Grape", 5, true);
+		item3.getInventory().setStockLevel(5);
+		sale.addLineItem(item3, 1);
+		sale.addLineItem(item3, 3);
+		double expected = 4;
+		double actual = sale.getLineItems().get(item3.getName()).getQuantity();
+		assertEquals(expected, actual);
+	}
+
+	@Test
 	public void testUpdateLineItem() throws InvalidInputException {
 		double additionalQuantity = 3;
 		sale.updateLineItem(name1, additionalQuantity);
@@ -74,7 +86,7 @@ public class SaleTest {
 		double actual = sale.getTotalPrice();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testGetTotalPriceCanApplyDiscount() {
 		customer.getRewardsAccount().earnPoints(42);
@@ -100,6 +112,14 @@ public class SaleTest {
 		int expected = 1;
 		int actual = customer.getRewardsAccount().getPointBalance();
 		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testToString() {
+		String expected = "DateTime: 2018-09-28 09:28:00 | Number of Items Sold: 2 | Total Price: $14.75\n";
+		String actual = sale.toString();
+		boolean isSame = expected.equals(actual);
+		assertTrue(isSame);
 	}
 
 }
