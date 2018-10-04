@@ -9,4 +9,10 @@ public class SalesStaffController extends EmployeeController {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	void runMenu() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -1,5 +1,8 @@
 package controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import exception.InvalidInputException;
 import exception.ProductNotFoundException;
 import model.Employee;
@@ -108,23 +111,90 @@ public class ManagerController extends EmployeeController {
 	}
 
 	private void offerBulkDiscount() {
-		// TODO Auto-generated method stub
+		Product item;
+		try {
+			item = findProduct();
+		} catch (ProductNotFoundException e) {
+			System.out.println(e.getMessage());
+			return;
+		}
+		System.out.println(item.getInventory().getBulkDiscountInfo());
+		setBulkQuantity(item);
+		setDiscount(item);
+		getAuxControl().save();
+		System.out.println(item.getInventory().getBulkDiscountInfo());
+	}
 
+	private void setBulkQuantity(Product item) {
+		boolean bulkQuantitySet = false;
+		do {
+			System.out.println("Set the bulk quantity:\n");
+			double bulkQuantity = getKeyboard().nextDouble();
+			getKeyboard().nextLine();
+			try {
+				item.getInventory().setBulkQuantity(bulkQuantity);
+				bulkQuantitySet = true;
+			} catch (InvalidInputException e) {
+				System.out.println(e.getMessage());
+			}
+		} while (!bulkQuantitySet);
+	}
+
+	private void setDiscount(Product item) {
+		boolean discountSet = false;
+		do {
+			System.out.println("Set the discount (enter percentage off as decimal):\n");
+			double discount = getKeyboard().nextDouble();
+			getKeyboard().nextLine();
+			try {
+				item.getInventory().setDiscount(discount);
+				discountSet = true;
+			} catch (InvalidInputException e) {
+				System.out.println(e.getMessage());
+			}
+		} while (!discountSet);
 	}
 
 	private void generateSalesReport() {
-		// TODO Auto-generated method stub
-
+		String report;
+		System.out.println("Enter 1 for all periods.\nEnter 2 to specify range.\n");
+		int choice = getKeyboard().nextInt();
+		getKeyboard().nextLine();
+		if (choice == 1) {
+			report = getAuxControl().getModel().getSalesReport();
+			System.out.println(report);
+		} else if (choice == 2) {
+			// TODO add range validation. start must be before end, etc.
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+			System.out.println("Please enter the start date (in yyyy/mm/dd format):\n");
+			LocalDateTime start = LocalDateTime.parse(getKeyboard().nextLine(), formatter);
+			System.out.println("Please enter the end date (in yyyy/mm/dd format):\n");
+			LocalDateTime end = LocalDateTime.parse(getKeyboard().nextLine(), formatter);
+			report = getAuxControl().getModel().getSalesReport(start, end);
+			System.out.println(report);
+		} else {
+			System.out.println("Invalid input. Going back to previous menu.\n");
+		}
 	}
 
 	private void generateSupplyReport() {
-		// TODO Auto-generated method stub
-
+		String report = getAuxControl().getModel().getSupplyReport();
+		System.out.println(report);
 	}
 
 	private void listMostProfitable() {
-		// TODO Auto-generated method stub
+		int topX;
+		do {
+			System.out.println("Please enter the number of top products as a whole number:\n");
+			topX = getKeyboard().nextInt();
+			getKeyboard().nextLine();
+			if (topX <= 0) {
+				System.out.println("The input must be positive.\n");
+			}
+		} while (topX <= 0);
 
+		String list = getAuxControl().getModel().getMostProfitableProducts(topX);
+		System.out.println(list);
 	}
 
 }

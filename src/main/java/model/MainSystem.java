@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -81,26 +82,31 @@ public class MainSystem implements Serializable {
 		return sales;
 	}
 
-	public String generateSalesReport() {
+	public String getSalesReport() {
 		// Report for all sales
-		String report = "";
+		String report = "**** Sales Report (All) ****\n";
 		Iterator<Sale> it = sales.iterator();
 		while (it.hasNext()) {
 			Sale sale = it.next();
 			report += sale.toString();
 		}
+		report += "**** End of Report ****\n";
 		return report;
 	}
 
-	public String generateSalesReport(LocalDateTime start, LocalDateTime end) {
+	public String getSalesReport(LocalDateTime start, LocalDateTime end) {
 		// Report for specified date time range
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String startString = start.format(formatter);
+		String endString = end.format(formatter);
+		String report = String.format("**** Sales Report (from %1$s to %2$s)\n", startString, endString);
 		List<Sale> filtered = filterSalesbyDate(start, end);
-		String report = "";
 		Iterator<Sale> it = filtered.iterator();
 		while (it.hasNext()) {
 			Sale sale = it.next();
 			report += sale.toString();
 		}
+		report += "**** End of Report ****\n";
 		return report;
 	}
 
@@ -120,17 +126,18 @@ public class MainSystem implements Serializable {
 		return filtered;
 	}
 
-	public String generateSupplyReport() {
-		String report = "";
+	public String getSupplyReport() {
+		String report = "**** Supply Report ****\n";
 		Iterator<Product> it = catalog.values().iterator();
 		while (it.hasNext()) {
 			Inventory inventory = it.next().getInventory();
 			report += inventory.toString();
 		}
+		report += "**** End of Report ****\n";
 		return report;
 	}
 
-	public String listMostProfitableProducts(int topX) {
+	public String getMostProfitableProducts(int topX) {
 		String list = "**** Products That Generate the Most Revenue ****\n\nProduct Name        Total Revenue\n";
 		Map<String, Double> sortedList = sortMapByValue(aggregateSalesPrices());
 		int listSize = sortedList.size();
@@ -144,6 +151,7 @@ public class MainSystem implements Serializable {
 			String row = String.format("%1$s        $%2$.2f\n", name, revenue);
 			list += row;
 		}
+		list += "**** End of List ****\n";
 		return list;
 	}
 
