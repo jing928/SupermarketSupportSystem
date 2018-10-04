@@ -331,4 +331,8 @@ public class MainController {
 		return model.getCustomers().get(name);
 	}
 
+	public Employee getEmployeeByKey(String id) {
+		return model.getEmployees().get(id);
+	}
+
 }

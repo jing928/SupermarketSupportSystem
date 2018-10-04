@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import exception.CustomerNotFoundException;
 import exception.InvalidInputException;
 import exception.ProductNotFoundException;
 import model.Customer;
 import model.DebitCard;
+import model.Employee;
 import model.Membership;
 import model.Product;
 import model.Sale;
+import model.SalesStaff;
 import model.StockLevelException;
 import view.CustomerView;
 
@@ -102,7 +105,11 @@ public class CustomerController {
 			modifyTransaction();
 			break;
 		case 3:
-			cancelTransaction();
+			if (cancelTransaction()) {
+				// If success, go back to previous menu
+				System.out.println("Transaction cancelled.\n");
+				checkoutFinished = true;
+			}
 			break;
 		case 4:
 			pay();
@@ -143,8 +150,34 @@ public class CustomerController {
 		System.out.println("Not yet implemented.\n");
 	}
 
-	private void cancelTransaction() {
-		System.out.println("Not yet implemented.\n");
+	private boolean cancelTransaction() {
+		if (!verifySalesStaff()) {
+			return false;
+		}
+		// If the sales staff status is verified, then clear out the current sale
+		// instance to cancel the transaction.
+		currentSale = null;
+		return true;
+	}
+
+	private boolean verifySalesStaff() {
+		System.out.println("A friendly sales staff is on the way to help...\n");
+		Employee salesStaff;
+		do {
+			System.out.println("Please enter your employee ID:\n");
+			String key = keyboard.nextLine();
+			salesStaff = auxControl.getEmployeeByKey(key);
+			if (salesStaff == null) {
+				System.out.println("ID doesn't exist, please enter again.\n");
+			}
+		} while (salesStaff == null);
+
+		if (!(salesStaff instanceof SalesStaff)) {
+			System.out.println("You are not a sales staff. Please have a sales staff enter again.\n");
+			return false;
+		}
+
+		return true;
 	}
 
 	private void pay() {
