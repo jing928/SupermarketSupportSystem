@@ -165,11 +165,13 @@ public class ManagerController extends EmployeeController {
 			System.out.println(report);
 		} else if (choice == 2) {
 			// TODO add range validation. start must be before end, etc.
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 			System.out.println("Please enter the start date (in yyyy/mm/dd format):\n");
-			LocalDateTime start = LocalDateTime.parse(getKeyboard().nextLine(), formatter);
+			String startStr = getKeyboard().nextLine() + " 00:00";
+			LocalDateTime start = LocalDateTime.parse(startStr, formatter);
 			System.out.println("Please enter the end date (in yyyy/mm/dd format):\n");
-			LocalDateTime end = LocalDateTime.parse(getKeyboard().nextLine(), formatter);
+			String endStr = getKeyboard().nextLine() + " 23:59";
+			LocalDateTime end = LocalDateTime.parse(endStr, formatter);
 			report = getAuxControl().getModel().getSalesReport(start, end);
 			System.out.println(report);
 		} else {

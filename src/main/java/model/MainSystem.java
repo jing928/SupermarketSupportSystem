@@ -99,7 +99,7 @@ public class MainSystem implements Serializable {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String startString = start.format(formatter);
 		String endString = end.format(formatter);
-		String report = String.format("**** Sales Report (from %1$s to %2$s)\n", startString, endString);
+		String report = String.format("**** Sales Report (from %1$s to %2$s) ****\n", startString, endString);
 		List<Sale> filtered = filterSalesbyDate(start, end);
 		Iterator<Sale> it = filtered.iterator();
 		while (it.hasNext()) {
