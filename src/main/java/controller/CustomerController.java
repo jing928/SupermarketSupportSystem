@@ -335,7 +335,7 @@ public class CustomerController {
 		choice = auxControl.askForInput(1, view.getPFMenuEndNum());
 		String barCode = handleProductFinder(choice);
 		if (barCode.equals("b")) {
-			throw new ProductNotFoundException("Product not found. User chose to go back");
+			throw new ProductNotFoundException("User chose to go back");
 		}
 		return barCode;
 	}
