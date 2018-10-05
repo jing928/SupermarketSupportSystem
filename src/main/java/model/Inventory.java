@@ -39,7 +39,9 @@ public class Inventory implements Serializable {
 
 	public void sellProduct(double quantity) {
 		stockLevel -= quantity;
-		this.placeReplenishOrder();
+		if (this.stockLevel < this.replenishLevel) {
+			this.placeReplenishOrder();
+		}
 	}
 
 	public void increaseStockLevel(double quantity) throws InvalidInputException {
@@ -71,12 +73,10 @@ public class Inventory implements Serializable {
 
 	private void placeReplenishOrder() {
 		// TODO May need to save info to database
-		if (this.stockLevel < this.replenishLevel) {
-			System.out.println("Sending a purchase order of " + this.reorderQuantity + " unit(s) " + this.item.getName()
-					+ " to " + this.getSupplier().getName() + "\n");
-			// Auto increase stock level. An ideal world situation:)
-			stockLevel += reorderQuantity;
-		}
+		System.out.println("Sending a purchase order of " + this.reorderQuantity + " unit(s) " + this.item.getName()
+				+ " to " + this.getSupplier().getName() + "\n");
+		// Auto increase stock level. An ideal world situation:)
+		stockLevel += reorderQuantity;
 	}
 
 	// Setters and Getters
