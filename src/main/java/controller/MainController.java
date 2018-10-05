@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import model.*;
 import utility.DataAccess;
+import view.BannerPrinter;
 import view.MainSystemView;
 
 public class MainController {
@@ -27,7 +28,11 @@ public class MainController {
 	}
 
 	public void run() throws ClassNotFoundException {
-		view.showWelcome();
+		try {
+			BannerPrinter.print();
+		} catch (IOException e) {
+			view.showWelcome();
+		}
 		startUp();
 		keyboard = new Scanner(System.in);
 		runMainMenu();
