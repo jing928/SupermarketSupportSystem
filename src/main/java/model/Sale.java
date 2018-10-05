@@ -86,7 +86,7 @@ public class Sale implements Serializable {
 			Inventory item = lineItem.getItem().getInventory();
 			item.sellProduct(lineItem.getQuantity());
 		}
-		customer.getRewardsAccount().redeem(getRewardsDiscount());// TODO
+		customer.redeem(getRewardsDiscount());
 		addPointsToCustomer();
 	}
 
@@ -105,7 +105,7 @@ public class Sale implements Serializable {
 	private void addPointsToCustomer() {
 		double totalPrice = getTotalPrice();
 		int pointEarned = (int) (totalPrice / 10); // 1 points every $10
-		customer.getRewardsAccount().earnPoints(pointEarned);
+		customer.earnPoints(pointEarned);
 	}
 
 	public Map<String, Double> listItemWithRevenue() {

@@ -26,20 +26,20 @@ public class MembershipTest {
 
 	@Test
 	public void testEarnPoints() {
-		card.earnPoints(200);
+		card.addPoints(200);
 		assertEquals(200, card.getPointBalance());
 	}
 
 	@Test
 	public void testUsePoints() {
-		card.earnPoints(500);
-		assertTrue(card.usePoints(200));
+		card.addPoints(500);
+		assertTrue(card.deductPoints(200));
 		assertEquals(300, card.getPointBalance());
 	}
 	
 	@Test
 	public void testCalculateRewardsDiscountWhenPriceGreaterThanMaxDiscount() {
-		card.earnPoints(110);
+		card.addPoints(110);
 		double expected = 25.0;
 		double actual = card.calculateRewardsDiscount(120 / 20 * 5);
 		assertEquals(expected, actual);
@@ -47,7 +47,7 @@ public class MembershipTest {
 	
 	@Test
 	public void testCalculateRewardsDiscountWhenPriceLessThanMaxDiscount() {
-		card.earnPoints(110);
+		card.addPoints(110);
 		double expected = 15.0;
 		double actual = card.calculateRewardsDiscount(65 / 20 * 5);
 		assertEquals(expected, actual);
@@ -55,7 +55,7 @@ public class MembershipTest {
 	
 	@Test
 	public void testRedeemAll() {
-		card.earnPoints(105);
+		card.addPoints(105);
 		card.redeemAll();
 		int expected = 5;
 		int actual = card.getPointBalance();
@@ -64,7 +64,7 @@ public class MembershipTest {
 	
 	@Test
 	public void testRedeem() {
-		card.earnPoints(105);
+		card.addPoints(105);
 		card.redeem(25);
 		int expected = 5;
 		int actual = card.getPointBalance();
@@ -73,7 +73,7 @@ public class MembershipTest {
 
 	@Test
 	public void testToString() {
-		card.earnPoints(110);
+		card.addPoints(110);
 		String expected = "Loyalty points balance: 110 points.\nRedeemable for $25.00 discount.\n";
 		String actual = card.toString();
 		boolean isSame = expected.equals(actual);
