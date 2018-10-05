@@ -24,7 +24,7 @@ public class Membership implements Serializable {
 		return pointBalance;
 	}
 
-	public boolean earnPoints(int amount) {
+	public boolean addPoints(int amount) {
 		if (amount >= 0) {
 			pointBalance += amount;
 			return true;
@@ -32,7 +32,7 @@ public class Membership implements Serializable {
 		return false;
 	}
 
-	public boolean usePoints(int amount) {
+	public boolean deductPoints(int amount) {
 		if (amount >= 0 && pointBalance >= amount) {
 			pointBalance -= amount;
 			return true;
@@ -56,12 +56,12 @@ public class Membership implements Serializable {
 
 	public void redeemAll() {
 		int pointsToUse = getMultiplier(pointBalance) * minRedeemable;
-		usePoints(pointsToUse);
+		deductPoints(pointsToUse);
 	}
 	
 	public void redeem(double discountApplied) {
 		int pointsUsed = (int) (discountApplied / 5 * 20);
-		usePoints(pointsUsed);
+		deductPoints(pointsUsed);
 	}
 
 	private int getMultiplier(int balance) {

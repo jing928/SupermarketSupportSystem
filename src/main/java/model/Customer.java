@@ -64,7 +64,15 @@ public class Customer implements Serializable {
 	public Membership getRewardsAccount() {
 		return rewardsAccount;
 	}
-	
+
+	public void redeem(double discountApplied) {
+		rewardsAccount.redeem(discountApplied);
+	}
+
+	public void earnPoints(int amount) {
+		rewardsAccount.addPoints(amount);
+	}
+
 	public double getRewardsInfo(double price) {
 		return rewardsAccount.calculateRewardsDiscount(price);
 	}

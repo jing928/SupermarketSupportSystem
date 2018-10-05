@@ -24,7 +24,7 @@ public class CustomerTest {
 	@Test
 	public void testGetRewardsAccount() {
 		int points = 10;
-		customer.getRewardsAccount().earnPoints(points);
+		customer.getRewardsAccount().addPoints(points);
 		Boolean expect = customer.getRewardsAccount().getPointBalance() == (points);
 		assertTrue(expect);
 	}

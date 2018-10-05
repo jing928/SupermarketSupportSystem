@@ -89,7 +89,7 @@ public class SaleTest {
 
 	@Test
 	public void testGetTotalPriceCanApplyDiscount() {
-		customer.getRewardsAccount().earnPoints(42);
+		customer.getRewardsAccount().addPoints(42);
 		double expected = price1 * quant1 + price2 * quant2 - 10;
 		double actual = sale.getTotalPrice();
 		assertEquals(expected, actual);
