@@ -150,9 +150,9 @@ public class MainController {
 		String streetName = keyboard.nextLine();
 		System.out.println("Please enter your unit number:\n");
 		String unitNum = keyboard.nextLine();
-		System.out.println("Please enter your suburn:\n");
+		System.out.println("Please enter your suburb:\n");
 		String suburb = keyboard.nextLine();
-		System.out.println("Please enter your zip code:\n");
+		System.out.println("Please enter your post code:\n");
 		String zipCode = keyboard.nextLine();
 		Location loc = new Location(streetNum, streetName, unitNum, suburb, zipCode);
 		int idSeq = generateID(model.getCustomers());

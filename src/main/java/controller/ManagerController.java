@@ -71,9 +71,9 @@ public class ManagerController extends EmployeeController {
 		String streetName = getKeyboard().nextLine();
 		System.out.println("Please enter supplier unit number:\n");
 		String unitNum = getKeyboard().nextLine();
-		System.out.println("Please enter supplier suburn:\n");
+		System.out.println("Please enter supplier suburb:\n");
 		String suburb = getKeyboard().nextLine();
-		System.out.println("Please enter supplier zip code:\n");
+		System.out.println("Please enter supplier post code:\n");
 		String zipCode = getKeyboard().nextLine();
 		Location loc = new Location(streetNum, streetName, unitNum, suburb, zipCode);
 		int idSeq = getAuxControl().generateID(getAuxControl().getModel().getSuppliers());
