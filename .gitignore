@@ -20,6 +20,10 @@
 /bin/
 *.jpage
 
+# IDEA files
+.idea/
+*.iml
+
 # Maven
 target/
 pom.xml.tag
